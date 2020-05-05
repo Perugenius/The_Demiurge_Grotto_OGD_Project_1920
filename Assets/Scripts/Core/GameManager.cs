@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -13,14 +14,14 @@ public class GameManager : Singleton<GameManager>
     {
         //List all object pools
         
-        ObjectPoolingManager.Instance.CreatePool (PoolingExample, 100, 200);
+        //ObjectPoolingManager.Instance.CreatePool (PoolingExample, 100, 200);
         
         //....
     }
 
     void Start()
     {
-        FirstLevel();
+        GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
     }
     
     

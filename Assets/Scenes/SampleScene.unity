@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -156,7 +157,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.21933961, g: 0.24777251, b: 0.2924528, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -214,6 +215,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562219, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1523666890349562223, guid: d0117efb48c8ef342aa09ab201b65231,
         type: 3}
@@ -279,11 +285,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7420898052033653429, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7,
-        type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
     - target: {fileID: 7420898052033653428, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,5 +340,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7420898052033653429, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7, type: 3}
+--- !u!1 &7420898051823377980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7420898052033653429, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7420898051823377979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7420898051823377981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420898051823377980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34e9e5f0238e9a4ea0b053ed4a5fc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomsList:
+  - {fileID: 4662898000951953507, guid: a7baa59a5d8e7d544b8c1c89e3c7ca34, type: 3}
+  - {fileID: 6806463472882403171, guid: 2be9c4f78accee7408c5e3eb93188896, type: 3}
+  - {fileID: 7301272536171657888, guid: 5fceaee0af755884cae8db831958bf5b, type: 3}
+  - {fileID: 150220560342203148, guid: d0a396f67cff93a4ab9b88739657cd42, type: 3}
+  - {fileID: 4598191140942725324, guid: beaa785baa0199c4cb0c87f241a646d5, type: 3}
+  - {fileID: 4044796928566935602, guid: afb8276aa98714649a36ad7a44799a64, type: 3}
+  - {fileID: 5998988728171715592, guid: 5752fba9e399129499fbf4266ce6a38b, type: 3}
+  - {fileID: 6478161225880189666, guid: 8ad3e21ff78e2e8469bb5f4b7458b824, type: 3}
+  - {fileID: 5240163543344603453, guid: 2d21327c732c0d345a268beb0b13ecfc, type: 3}
+  - {fileID: 4312429983972220606, guid: 0af4c9096a6ef7a449cb27151ad71837, type: 3}
+  - {fileID: 958082068999648105, guid: 024562b5f24454a498bdd754e09efe0f, type: 3}
+  - {fileID: 8564023016907836364, guid: 3a55d7679eda0c3409c97c3ae5445227, type: 3}
+  - {fileID: 581950031234530483, guid: 048f80a0f9a9c974da79682ebbfb7122, type: 3}
+  - {fileID: 5370465436525793804, guid: b9841b78eb2dcdf498dde23197cda8d0, type: 3}
+  - {fileID: 7945266904135016136, guid: 921fa4c6350308445881914f543d2aaa, type: 3}
+  - {fileID: 6305929133761090786, guid: a1c999ba54a124d4e95a8a4aaf915c56, type: 3}
+  - {fileID: 4900631393837253515, guid: 3a306f16d86be264887726884afac266, type: 3}
+  - {fileID: 3899600510350295589, guid: 848fe6b5c3892554c8613296c12ffb96, type: 3}
+  - {fileID: 2970305830883981669, guid: 53db3261ca0ba084a9ccc2cfff092fe8, type: 3}
+  - {fileID: 8004917601158911132, guid: fb7ea15f6e1673c43acbb633b8bb4cf4, type: 3}
