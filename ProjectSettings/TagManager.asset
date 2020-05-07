@@ -13,18 +13,18 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyPhysic
+  - PlayerPhysic
+  - EnemyHitBox
+  - PlayerHitBox
+  - DamageEnemy
+  - DamagePlayer
+  - DamageTrap
+  - TriggerArea
+  - TriggerAreaPlayer
+  - TrapPhysic
+  - Obstacle
+  - Particle
   - 
   - 
   - 
