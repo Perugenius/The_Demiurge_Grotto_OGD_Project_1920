@@ -2,10 +2,10 @@
  * @Author: Elio Salvini
  */
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Model;
+using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -71,7 +71,7 @@ namespace Core
 
             //Initialization: instantiation of first room 
             GameObject firstRoom = SelectFirstRoom();
-            Instantiate(firstRoom, Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate(AssetDatabase.GetAssetPath(firstRoom), Vector3.zero, Quaternion.identity);
             _roomsScriptsList[_roomsSpecificTypeList.IndexOf(firstRoom)].AddUsage();
             _roomsPositions.Add(Vector3.zero);
             _currentNumberOfRooms++;
@@ -80,7 +80,7 @@ namespace Core
             for (int i = 0; i < numOfRooms - 2; i++)
             {
                 GameObject room = SelectRoom(_frontier[0].EntranceSide);
-                Instantiate(room, _frontier[0].Position, Quaternion.identity);
+                PhotonNetwork.Instantiate(AssetDatabase.GetAssetPath(room), _frontier[0].Position, Quaternion.identity);
                 _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
                 _roomsPositions.Add(_frontier[0].Position);
                 _currentNumberOfRooms++;
@@ -91,7 +91,7 @@ namespace Core
             }
 
             GameObject lastRoom = SelectLastRoom(_frontier[0].EntranceSide);
-            Instantiate(lastRoom, _frontier[0].Position, Quaternion.identity);
+            PhotonNetwork.Instantiate(AssetDatabase.GetAssetPath(lastRoom), _frontier[0].Position, Quaternion.identity);
         }
 
         private void InitLists(int type)
@@ -338,6 +338,17 @@ namespace Core
             if (roomSide == RoomSides.Left) return RoomSides.Right;
             if (roomSide == RoomSides.Top) return RoomSides.Down;
             return RoomSides.Top;
+        }
+        
+        private static string GetGameObjectPath(GameObject obj)
+        {
+            string path = "/" + obj.name;
+            while (obj.transform.parent != null)
+            {
+                obj = obj.transform.parent.gameObject;
+                path = "/" + obj.name + path;
+            }
+            return path;
         }
     }
 }

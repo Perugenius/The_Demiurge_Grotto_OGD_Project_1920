@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Core;
+using Photon.Pun;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -21,7 +22,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
+        if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
     }
     
     
