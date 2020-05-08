@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Utente\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Utente\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_OGD_Project_1920.52765549.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
+    <e p="C:\Users\david\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\david\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_OGD_Project_1920.3946758.00" t="ExcludeRecursive" />
+    <e p="C:\Users\david\Desktop\University\Online Game Design\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Photon" t="Include">
@@ -354,6 +354,7 @@
             <e p="DungeonBuilder.cs" t="Include" />
             <e p="EventManager.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
+            <e p="NetworkController.cs" t="Include" />
             <e p="ObjectPool.cs" t="Include" />
             <e p="ObjectPoolingManager.cs" t="Include" />
           </e>
@@ -373,6 +374,10 @@
           </e>
           <e p="Model" t="Include">
             <e p="DungeonRoom.cs" t="Include" />
+          </e>
+          <e p="Test" t="Include">
+            <e p="QuickStartLobbyController.cs" t="Include" />
+            <e p="QuickStartRoomController.cs" t="Include" />
           </e>
           <e p="Utilities" t="Include">
             <e p="Singleton.cs" t="Include" />
