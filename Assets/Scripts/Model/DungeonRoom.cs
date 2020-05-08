@@ -22,6 +22,11 @@ namespace Model
         {
             Entrance, Exit, EntranceExit, Closed
         }
+
+        public enum PlatformingSkills
+        {
+            DoubleJump, WallJump, Headstrong, Intangibility
+        }
         
         /// <summary>
         /// Room right side access type 
@@ -61,7 +66,12 @@ namespace Model
         /// <summary>
         /// Room level of difficulty (from 1 to 5) 
         /// </summary>
-        public int difficulty = 0;
+        public int minDifficulty = 0;
+
+        /// <summary>
+        /// List of required skills to complete(or that can be simply used) the room
+        /// </summary>
+        public List<PlatformingSkills> requiredSkills;
 
         /// <summary>
         /// true if the room is the starting point of a dungeon
