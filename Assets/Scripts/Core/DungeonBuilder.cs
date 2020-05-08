@@ -3,6 +3,7 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using Model;
 using Photon.Pun;
 using UnityEditor;
@@ -71,7 +72,7 @@ namespace Core
 
             //Initialization: instantiation of first room 
             GameObject firstRoom = SelectFirstRoom();
-            PhotonNetwork.Instantiate(AssetDatabase.GetAssetPath(firstRoom), Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate(GetGameObjectPath(firstRoom, type), Vector3.zero, Quaternion.identity);
             _roomsScriptsList[_roomsSpecificTypeList.IndexOf(firstRoom)].AddUsage();
             _roomsPositions.Add(Vector3.zero);
             _currentNumberOfRooms++;
@@ -80,7 +81,7 @@ namespace Core
             for (int i = 0; i < numOfRooms - 2; i++)
             {
                 GameObject room = SelectRoom(_frontier[0].EntranceSide);
-                PhotonNetwork.Instantiate(AssetDatabase.GetAssetPath(room), _frontier[0].Position, Quaternion.identity);
+                PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
                 _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
                 _roomsPositions.Add(_frontier[0].Position);
                 _currentNumberOfRooms++;
@@ -91,7 +92,7 @@ namespace Core
             }
 
             GameObject lastRoom = SelectLastRoom(_frontier[0].EntranceSide);
-            PhotonNetwork.Instantiate(AssetDatabase.GetAssetPath(lastRoom), _frontier[0].Position, Quaternion.identity);
+            PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
         }
 
         private void InitLists(int type)
@@ -340,15 +341,12 @@ namespace Core
             return RoomSides.Top;
         }
         
-        private static string GetGameObjectPath(GameObject obj)
+        private static string GetGameObjectPath(GameObject obj, int type)
         {
-            string path = "/" + obj.name;
-            while (obj.transform.parent != null)
-            {
-                obj = obj.transform.parent.gameObject;
-                path = "/" + obj.name + path;
-            }
-            return path;
+            return Path.Combine("DungeonRooms","Type" + type, obj.name);
+            /*string path = AssetDatabase.GetAssetPath(obj);
+            string resourcePath = path.Substring(17);
+            return resourcePath;*/
         }
     }
 }
