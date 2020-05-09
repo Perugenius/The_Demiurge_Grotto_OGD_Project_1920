@@ -64,7 +64,7 @@ namespace Model
         public int dungeonType = 0;
         
         /// <summary>
-        /// Room level of difficulty (from 1 to 5) 
+        /// Room minimum level of difficulty 
         /// </summary>
         public int minDifficulty = 0;
 
@@ -87,7 +87,11 @@ namespace Model
         /// Number of times that a room is been used in the last dungeon build.
         /// </summary>
         private int _numberOfUsages = 0;
-        
+
+        /// <summary>
+        /// Room level of difficulty
+        /// </summary>
+        private int difficulty = 0;
 
         /// <summary>
         /// Getter for the total number of exits and entrance/exits of a room given an entrance side. If the room has
@@ -187,6 +191,16 @@ namespace Model
         public int GetNumberOfUsages()
         {
             return _numberOfUsages;
+        }
+
+        public void SetDifficulty(int difficultyLevel)
+        {
+            this.difficulty = difficultyLevel;
+        }
+        
+        public int GetDifficulty()
+        {
+            return difficulty;
         }
     }
 }
