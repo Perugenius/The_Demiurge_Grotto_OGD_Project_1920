@@ -67,7 +67,7 @@ namespace Mechanics
 
             if (MoveFixedDistanceAccelerated)
             {
-                Tr.position = (Vector2)Tr.position + Time.deltaTime * _fixedSpeed * _fixedDirection + .5f * Time.deltaTime * _fixedAcceleration * _fixedDirection;
+                Tr.position = (Vector2)Tr.position + Time.deltaTime * _fixedSpeed * _fixedDirection + .5f * Time.deltaTime * Time.deltaTime *  _fixedAcceleration * _fixedDirection;
                 _fixedDistance = _fixedDistance - Time.deltaTime * _fixedSpeed - .5f * Time.deltaTime * Time.deltaTime * _fixedAcceleration;
                 if(_fixedDistance <= 0) MoveFixedDistanceAccelerated = false;
             }
