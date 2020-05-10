@@ -56,7 +56,7 @@ namespace Mechanics
         }
 
         // Update is called once per frame
-        protected void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (MoveFixedDistance)
             {
