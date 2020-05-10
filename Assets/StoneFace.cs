@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Mechanics;
+using Photon.Pun.Demo.Cockpit;
 using UnityEngine;
 
 public class StoneFace : Movable
@@ -23,31 +24,28 @@ public class StoneFace : Movable
 
     public void SwitchState()
     {
-        if (MoveFixedDistanceAccelerated)
-        {
-            if (!_isWaiting)
-            {
-                _isWaiting = true;
-                StartCoroutine(WaitEndTransition());
-                return;
-            }
-            else
-            {
-                return;
-            }
-        }
-        
-        
+        if (MoveFixedDistanceAccelerated) return;
+
         if (_isDown)
         {
             SetFixedDistanceAccelerated(Vector2.up, initSpeed, _distance, _acceleration);
             _isDown = false;
             _animator.SetBool(IsDown,false);
+            if (!_isWaiting)
+            {
+                _isWaiting = true;
+                StartCoroutine(WaitEndTransition());
+            }
         } else
         {
             SetFixedDistanceAccelerated(Vector2.down, initSpeed, _distance, _acceleration);
             _isDown = true;
             _animator.SetBool(IsDown,true);
+            if (!_isWaiting)
+            {
+                _isWaiting = true;
+                StartCoroutine(WaitEndTransition());
+            }
         }
     }
 
@@ -57,8 +55,9 @@ public class StoneFace : Movable
         {
             yield return null;
         }
+        
+        if(_isDown != isDown)SwitchState();
 
         _isWaiting = false;
-        SwitchState();
     }
 }

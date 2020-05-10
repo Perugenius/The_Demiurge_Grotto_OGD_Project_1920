@@ -24,7 +24,6 @@ public class Trampoline : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Other: " +other.gameObject.name);
         Movable otherMovable = other.gameObject.GetComponent<Movable>();
         if (otherMovable != null) otherMovable.Jump(jumpHeight);
         _animator.SetBool(Jump, true);
