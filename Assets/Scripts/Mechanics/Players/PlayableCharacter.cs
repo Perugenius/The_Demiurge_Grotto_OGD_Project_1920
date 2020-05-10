@@ -25,7 +25,7 @@ namespace Mechanics.Players
             
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Jump();
+                Jump(15);
             }
         }
 
