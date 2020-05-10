@@ -451,6 +451,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2691077728151449623, guid: b98349bdc64336347a6e2a6b7da61357,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4290236981612672690, guid: b98349bdc64336347a6e2a6b7da61357,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8813,6 +8818,11 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[355].second.m_AllTileFlags
       value: 1073741825
       objectReference: {fileID: 0}
+    - target: {fileID: 5123344235454383690, guid: b98349bdc64336347a6e2a6b7da61357,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: cae039635733bd749b1560d650b79a38, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b98349bdc64336347a6e2a6b7da61357, type: 3}
 --- !u!1 &777187960
@@ -8825,6 +8835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 777187962}
   - component: {fileID: 777187961}
+  - component: {fileID: 777187963}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Untagged
@@ -8896,6 +8907,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &777187963
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777187960}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &942588224
 GameObject:
   m_ObjectHideFlags: 0
@@ -8909,7 +8941,8 @@ GameObject:
   - component: {fileID: 942588225}
   - component: {fileID: 942588228}
   - component: {fileID: 942588229}
-  m_Layer: 0
+  - component: {fileID: 942588230}
+  m_Layer: 8
   m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8931,12 +8964,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &942588226
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8996,7 +9029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942588224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.012778, y: 3.4834151, z: 0}
+  m_LocalPosition: {x: -11.73, y: 3.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9047,6 +9080,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &942588230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942588224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f20e4b1551f7c4785382682f67899f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Thrust: 30
+  jumpHeight: 20
 --- !u!1 &1965309943
 GameObject:
   m_ObjectHideFlags: 0
