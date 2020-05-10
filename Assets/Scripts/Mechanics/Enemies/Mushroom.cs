@@ -1,29 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Mechanics.Enemies
 {
     public class Mushroom : Movable
     {
-        private float _horizontal;
+        private Vector2 _direction;
         
         
         // Start is called before the first frame update
         void Start()
         {
-            
+            _direction = Random.Range(0, 1) == 0
+                ? Vector2.left
+                : Vector2.right;
         }
 
         private void Update()
         {
-            _horizontal = Input.GetAxisRaw("Horizontal");
-            if (Input.GetKeyDown(KeyCode.Space)) Jump();
+            
         }
         
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveDynamic(new Vector2(_horizontal*Thrust,0));
+            MoveDynamic(_direction * Thrust);
+            if (Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, -1, 0), 18))
+            {
+                
+            }
         }
     }
 }
