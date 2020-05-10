@@ -6,7 +6,6 @@ namespace Mechanics
     public class Movable : MonoBehaviour
     {
         public float Thrust;
-        public float jumpHeight;
         protected Transform Tr;
         protected Rigidbody2D Rb;
         protected Vector2 TargetPosition;
@@ -50,7 +49,7 @@ namespace Mechanics
             _fixedAcceleration = acceleration;
         }
 
-        public void Jump()
+        public void Jump(float jumpHeight)
         {
             Rb.AddForce(new Vector2(0,jumpHeight),ForceMode2D.Impulse);
         }
