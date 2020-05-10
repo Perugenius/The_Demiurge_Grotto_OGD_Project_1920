@@ -16,15 +16,18 @@ namespace Mechanics
         private Vector2 _fixedDirection;
         private float _fixedAcceleration;
 
+        protected Vector2 m_velocity;
+
         protected void Awake()
         {
             Tr = GetComponent<Transform>();
             Rb = GetComponent<Rigidbody2D>();
         }
 
-        public void MoveDynamic(Vector2 direction)
+        public void MoveDynamic(Vector2 direction, float maxSpeed)
         {
-            Rb.AddRelativeForce(direction);
+            Vector2 targetVelocity = new Vector2(maxSpeed * direction.x, Rb.velocity.y);
+            Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref m_velocity, 0.2f);
         }
         
         public void MoveKinematic(Vector2 direction, float speed)

@@ -1,4 +1,5 @@
-﻿using Scriptable_Objects;
+﻿using System;
+using Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -21,7 +22,8 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected virtual void Update()
         {
-            speed = Input.GetAxisRaw("Horizontal") * CurrentSpeed;
+            speed = Input.GetAxisRaw("Horizontal");
+            
             
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -32,7 +34,17 @@ namespace Mechanics.Players
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveDynamic(new Vector2(speed,0));
+            Vector2 direction;
+            if (speed > 0)
+            {
+                direction = Vector2.right;
+                MoveDynamic(direction,CurrentSpeed*speed);
+            }
+            else if (speed < 0)
+            {
+                direction = Vector2.left;
+                MoveDynamic(direction,CurrentSpeed*speed*-1);
+            }
         }
     }
 }
