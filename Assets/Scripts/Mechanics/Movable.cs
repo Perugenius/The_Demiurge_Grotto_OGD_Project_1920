@@ -5,6 +5,8 @@ namespace Mechanics
 {
     public class Movable : MonoBehaviour
     {
+        public float Thrust;
+        public float jumpHeight;
         protected Transform Tr;
         protected Rigidbody2D Rb;
         protected Vector2 TargetPosition;
@@ -15,7 +17,7 @@ namespace Mechanics
         private Vector2 _fixedDirection;
         private float _fixedAcceleration;
 
-        private void Awake()
+        protected void Awake()
         {
             Tr = GetComponent<Transform>();
             Rb = GetComponent<Rigidbody2D>();
@@ -48,8 +50,13 @@ namespace Mechanics
             _fixedAcceleration = acceleration;
         }
 
+        public void Jump()
+        {
+            Rb.AddForce(new Vector2(0,jumpHeight),ForceMode2D.Impulse);
+        }
+
         // Update is called once per frame
-        void FixedUpdate()
+        protected void FixedUpdate()
         {
             if (MoveFixedDistance)
             {

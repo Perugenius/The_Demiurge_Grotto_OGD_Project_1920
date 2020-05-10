@@ -368,6 +368,9 @@
           </e>
           <e p="Mechanics" t="Include">
             <e p="CollectibleSpawner.cs" t="Include" />
+            <e p="Enemies" t="Include">
+              <e p="Mushroom.cs" t="Include" />
+            </e>
             <e p="EnemyController.cs" t="Include" />
             <e p="EnemySpawner.cs" t="Include" />
             <e p="GayBunny.cs" t="Include" />
