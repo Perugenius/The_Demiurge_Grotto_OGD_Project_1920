@@ -27,9 +27,11 @@ namespace Mechanics.Enemies
         {
             base.FixedUpdate();
             MoveDynamic(_direction * Thrust);
-            if (Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, -1, 0), 18))
+            Debug.Log(Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 2, -1, 0), LayerMask.GetMask("Obstacle")));
+            if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 2, -1, 0), LayerMask.GetMask("Obstacle")))
             {
-                
+                _direction = Vector2.Reflect(_direction, Vector2.up);
+                Debug.Log(_direction);
             }
         }
     }
