@@ -1,21 +1,28 @@
-﻿using UnityEngine.PlayerLoop;
+﻿using System.Collections;
+using Scriptable_Objects;
+using UnityEngine.PlayerLoop;
 
 namespace Mechanics
 {
     public abstract class Character : Movable
     {
-        // Start is called before the first frame update
-        void Start()
+        public CharacterStatistics statistics;
+        protected float CurrentHealth;
+        protected float CurrentSpeed;
+        protected float CurrentAttack;
+
+
+        public void TakeDamage(float damage)
         {
-            
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0)
+            {
+                Die();
+            }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        protected abstract void Die();
+        protected abstract void Attack();
 
-        
     }
 }
