@@ -17,12 +17,13 @@ namespace Mechanics.Enemies
         private void Update()
         {
             _horizontal = Input.GetAxisRaw("Horizontal");
+            if (Input.GetKeyDown(KeyCode.Space)) Jump();
         }
         
-        void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             MoveDynamic(new Vector2(_horizontal*Thrust,0));
-            if (Input.GetKeyDown(KeyCode.Space)) Jump();
         }
     }
 }
