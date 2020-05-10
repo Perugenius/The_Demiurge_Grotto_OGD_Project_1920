@@ -33,6 +33,7 @@ namespace Mechanics
             suitableCollectibles = collectiblesThatCanBeSpawned;
             //...
 
+            if (suitableCollectibles.Count == 0) return;
             string enemyName = suitableCollectibles[Random.Range(0, suitableCollectibles.Count)].name;
             GameObject enemy = PhotonNetwork.Instantiate(enemyName, _tr.position, _tr.rotation);
             enemy.transform.parent = gameObject.transform;
