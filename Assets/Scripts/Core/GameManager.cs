@@ -22,7 +22,8 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
+        //if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
+        if (!PhotonNetwork.IsMasterClient) PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-20f,0f,0f), Quaternion.identity);
     }
     
     

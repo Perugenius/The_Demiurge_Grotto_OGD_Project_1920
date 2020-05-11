@@ -345,7 +345,6 @@
             </e>
           </e>
         </e>
-        <e p="PressurePlate.cs" t="Include" />
         <e p="Scriptable Objects" t="Include">
           <e p="CharacterStatistics.cs" t="Include" />
           <e p="Screen.cs" t="Include" />
@@ -370,6 +369,7 @@
           </e>
           <e p="Mechanics" t="Include">
             <e p="Character.cs" t="Include" />
+            <e p="CheckPoint.cs" t="Include" />
             <e p="CollectibleSpawner.cs" t="Include" />
             <e p="Enemies" t="Include">
               <e p="Mushroom.cs" t="Include" />
@@ -384,8 +384,11 @@
               <e p="PlayableCharacter.cs" t="Include" />
               <e p="Voodoo.cs" t="Include" />
             </e>
+            <e p="PressurePlate.cs" t="Include" />
             <e p="RoomArea.cs" t="Include" />
             <e p="SpawnPoint.cs" t="Include" />
+            <e p="StoneFace.cs" t="Include" />
+            <e p="Trampoline.cs" t="Include" />
           </e>
           <e p="Model" t="Include">
             <e p="DungeonRoom.cs" t="Include" />
@@ -398,8 +401,6 @@
             <e p="Singleton.cs" t="Include" />
           </e>
         </e>
-        <e p="StoneFace.cs" t="Include" />
-        <e p="Trampoline.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="OGD_Project_1920.sln" t="IncludeFlat" />
