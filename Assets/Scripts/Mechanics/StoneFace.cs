@@ -8,11 +8,13 @@ namespace Mechanics
         [SerializeField] private bool isDown;
         private bool _isDown;
         [SerializeField] private float _distance;
-        private float initSpeed = 1f;
-        private float _acceleration = 500f;
+        private float initSpeed = 0f;
+        private float _acceleration = 100f;
         [SerializeField] private Animator _animator;
         private static readonly int IsDown = Animator.StringToHash("isDown");
         private bool _isWaiting = false;
+        private bool _callDuringTransition = false;
+        private int _numOfPlayersOnPressurePlate = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -21,9 +23,16 @@ namespace Mechanics
             _animator.SetBool(IsDown,true);
         }
 
-        public void SwitchState()
+        public void SwitchState(bool enabling)
         {
-            if (MoveFixedDistanceAccelerated) return;
+            if (enabling) _numOfPlayersOnPressurePlate++;
+            else if(_numOfPlayersOnPressurePlate>0) _numOfPlayersOnPressurePlate--;
+            
+            if (MoveFixedDistanceAccelerated /*|| _callDuringTransition*/)
+            {
+                /*if (!_callDuringTransition) _callDuringTransition = true;*/
+                return;
+            }
 
             if (_isDown)
             {
@@ -48,6 +57,34 @@ namespace Mechanics
             }
         }
 
+        private void ReturnToDefaultState()
+        {
+            if(MoveFixedDistanceAccelerated) return;
+            if (!isDown)
+            {
+                SetFixedDistanceAccelerated(Vector2.up, initSpeed, _distance, _acceleration);
+                _isDown = false;
+                _animator.SetBool(IsDown,false);
+                /*StartCoroutine(WaitReturnToDefault());*/
+            } else
+            {
+                SetFixedDistanceAccelerated(Vector2.down, initSpeed, _distance, _acceleration);
+                _isDown = true;
+                _animator.SetBool(IsDown,true);
+                /*StartCoroutine(WaitReturnToDefault());*/
+            }
+        }
+
+        private IEnumerator WaitReturnToDefault()
+        {
+            while (MoveFixedDistanceAccelerated)
+            {
+                yield return null;
+            }
+            
+            _callDuringTransition = false;
+        }
+
         private IEnumerator WaitEndTransition()
         {
             while (MoveFixedDistanceAccelerated)
@@ -55,7 +92,7 @@ namespace Mechanics
                 yield return null;
             }
         
-            if(_isDown != isDown)SwitchState();
+            if(_isDown != isDown && _numOfPlayersOnPressurePlate == 0) ReturnToDefaultState();
 
             _isWaiting = false;
         }
