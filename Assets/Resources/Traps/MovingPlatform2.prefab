@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 6525517575967017793}
   - component: {fileID: 6525517575967017792}
   - component: {fileID: 6525517575967017802}
-  - component: {fileID: 2311252796621215063}
+  - component: {fileID: 2557183600123532649}
   m_Layer: 0
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -1294,6 +1294,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 6525517575967017792}
+  - {fileID: 2557183600123532649}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1328,7 +1329,7 @@ MonoBehaviour:
   _animator: {fileID: 6525517575967017799}
   speed: 4
   destinationObj: {fileID: 6525517575555187404}
---- !u!114 &2311252796621215063
+--- !u!114 &2557183600123532649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1344,7 +1345,7 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 2
+    SynchronizeType: 1
     Name: isMoving
   m_SynchronizeLayers:
   - SynchronizeType: 0
