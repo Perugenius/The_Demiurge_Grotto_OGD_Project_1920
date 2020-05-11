@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Thrust: 0
   _animator: {fileID: 6525517575967017799}
-  speed: 4
+  speed: 2
   destinationObj: {fileID: 6525517575555187404}
 --- !u!114 &2557183600123532649
 MonoBehaviour:

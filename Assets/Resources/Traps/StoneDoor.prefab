@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 4344877653586067081}
   - component: {fileID: 3098336748589689207}
   - component: {fileID: 5213073565915107854}
+  - component: {fileID: 3979991732466975147}
   m_Layer: 18
   m_Name: StoneFace
   m_TagString: Untagged
@@ -572,6 +573,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 5213073565915107854}
+  - {fileID: 3979991732466975147}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -590,6 +592,27 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
+--- !u!114 &3979991732466975147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344877653586067084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isDown
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &4344877653767596500
 GameObject:
   m_ObjectHideFlags: 0

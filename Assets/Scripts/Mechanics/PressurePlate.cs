@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 namespace Mechanics
 {
@@ -15,7 +16,7 @@ namespace Mechanics
             if(_playersInside > 1) return;
             activeBody.SetActive(true);
             inactiveBody.SetActive(false);
-            stoneFace.SwitchState(true);
+            if (PhotonNetwork.IsMasterClient) stoneFace.SwitchState(true);
         }
     
         private void OnTriggerExit2D(Collider2D other)
@@ -24,7 +25,7 @@ namespace Mechanics
             if(_playersInside > 0) return;
             activeBody.SetActive(false);
             inactiveBody.SetActive(true);
-            stoneFace.SwitchState(false);
+            if (PhotonNetwork.IsMasterClient) stoneFace.SwitchState(false);
         }
     }
 }
