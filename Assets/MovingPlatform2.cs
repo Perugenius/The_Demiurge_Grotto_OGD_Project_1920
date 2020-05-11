@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Mechanics;
+using Photon.Pun;
 using UnityEngine;
 
 public class MovingPlatform2 : Movable
@@ -27,6 +28,7 @@ public class MovingPlatform2 : Movable
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        if (!PhotonNetwork.IsMasterClient) return;
         if (MoveFixedDistance) return;
         if (_isStartPosition) MoveToDestination(_destination-_startingPoint,_isStartPosition);
         else MoveToDestination(_startingPoint-_destination,_isStartPosition);
