@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Mechanics;
 using UnityEngine;
@@ -36,8 +37,17 @@ public class CameraFocusOnPlayer : Movable
     
     private void UpdateCameraPosition()
     {
-        Debug.Log("CameraPosition = " + Tr.position);
-        if(_isInVerticalTransition) SetFixedDistanceAcceleratedDecelerated(_playerVerticalTransitionPosition,initSpeed,acceleration);
-        else SetFixedDistanceAcceleratedDecelerated(_playerRoomPosition,initSpeed,acceleration);
+        //Debug.Log("CameraPosition = " + Tr.position);
+        if(_isInVerticalTransition)
+        {
+            if(Vector2.Distance(_playerVerticalTransitionPosition,Tr.position)<0.5) return;
+            if(MoveFixedDistanceAcceleratedDecelerated) return;
+            SetFixedDistanceAcceleratedDecelerated(_playerVerticalTransitionPosition, initSpeed, acceleration);
+        }
+        else
+        {
+            if(Vector2.Distance(_playerRoomPosition,Tr.position)<0.5) return;
+            SetFixedDistanceAcceleratedDecelerated(_playerRoomPosition, initSpeed, acceleration);
+        }
     }
 }

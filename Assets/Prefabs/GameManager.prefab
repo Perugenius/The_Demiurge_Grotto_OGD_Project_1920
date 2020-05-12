@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7420898052033653428}
   - component: {fileID: 6479217673772860762}
+  - component: {fileID: 176543832002895543}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,3 +48,26 @@ MonoBehaviour:
   PoolingExample: {fileID: 3751069207336357083, guid: 44369ba19f8bb3d47af6dab13d1c94f5,
     type: 3}
   screen: {fileID: 11400000, guid: 30ff7f5ea81e4c247bde64983e2b76ad, type: 2}
+  camera: {fileID: 1250392711024624790, guid: 244a92c21a43c0c48afed3a329b97c1b, type: 3}
+--- !u!114 &176543832002895543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420898052033653429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

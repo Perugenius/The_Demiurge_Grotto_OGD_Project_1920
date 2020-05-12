@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject Player;
     public GameObject PoolingExample;
     public Screen screen;
+    public GameObject camera;
 
 
     void Awake()
@@ -23,7 +24,12 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         //if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
-        //if (!PhotonNetwork.IsMasterClient) PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-20f,0f,0f), Quaternion.identity);
+        if (gameObject.GetPhotonView().IsMine)
+        {
+            GameObject player = PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-20f, 0f, 0f), Quaternion.identity);
+            GameObject myCamera = Instantiate(camera, new Vector3(-20f,0f,-10f), Quaternion.identity);
+            myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
+        }
     }
     
     
