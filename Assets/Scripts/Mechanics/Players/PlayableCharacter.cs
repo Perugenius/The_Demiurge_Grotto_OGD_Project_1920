@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Pun;
 using Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -8,7 +9,11 @@ namespace Mechanics.Players
     public abstract class PlayableCharacter : Character
     {
 
-        protected float speed;
+        public bool localTesting;
+        
+        protected float Speed;
+        protected int MaxConsecutiveJump = 1;
+        protected int CurrentConsecutiveJump = 0;
         
         // Start is called before the first frame update
         void Start()
@@ -16,18 +21,23 @@ namespace Mechanics.Players
             CurrentSpeed = statistics.movSpeed;
             CurrentHealth = statistics.maxHealth;
             CurrentAttack = statistics.attack;
-            Debug.Log(CurrentSpeed);
+            Debug.Log(gameObject.GetPhotonView().Owner);
         }
 
         // Update is called once per frame
         protected virtual void Update()
         {
-            speed = Input.GetAxisRaw("Horizontal");
-            
-            
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (gameObject.GetPhotonView().IsMine || localTesting)
             {
-                Jump(15);
+                Speed = Input.GetAxisRaw("Horizontal");
+            
+            
+                if (Input.GetKeyDown(KeyCode.Space) && CurrentConsecutiveJump<MaxConsecutiveJump)
+                {
+                    IsJumping = true;
+                    Jump(45);
+                    CurrentConsecutiveJump++;
+                }
             }
         }
 
@@ -35,15 +45,27 @@ namespace Mechanics.Players
         {
             base.FixedUpdate();
             Vector2 direction;
-            if (speed > 0)
+            if (Speed > 0)
             {
                 direction = Vector2.right;
-                MoveDynamic(direction,CurrentSpeed*speed);
+                MoveDynamic(direction,CurrentSpeed*Speed);
             }
-            else if (speed < 0)
+            else if (Speed < 0)
             {
                 direction = Vector2.left;
-                MoveDynamic(direction,CurrentSpeed*speed*-1);
+                MoveDynamic(direction,CurrentSpeed*Speed*-1);
+            }
+            else
+            {
+                HorizontalDeceleration();
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.collider.CompareTag("Terrain"))
+            {
+                CurrentConsecutiveJump = 0;
             }
         }
     }

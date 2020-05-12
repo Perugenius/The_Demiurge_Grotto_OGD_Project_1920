@@ -11,6 +11,8 @@ namespace Mechanics
         protected float CurrentSpeed;
         protected float CurrentAttack;
 
+        protected bool IsJumping;
+
 
         public void TakeDamage(float damage)
         {
