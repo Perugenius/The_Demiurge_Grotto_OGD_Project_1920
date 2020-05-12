@@ -16,11 +16,11 @@ public class VerticalTransition : MonoBehaviour
     
     private IEnumerator WaitForCamera()
     {
-        GameObject camera = GameObject.Find("Main Camera");
+        GameObject camera = GameObject.Find("Main Camera(Clone)");
         while (camera == null)
         {
             yield return new WaitForSeconds(1);
-            camera = GameObject.Find("Main Camera");
+            camera = GameObject.Find("Main Camera(Clone)");
         }
 
         _mainCamera = camera.GetComponent<CameraFocusOnPlayer>();
