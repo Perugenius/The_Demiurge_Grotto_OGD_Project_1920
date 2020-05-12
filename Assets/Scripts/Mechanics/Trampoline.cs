@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -25,7 +26,7 @@ namespace Mechanics
         private void OnTriggerEnter2D(Collider2D other)
         {
             Movable otherMovable = other.gameObject.GetComponent<Movable>();
-            if (otherMovable != null) otherMovable.Jump(jumpForce);
+            if (otherMovable != null && gameObject.GetPhotonView().IsMine) otherMovable.Jump(jumpForce);
             _animator.SetBool(Jump, true);
             StartCoroutine(WaitEndJumpAnim());
         }

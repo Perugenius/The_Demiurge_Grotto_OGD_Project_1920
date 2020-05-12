@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     public void OnJoinScene()
     {
         GameObject player = PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-20f, 0f, 0f), Quaternion.identity);
-        GameObject myCamera = Instantiate(camera, new Vector3(0f, 0f, -10f), Quaternion.identity);
+        GameObject myCamera = PhotonNetwork.Instantiate("Main Camera", new Vector3(0f, 0f, -10f), Quaternion.identity);
         myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
     }
 
