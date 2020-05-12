@@ -19,9 +19,19 @@ namespace Mechanics
         private void Start()
         {
             _tr = GetComponent<Transform>();
-            _mainCamera = GameObject.Find("Main Camera");
-            _mainCameraFocusOnPlayer = _mainCamera.GetComponent<CameraFocusOnPlayer>();
+            StartCoroutine(WaitForCamera());
             if(_numOfPlayersInRoom == 0) SetActiveRoom(false);
+        }
+
+        private IEnumerator WaitForCamera()
+        {
+            _mainCamera = GameObject.Find("Main Camera");
+            while (_mainCamera == null)
+            {
+                yield return new WaitForSeconds(1);
+                _mainCamera = GameObject.Find("Main Camera");
+            }
+            _mainCameraFocusOnPlayer = _mainCamera.GetComponent<CameraFocusOnPlayer>();
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -29,13 +39,13 @@ namespace Mechanics
             _count++;
             if(_count < 200) return;
             _count = 0;
-            _mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
+            if(_mainCameraFocusOnPlayer!=null)_mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             _numOfPlayersInRoom++;
-            _mainCameraFocusOnPlayer.PlayerInRoom(_tr.position, other.gameObject);
+            if(_mainCameraFocusOnPlayer!=null)_mainCameraFocusOnPlayer.PlayerInRoom(_tr.position, other.gameObject);
             if(_numOfPlayersInRoom > 0 && !_roomEnable) SetActiveRoom(true);
         }
 

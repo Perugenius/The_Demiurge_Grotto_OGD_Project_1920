@@ -11,16 +11,28 @@ public class VerticalTransition : MonoBehaviour
     private void Start()
     {
         _tr = GetComponent<Transform>();
-        _mainCamera = GameObject.Find("Main Camera").GetComponent<CameraFocusOnPlayer>();
+        StartCoroutine(WaitForCamera());
+    }
+    
+    private IEnumerator WaitForCamera()
+    {
+        GameObject camera = GameObject.Find("Main Camera");
+        while (camera == null)
+        {
+            yield return new WaitForSeconds(1);
+            camera = GameObject.Find("Main Camera");
+        }
+
+        _mainCamera = camera.GetComponent<CameraFocusOnPlayer>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _mainCamera.PlayerInVerticalTransition(_tr.position, other.gameObject);
+        if(_mainCamera!=null)_mainCamera.PlayerInVerticalTransition(_tr.position, other.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        _mainCamera.PlayerOutVerticalTransition(other.gameObject);
+        if(_mainCamera!=null)_mainCamera.PlayerOutVerticalTransition(other.gameObject);
     }
 }

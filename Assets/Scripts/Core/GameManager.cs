@@ -24,15 +24,17 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         //if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
-        if (gameObject.GetPhotonView().IsMine)
-        {
-            GameObject player = PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-20f, 0f, 0f), Quaternion.identity);
-            GameObject myCamera = GameObject.Find("Main Camera");
-            myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
-        }
+        OnJoinScene();
     }
-    
-    
+
+    public void OnJoinScene()
+    {
+        GameObject player = PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-20f, 0f, 0f), Quaternion.identity);
+        GameObject myCamera = Instantiate(camera, new Vector3(0f, 0f, -10f), Quaternion.identity);
+        myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
+    }
+
+
     void Update()
     {
         
