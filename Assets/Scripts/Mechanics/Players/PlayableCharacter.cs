@@ -21,7 +21,6 @@ namespace Mechanics.Players
             CurrentSpeed = statistics.movSpeed;
             CurrentHealth = statistics.maxHealth;
             CurrentAttack = statistics.attack;
-            Debug.Log(gameObject.GetPhotonView().Owner);
         }
 
         // Update is called once per frame
@@ -34,8 +33,9 @@ namespace Mechanics.Players
             
                 if (Input.GetKeyDown(KeyCode.Space) && CurrentConsecutiveJump<MaxConsecutiveJump)
                 {
+                    RaycastHit2D hit = new RaycastHit2D();
                     IsJumping = true;
-                    Jump(45);
+                    Jump(48);
                     CurrentConsecutiveJump++;
                 }
             }

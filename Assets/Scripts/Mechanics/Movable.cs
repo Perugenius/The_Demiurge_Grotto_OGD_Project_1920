@@ -100,6 +100,7 @@ namespace Mechanics
 
         public void Jump(float jumpHeight)
         {
+            Rb.velocity = Vector2.zero;
             Rb.AddForce(new Vector2(0,jumpHeight),ForceMode2D.Impulse);
         }
 
