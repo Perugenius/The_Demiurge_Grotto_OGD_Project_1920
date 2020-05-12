@@ -38,14 +38,6 @@ namespace Mechanics
         {
             _count++;
             if(_count < 200) return;
-            try
-            {
-                Debug.Log("MainCamera = " + _mainCamera.name);
-            }
-            catch (NullReferenceException e)
-            {
-                Debug.Log("MainCamera = " + null);
-            }
             _count = 0;
             if(_mainCameraFocusOnPlayer!=null)_mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
         }
