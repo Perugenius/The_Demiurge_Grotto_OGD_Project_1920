@@ -30,15 +30,13 @@ public class MovingPlatform2 : Movable
         base.FixedUpdate();
         if (!PhotonNetwork.IsMasterClient) return;
         if (MoveFixedDistance) return;
-        if (_isStartPosition) MoveToDestination(_destination-_startingPoint,_isStartPosition);
-        else MoveToDestination(_startingPoint-_destination,_isStartPosition);
+        if (_isStartPosition) MoveToDestination(_destination,_isStartPosition);
+        else MoveToDestination(_startingPoint,_isStartPosition);
     }
 
-    private void MoveToDestination(Vector3 directPath, bool isStartPosition)
+    private void MoveToDestination(Vector3 targetPosition, bool isStartPosition)
     {
-        Vector3 direction = Vector3.Normalize(directPath);
-        float distance = directPath.magnitude;
-        SetFixedDistance(direction,speed,distance);
+        SetFixedDistance(targetPosition,speed);
         _animator.SetBool(IsMoving,true);
         StartCoroutine(WaitMovementEnd(isStartPosition));
         _isStartPosition = !isStartPosition;

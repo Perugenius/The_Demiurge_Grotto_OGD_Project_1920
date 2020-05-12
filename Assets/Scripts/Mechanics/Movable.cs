@@ -12,9 +12,12 @@ namespace Mechanics
         protected Vector2 TargetPosition;
         protected bool MoveFixedDistance;
         protected bool MoveFixedDistanceAccelerated;
+        protected bool MoveFixedDistanceAcceleratedDecelerated;
         private float _fixedSpeed;
         private float _fixedDistance;
+        private float _totalDistance;
         private Vector2 _fixedDirection;
+        private Vector3 _fixedDirectionVector3;
         private float _fixedAcceleration;
 
         protected Vector2 m_velocity;
@@ -71,6 +74,24 @@ namespace Mechanics
             _fixedSpeed = initSpeed;
             _fixedAcceleration = acceleration;
         }
+        
+        /// <summary>
+        /// It reaches the max acceleration when the remaining distance is half of the total distance,
+        /// then it slows down decelerating at each fixedUpdate call.
+        /// </summary>
+        /// <param name="targetPosition"></param>
+        /// <param name="initSpeed"></param>
+        /// <param name="acceleration"></param>
+        public void SetFixedDistanceAcceleratedDecelerated(Vector3 targetPosition, float initSpeed, float acceleration)
+        {
+            MoveFixedDistanceAcceleratedDecelerated = true;
+            Vector3 movementVector = targetPosition - Tr.position;
+            _fixedDirectionVector3 = Vector3.Normalize(movementVector);;
+            _fixedDistance = movementVector.magnitude;
+            _totalDistance = _fixedDistance;
+            _fixedSpeed = initSpeed;
+            _fixedAcceleration = acceleration;
+        }
 
         public void Jump(float jumpHeight)
         {
@@ -93,6 +114,15 @@ namespace Mechanics
                 _fixedDistance = _fixedDistance - Time.deltaTime * _fixedSpeed - .5f * Time.deltaTime * Time.deltaTime * _fixedAcceleration;
                 _fixedSpeed = _fixedSpeed + Time.deltaTime * _fixedAcceleration;
                 if(_fixedDistance <= 0) MoveFixedDistanceAccelerated = false;
+            }
+            
+            if (MoveFixedDistanceAcceleratedDecelerated)
+            {
+                Tr.position = Tr.position + Time.deltaTime * _fixedSpeed * _fixedDirectionVector3;
+                _fixedDistance = _fixedDistance - Time.deltaTime * _fixedSpeed;
+                if(_fixedDistance > _totalDistance/2f) _fixedSpeed = _fixedSpeed + Time.deltaTime * _fixedAcceleration;
+                else _fixedSpeed = _fixedSpeed - Time.deltaTime * _fixedAcceleration;
+                if(_fixedDistance <= 0) MoveFixedDistanceAcceleratedDecelerated = false;
             }
         }
     }

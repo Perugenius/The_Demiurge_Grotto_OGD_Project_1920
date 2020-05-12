@@ -33,26 +33,24 @@ public class MovingPlatform1 : Movable
 
     private void ReturnToStartingPosition()
     {
-        MoveToDestination(_startingPoint - _destination, _isStartPosition);
+        MoveToDestination(_startingPoint, _isStartPosition);
     }
 
     private void ChangePosition()
     {
         if (_isStartPosition)
         {
-            MoveToDestination(_destination - _startingPoint, _isStartPosition);
+            MoveToDestination(_destination, _isStartPosition);
         }
         else
         {
-            MoveToDestination(_startingPoint - _destination, _isStartPosition);
+            MoveToDestination(_startingPoint, _isStartPosition);
         }
     }
 
-    private void MoveToDestination(Vector3 directPath, bool isStartPosition)
+    private void MoveToDestination(Vector3 targetPosition, bool isStartPosition)
     {
-        Vector3 direction = Vector3.Normalize(directPath);
-        float distance = directPath.magnitude;
-        SetFixedDistance(direction,speed,distance);
+        SetFixedDistance(targetPosition,speed);
         _animator.SetBool(IsMoving,true);
         StartCoroutine(WaitMovementEnd(isStartPosition));
         if(isStartPosition) _isStartPosition = false;

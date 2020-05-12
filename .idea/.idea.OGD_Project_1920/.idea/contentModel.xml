@@ -6,6 +6,7 @@
     <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="CameraFocusOnPlayer.cs" t="Include" />
         <e p="MovingPlatform1.cs" t="Include" />
         <e p="MovingPlatform2.cs" t="Include" />
         <e p="Photon" t="Include">
@@ -403,6 +404,7 @@
             <e p="Singleton.cs" t="Include" />
           </e>
         </e>
+        <e p="VerticalTransition.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="OGD_Project_1920.sln" t="IncludeFlat" />
