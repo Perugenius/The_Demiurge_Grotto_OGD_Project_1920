@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0244e384895b8942844cc5d78b6f87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 40
+  jumpForce: 40
   _animator: {fileID: 3982880047344913419}
 --- !u!61 &3982880047344913415
 BoxCollider2D:
@@ -153,6 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3982880048320904126}
   - component: {fileID: 3982880048320904127}
+  - component: {fileID: -3403514461897610940}
   m_Layer: 18
   m_Name: Trampoline
   m_TagString: Untagged
@@ -201,3 +202,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5731239, y: 0.58809566}
   m_EdgeRadius: 0
+--- !u!114 &-3403514461897610940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982880048320904124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
