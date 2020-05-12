@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0244e384895b8942844cc5d78b6f87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 40
-  _animator: {fileID: 3982880047344913419}
+  jumpForce: 100
+  animator: {fileID: 3982880047344913419}
 --- !u!61 &3982880047344913415
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -219,7 +219,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
