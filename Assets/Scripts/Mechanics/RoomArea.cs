@@ -57,11 +57,15 @@ namespace Mechanics
 
         private IEnumerator WaitBeforeDisabling()
         {
-            while (Vector2.Distance(_mainCamera.transform.position, _tr.position)<16)
+            if (_mainCamera != null)
             {
-                yield return new WaitForSeconds(5);
+                while (Vector2.Distance(_mainCamera.transform.position, _tr.position) < 16)
+                {
+                    yield return new WaitForSeconds(5);
+                }
+
+                if (_numOfPlayersInRoom == 0 && _roomEnable) SetActiveRoom(false);
             }
-            if(_numOfPlayersInRoom == 0 && _roomEnable) SetActiveRoom(false);
         }
 
         private void SetActiveRoom(bool activeValue)
