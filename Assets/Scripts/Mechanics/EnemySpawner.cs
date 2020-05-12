@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Model;
 using Photon.Pun;
 using UnityEngine;
@@ -34,8 +35,8 @@ namespace Mechanics
             //...
 
             if (suitableEnemies.Count == 0) return;
-            string enemyName = suitableEnemies[Random.Range(0, suitableEnemies.Count)].name;
-            GameObject enemy = PhotonNetwork.Instantiate(enemyName, _tr.position, _tr.rotation);
+            string enemyName = suitableEnemies[Random.Range(0, suitableEnemies.Count-1)].name;
+            GameObject enemy = PhotonNetwork.Instantiate(Path.Combine("Enemies", enemyName), _tr.position, _tr.rotation);
             enemy.transform.parent = gameObject.transform;
             _enemySpawned = true;
         }
