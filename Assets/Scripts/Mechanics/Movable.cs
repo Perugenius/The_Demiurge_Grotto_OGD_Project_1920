@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace Mechanics
@@ -43,11 +44,30 @@ namespace Mechanics
             _fixedSpeed = speed;
         }
         
+        public void SetFixedDistance(Vector3 targetPosition, float speed)
+        {
+            MoveFixedDistance = true;
+            Vector3 movementVector = targetPosition - Tr.position;
+            _fixedDirection = Vector3.Normalize(movementVector);
+            _fixedDistance = movementVector.magnitude;
+            _fixedSpeed = speed;
+        }
+        
         public void SetFixedDistanceAccelerated(Vector2 direction, float initSpeed, float distance, float acceleration)
         {
             MoveFixedDistanceAccelerated = true;
             _fixedDirection = direction;
             _fixedDistance = distance;
+            _fixedSpeed = initSpeed;
+            _fixedAcceleration = acceleration;
+        }
+        
+        public void SetFixedDistanceAccelerated(Vector3 targetPosition, float initSpeed, float acceleration)
+        {
+            MoveFixedDistanceAccelerated = true;
+            Vector3 movementVector = targetPosition - Tr.position;
+            _fixedDirection = Vector3.Normalize(movementVector);;
+            _fixedDistance = movementVector.magnitude;
             _fixedSpeed = initSpeed;
             _fixedAcceleration = acceleration;
         }
