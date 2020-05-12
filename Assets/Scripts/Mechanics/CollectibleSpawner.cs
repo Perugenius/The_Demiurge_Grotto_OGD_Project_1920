@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Model;
 using Photon.Pun;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Mechanics
 
             if (suitableCollectibles.Count == 0) return;
             string enemyName = suitableCollectibles[Random.Range(0, suitableCollectibles.Count)].name;
-            GameObject enemy = PhotonNetwork.Instantiate(enemyName, _tr.position, _tr.rotation);
+            GameObject enemy = PhotonNetwork.Instantiate(Path.Combine("Traps", enemyName), _tr.position, _tr.rotation);
             enemy.transform.parent = gameObject.transform;
             _collectibleSpawned = true;
         }
