@@ -26,9 +26,12 @@ namespace Mechanics
         private void OnTriggerEnter2D(Collider2D other)
         {
             Movable otherMovable = other.gameObject.GetComponent<Movable>();
-            if (otherMovable != null && other.gameObject.GetPhotonView().IsMine) otherMovable.Jump(jumpForce);
-            animator.SetBool(Jump, true);
-            StartCoroutine(WaitEndJumpAnim());
+            if (otherMovable != null && other.gameObject.GetPhotonView().IsMine)
+            {
+                otherMovable.Jump(jumpForce);
+                animator.SetBool(Jump, true);
+                StartCoroutine(WaitEndJumpAnim());
+            }
         }
 
         private IEnumerator WaitEndJumpAnim()
