@@ -29,9 +29,9 @@ namespace Mechanics
             if (otherMovable != null && other.gameObject.GetPhotonView().IsMine)
             {
                 otherMovable.Jump(jumpForce);
+                animator.SetBool(Jump, true);
+                StartCoroutine(WaitEndJumpAnim());
             }
-            animator.SetBool(Jump, true);
-            StartCoroutine(WaitEndJumpAnim());
         }
 
         private IEnumerator WaitEndJumpAnim()
