@@ -87,10 +87,10 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline:
-    - - {x: -8, y: -12}
+    - - {x: -8, y: -11}
       - {x: -8, y: 18}
       - {x: 8, y: 18}
-      - {x: 8, y: -12}
+      - {x: 8, y: -11}
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000

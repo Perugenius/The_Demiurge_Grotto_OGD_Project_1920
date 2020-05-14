@@ -585,6 +585,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
+        type: 3}
+      propertyPath: collectiblesThatCanBeSpawned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
+        type: 3}
+      propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
+      value: 
+      objectReference: {fileID: 8228717831998595252, guid: 9b86fb690a051e74f9147242e48fef13,
+        type: 3}
     - target: {fileID: 7539017539197016732, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
       propertyPath: m_Name
@@ -1185,12 +1196,12 @@ PrefabInstance:
     - target: {fileID: 1383487250656327244, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 1383487250656327244, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 1383487250656327244, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
@@ -1246,7 +1257,7 @@ PrefabInstance:
         type: 3}
       propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
       value: 
-      objectReference: {fileID: 3982880048320904124, guid: 61a09eb9e3f66f747814d29c3c38d2b6,
+      objectReference: {fileID: 2076205905327343688, guid: a55560fc8d843f14f823fab4d25d42c5,
         type: 3}
     - target: {fileID: 6689565835262104435, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
@@ -1595,6 +1606,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
+        type: 3}
+      propertyPath: collectiblesThatCanBeSpawned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
+        type: 3}
+      propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
+      value: 
+      objectReference: {fileID: 2067247176678563942, guid: 5ab6c516739100d40a4bf78f22927b16,
+        type: 3}
     - target: {fileID: 7539017539197016732, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
       propertyPath: m_Name
@@ -2143,6 +2165,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
+        type: 3}
+      propertyPath: collectiblesThatCanBeSpawned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
+        type: 3}
+      propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
+      value: 
+      objectReference: {fileID: 8995453363101360804, guid: 150faffbaef89ee4cb10df3b9909404a,
+        type: 3}
     - target: {fileID: 7539017539197016732, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
       propertyPath: m_Name

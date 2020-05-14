@@ -35,9 +35,9 @@ namespace Mechanics
             //...
 
             if (suitableCollectibles.Count == 0) return;
-            string enemyName = suitableCollectibles[Random.Range(0, suitableCollectibles.Count)].name;
-            GameObject enemy = PhotonNetwork.Instantiate(Path.Combine("Traps", enemyName), _tr.position, _tr.rotation);
-            enemy.transform.parent = gameObject.transform;
+            GameObject collectibleReference = suitableCollectibles[Random.Range(0, suitableCollectibles.Count)];
+            GameObject collectible = Instantiate(collectibleReference, _tr.position, _tr.rotation);
+            collectible.transform.parent = gameObject.transform;
             _collectibleSpawned = true;
         }
     }
