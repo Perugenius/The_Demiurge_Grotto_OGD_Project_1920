@@ -35,8 +35,8 @@ namespace Mechanics
             //...
 
             if (suitableCollectibles.Count == 0) return;
-            GameObject collectibleReference = suitableCollectibles[Random.Range(0, suitableCollectibles.Count)];
-            GameObject collectible = Instantiate(collectibleReference, _tr.position, _tr.rotation);
+            string collectibleReference = suitableCollectibles[Random.Range(0, suitableCollectibles.Count)].name;
+            GameObject collectible = PhotonNetwork.Instantiate(Path.Combine("Collectribles", collectibleReference), _tr.position, _tr.rotation);
             collectible.transform.parent = gameObject.transform;
             _collectibleSpawned = true;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Gem : MonoBehaviour
@@ -23,6 +24,7 @@ public class Gem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.gameObject.GetPhotonView().IsMine) return;
         //TODO call player
         _animator.SetBool(IsCollected, true);
         StartCoroutine(WaitBeforeDestroy());
