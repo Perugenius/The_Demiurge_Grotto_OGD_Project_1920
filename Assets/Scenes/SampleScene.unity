@@ -1257,7 +1257,7 @@ PrefabInstance:
         type: 3}
       propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
       value: 
-      objectReference: {fileID: 2076205905327343688, guid: a55560fc8d843f14f823fab4d25d42c5,
+      objectReference: {fileID: 8437163607082278469, guid: cfe5f4645de961c40ba6736004f045cb,
         type: 3}
     - target: {fileID: 6689565835262104435, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
@@ -2174,7 +2174,7 @@ PrefabInstance:
         type: 3}
       propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
       value: 
-      objectReference: {fileID: 8995453363101360804, guid: 150faffbaef89ee4cb10df3b9909404a,
+      objectReference: {fileID: 590176563734612271, guid: a92c8c47d42b7af49b62b188e11e3541,
         type: 3}
     - target: {fileID: 7539017539197016732, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}

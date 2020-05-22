@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class Gem : MonoBehaviour
+public class Food : MonoBehaviour
 {
     public int value = 1;
     [SerializeField] private Animator _animator;
@@ -26,7 +26,6 @@ public class Gem : MonoBehaviour
     {
         if (!other.gameObject.GetPhotonView().IsMine) return;
         //TODO call player
-        transform.localScale = new Vector3(1,1,1);
         _animator.SetBool(IsCollected, true);
         StartCoroutine(WaitBeforeDestroy());
     }
