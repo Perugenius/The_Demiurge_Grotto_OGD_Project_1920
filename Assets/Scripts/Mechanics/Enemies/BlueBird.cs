@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    public class Mushroom : Movable
+    public class BlueBird : Movable
     {
         private Vector2 _direction;
         [SerializeField] private float speed;
@@ -32,10 +28,9 @@ namespace Mechanics.Enemies
         
         protected override void FixedUpdate()
         {
-            if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1.5f, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
             MoveDynamic(_direction, speed);
-            if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, -1, 0), LayerMask.GetMask("Obstacle")) || Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, 0, 0), LayerMask.GetMask("Obstacle")))
+            if (Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, 0, 0), LayerMask.GetMask("Obstacle")))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
                 Vector3 newScale = Tr.localScale;
