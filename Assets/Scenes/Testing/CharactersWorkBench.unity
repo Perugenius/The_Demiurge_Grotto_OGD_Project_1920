@@ -3060,15 +3060,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 471666341697912329, guid: 0133144aae0145e479ab42aff1abcc31,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3.2860608
+      objectReference: {fileID: 0}
     - target: {fileID: 471666341697912331, guid: 0133144aae0145e479ab42aff1abcc31,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 471666341697912331, guid: 0133144aae0145e479ab42aff1abcc31,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 471666341697912331, guid: 0133144aae0145e479ab42aff1abcc31,
         type: 3}

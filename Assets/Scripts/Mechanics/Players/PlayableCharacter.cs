@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 
 namespace Mechanics.Players
@@ -10,7 +11,13 @@ namespace Mechanics.Players
     {
 
         public bool localTesting;
-        
+
+        protected Animator Animator;
+        protected static readonly int Horizontal = Animator.StringToHash("Horizontal");
+        protected static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        protected static readonly int FaceDirection = Animator.StringToHash("FaceDirection");
+        protected static readonly int IsJumpingAnim = Animator.StringToHash("IsJumping");
+        protected static readonly int IsDescending = Animator.StringToHash("IsDescending");
         protected float Speed;
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
@@ -21,6 +28,8 @@ namespace Mechanics.Players
             CurrentSpeed = statistics.movSpeed;
             CurrentHealth = statistics.maxHealth;
             CurrentAttack = statistics.attack;
+
+            Animator = GetComponent<Animator>();
         }
 
         // Update is called once per frame
@@ -29,16 +38,40 @@ namespace Mechanics.Players
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 Speed = Input.GetAxisRaw("Horizontal");
-            
-            
-                if (Input.GetKeyDown(KeyCode.Space) && CurrentConsecutiveJump<MaxConsecutiveJump)
+                if (Input.GetKeyDown(KeyCode.Space) )
                 {
-                    RaycastHit2D hit = new RaycastHit2D();
-                    IsJumping = true;
-                    Jump(48);
-                    CurrentConsecutiveJump++;
+                    RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
+                    if (raycast)
+                    {
+                        IsJumping = true;
+                        Jump(48);
+                        Animator.SetBool(IsJumpingAnim, true);
+                    }
                 }
+                
+                Animate();
             }
+        }
+
+        private void Animate()
+        {
+            if (Speed != 0)
+            {
+                if (Speed > 0)
+                {
+                    Animator.SetFloat(FaceDirection,1);
+                }
+                else
+                {
+                    Animator.SetFloat(FaceDirection,-1);
+                }
+                Animator.SetBool(IsMoving,true);
+            }
+            else
+            {
+                Animator.SetBool(IsMoving,false);
+            }
+            Animator.SetFloat(Horizontal,Speed);
         }
 
         protected override void FixedUpdate()
@@ -59,13 +92,27 @@ namespace Mechanics.Players
             {
                 HorizontalDeceleration();
             }
+            CheckJumpPhase();
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        protected void CheckJumpPhase()
         {
-            if (other.collider.CompareTag("Terrain"))
+            if (IsJumping)
             {
-                CurrentConsecutiveJump = 0;
+                RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
+                if (raycast)
+                {
+                    IsJumping = false;
+                    Animator.SetBool(IsJumpingAnim,false);
+                    Animator.SetBool(IsDescending,false);
+                }
+                else
+                {
+                    if (Rb.velocity.y < 0)
+                    {
+                        Animator.SetBool(IsDescending, true);
+                    }
+                }
             }
         }
     }
