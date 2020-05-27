@@ -25,16 +25,16 @@ public class Chest : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         //TODO check if player has the right skill to break the box
-        PhotonView photonView = PhotonView.Get(this);
+        //PhotonView photonView = PhotonView.Get(this);
         if (other.gameObject.GetPhotonView().IsMine)
         {
-            photonView.RPC("DestroyChest", RpcTarget.Others);
+            PhotonView.Get(gameObject).RPC("DestroyChest", RpcTarget.Others);
             DestroyChest();
         }
     }
     
     [PunRPC]
-    void DestroyChest()
+    public void DestroyChest()
     {
         animator.SetBool(IsHit, true);
         Debug.Log("Chest hit");
