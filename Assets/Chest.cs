@@ -26,7 +26,11 @@ public class Chest : MonoBehaviour
     {
         //TODO check if player has the right skill to break the box
         PhotonView photonView = PhotonView.Get(this);
-        if(other.gameObject.GetPhotonView().IsMine) photonView.RPC("DestroyChest", RpcTarget.All);
+        if (other.gameObject.GetPhotonView().IsMine)
+        {
+            photonView.RPC("DestroyChest", RpcTarget.Others);
+            DestroyChest();
+        }
     }
     
     [PunRPC]
