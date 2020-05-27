@@ -19,6 +19,7 @@ public class ChestPiece : MonoBehaviour
     private IEnumerator WaitBeforeDestroying()
     {
         yield return new WaitForSeconds(30);
+        Destroy(gameObject);
     }
 
     // Update is called once per frame

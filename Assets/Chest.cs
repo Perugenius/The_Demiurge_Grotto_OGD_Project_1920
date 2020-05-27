@@ -34,9 +34,10 @@ public class Chest : MonoBehaviour
     }
     
     [PunRPC]
-    private void DestroyChest()
+    void DestroyChest()
     {
         animator.SetBool(IsHit, true);
+        Debug.Log("Chest hit");
         StartCoroutine(WaitAnimationEnd());
     }
 
