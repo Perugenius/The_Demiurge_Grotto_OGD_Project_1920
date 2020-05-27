@@ -28,13 +28,13 @@ public class Chest : MonoBehaviour
         //PhotonView photonView = PhotonView.Get(this);
         if (other.gameObject.GetPhotonView().IsMine)
         {
-            PhotonView.Get(gameObject).RPC("DestroyChest", RpcTarget.Others);
+            GetComponent<PhotonView>().RPC("DestroyChest", RpcTarget.Others);
             DestroyChest();
         }
     }
     
     [PunRPC]
-    public void DestroyChest()
+    private void DestroyChest()
     {
         animator.SetBool(IsHit, true);
         Debug.Log("Chest hit");
