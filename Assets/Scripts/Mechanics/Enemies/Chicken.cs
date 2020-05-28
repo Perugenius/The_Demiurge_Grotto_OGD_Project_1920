@@ -51,7 +51,7 @@ namespace Mechanics.Enemies
                 }
             }
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, 100, LayerMask.GetMask("PlayerPhysic"));
-            if (hit.collider)
+            if (hit.collider && !run)
             {
                 var t = speed;
                 speed = tempSpeed;

@@ -32,7 +32,7 @@ namespace Mechanics.Enemies
         
         protected override void FixedUpdate()
         {
-            if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1.5f, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
+            if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
             MoveDynamic(_direction, speed);
             if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, -1, 0), LayerMask.GetMask("Obstacle")) || Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, 0, 0), LayerMask.GetMask("Obstacle")))
