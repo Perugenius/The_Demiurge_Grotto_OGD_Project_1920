@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Core;
 using Mechanics.Camera;
 using Photon.Pun;
@@ -30,7 +31,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnJoinScene()
     {
-        GameObject player = PhotonNetwork.Instantiate("VoodooTmp", new Vector3(-15f, 5f, 0f), Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players","Voodoo"), new Vector3(-15f, 5f, 0f), Quaternion.identity);
         GameObject myCamera = Instantiate(camera, new Vector3(0f, 0f, -10f), Quaternion.identity);
         myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
     }

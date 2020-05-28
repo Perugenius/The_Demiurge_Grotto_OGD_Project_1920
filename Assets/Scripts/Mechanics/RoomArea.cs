@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mechanics.Camera;
+using Model;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -16,14 +17,16 @@ namespace Mechanics
         private GameObject _mainCamera;
         private Transform _tr;
         private int _count = 0;
+        private float _roomWidth;
+        private float _roomHeight;
 
         private void Start()
         {
             _tr = GetComponent<Transform>();
-            StartCoroutine(WaitForCamera());
             if(_numOfPlayersInRoom == 0) SetActiveRoom(false);
+            StartCoroutine(WaitForCamera());
         }
-
+        
         private IEnumerator WaitForCamera()
         {
             _mainCamera = GameObject.Find("Main Camera(Clone)");
@@ -35,18 +38,9 @@ namespace Mechanics
             _mainCameraFocusOnPlayer = _mainCamera.GetComponent<CameraFocusOnPlayer>();
         }
 
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            _count++;
-            if(_count < 200) return;
-            _count = 0;
-            if(_mainCameraFocusOnPlayer!=null)_mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
-        }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
             _numOfPlayersInRoom++;
-            if(_mainCameraFocusOnPlayer!=null)_mainCameraFocusOnPlayer.PlayerInRoom(_tr.position, other.gameObject);
             if(_numOfPlayersInRoom > 0 && !_roomEnable) SetActiveRoom(true);
         }
 
@@ -60,11 +54,14 @@ namespace Mechanics
         {
             if (_mainCamera != null)
             {
-                while (Vector2.Distance(_mainCamera.transform.position, _tr.position) < 16)
+                float checkDistance = _mainCameraFocusOnPlayer.PlayerTransitionOrientation == Orientation.Vertical
+                    ? _roomHeight / 2 + 1f
+                    : _roomWidth / 2 + 1f;
+                while (Vector2.Distance(_mainCamera.transform.position, _tr.position) < checkDistance)
                 {
                     yield return new WaitForSeconds(5);
                 }
-
+                yield return new WaitForSeconds(5);
                 if (_numOfPlayersInRoom == 0 && _roomEnable) SetActiveRoom(false);
             }
         }
