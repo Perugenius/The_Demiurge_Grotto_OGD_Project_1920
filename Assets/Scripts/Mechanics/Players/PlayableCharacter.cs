@@ -42,8 +42,9 @@ namespace Mechanics.Players
                 Speed = Input.GetAxisRaw("Horizontal");
                 if (Input.GetButtonDown("Jump"))
                 {
-                    RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle","PlayerPhysic"));
-                    if (raycast)
+                    RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
+                    RaycastHit2D playerRaycastHit2D = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("PlayerPhysic"));
+                    if (raycast || (playerRaycastHit2D && playerRaycastHit2D.rigidbody != gameObject.GetComponent<Rigidbody2D>()))
                     {
                         IsJumping = true;
                         Jump(48);
