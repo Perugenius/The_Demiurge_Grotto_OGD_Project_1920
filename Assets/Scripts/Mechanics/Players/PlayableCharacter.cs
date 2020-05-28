@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 
 namespace Mechanics.Players
 {
-    public abstract class PlayableCharacter : Character, IPunObservable
+    public abstract class PlayableCharacter : Character
     {
 
         public bool localTesting;
@@ -22,7 +22,6 @@ namespace Mechanics.Players
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
 
-        protected Vector2 networkPosition;
         
         
         // Start is called before the first frame update
@@ -53,24 +52,6 @@ namespace Mechanics.Players
                 }
                 
                 Animate();
-            }
-        }
-        
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            if (stream.IsWriting)
-            {
-                stream.SendNext(Rb.position);
-                stream.SendNext(Rb.rotation);
-                stream.SendNext(Rb.velocity);
-            }
-            else
-            {
-                networkPosition = (Vector3) stream.ReceiveNext();
-                GetComponent<Rigidbody>().velocity = (Vector3) stream.ReceiveNext();
-
-                float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
-                networkPosition += (Rb.velocity * lag);
             }
         }
 
@@ -114,10 +95,6 @@ namespace Mechanics.Players
                 HorizontalDeceleration();
             }
             CheckJumpPhase();
-            if (!gameObject.GetPhotonView().IsMine)
-            {
-                Rb.position = Vector3.MoveTowards(Rb.position, networkPosition, Time.fixedDeltaTime);
-            }
         }
 
         protected void CheckJumpPhase()
