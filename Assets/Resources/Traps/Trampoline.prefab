@@ -186,7 +186,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: jump
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!1 &3982880048320904124
 GameObject:
