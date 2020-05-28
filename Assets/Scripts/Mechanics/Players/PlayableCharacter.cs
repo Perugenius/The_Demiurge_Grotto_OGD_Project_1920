@@ -43,8 +43,8 @@ namespace Mechanics.Players
                 if (Input.GetButtonDown("Jump"))
                 {
                     RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
-                    RaycastHit2D playerRaycastHit2D = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("PlayerPhysic"));
-                    if (raycast || (playerRaycastHit2D && playerRaycastHit2D.rigidbody != gameObject.GetComponent<Rigidbody2D>()))
+                    RaycastHit2D playerRaycastHit2D = Physics2D.Raycast(Tr.position,Vector2.down, 1.2f,LayerMask.GetMask("PlayerPhysic"));
+                    if (raycast || (playerRaycastHit2D && playerRaycastHit2D.collider != gameObject.GetComponent<Collider2D>()))
                     {
                         IsJumping = true;
                         Jump(48);
