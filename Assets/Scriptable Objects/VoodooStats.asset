@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Voodoo
   maxHealth: 5
-  movSpeed: 20
+  movSpeed: 15
   fightSpeed: 2
   rangeOfView: 0
   jumpHeight: 3
