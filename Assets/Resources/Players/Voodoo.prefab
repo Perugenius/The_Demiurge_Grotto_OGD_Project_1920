@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Thrust: 0
   statistics: {fileID: 11400000, guid: 3bc0e1139e9a2814e9a6f3c811002884, type: 2}
-  localTesting: 1
+  localTesting: 0
 --- !u!61 &201550407633552256
 BoxCollider2D:
   m_ObjectHideFlags: 0
