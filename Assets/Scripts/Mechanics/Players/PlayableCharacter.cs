@@ -21,6 +21,9 @@ namespace Mechanics.Players
         protected float Speed;
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
+        
+        protected bool IsAnchored;
+        protected PhotonView AnchoredPlayer;
 
         
         
@@ -44,11 +47,22 @@ namespace Mechanics.Players
                 {
                     RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
                     RaycastHit2D playerRaycastHit2D = Physics2D.Raycast(new Vector2(Tr.position.x,Tr.position.y-1.1f), Vector2.down, 0.5f,LayerMask.GetMask("PlayerPhysic"));
-                    if (raycast || playerRaycastHit2D)
+                    if (raycast)
                     {
                         IsJumping = true;
-                        Jump(48);
+                        Jump(62);
                         Animator.SetBool(IsJumpingAnim, true);
+                    }
+                    else if (playerRaycastHit2D)
+                    {
+                        Transform otherplayer = playerRaycastHit2D.transform;
+                        raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
+                        if (raycast)
+                        {
+                            IsJumping = true;
+                            Jump(62);
+                            Animator.SetBool(IsJumpingAnim, true);
+                        }
                     }
                 }
                 
@@ -85,11 +99,19 @@ namespace Mechanics.Players
             {
                 direction = Vector2.right;
                 MoveDynamic(direction,CurrentSpeed*Speed);
+                if (AnchoredPlayer)
+                {
+                    AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);
+                }
             }
             else if (Speed < 0)
             {
                 direction = Vector2.left;
                 MoveDynamic(direction,CurrentSpeed*Speed*-1);
+                if (AnchoredPlayer)
+                {
+                    AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed*-1);
+                }
             }
             else
             {
@@ -117,6 +139,37 @@ namespace Mechanics.Players
                     }
                 }
             }
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.collider.gameObject.CompareTag("Player"))
+            {
+                RaycastHit2D hit2D = Physics2D.BoxCast(new Vector2(Tr.position.x, Tr.position.y + 1.3f),
+                    new Vector2(0.5f, 0.5f), 0, Vector2.up, LayerMask.GetMask("PlayerPhysic"));
+                if (hit2D)
+                {
+                    AnchoredPlayer = hit2D.collider.gameObject.GetPhotonView();
+                }
+            }
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (other.collider.gameObject.CompareTag("Player"))
+            {
+                if (AnchoredPlayer != null)
+                {
+                    AnchoredPlayer = null;
+                }
+            }
+        }
+
+
+        [PunRPC]
+        public void MoveWithFriend(Vector2 direction, float speed)
+        {
+            MoveDynamic(direction,speed);
         }
     }
 }
