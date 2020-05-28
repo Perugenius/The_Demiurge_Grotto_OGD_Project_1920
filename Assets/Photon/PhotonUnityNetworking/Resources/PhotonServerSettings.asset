@@ -32,6 +32,11 @@ MonoBehaviour:
   StartInOfflineMode: 0
   RpcList:
   - DestroyChest
+  - ClickRpc
+  - DestroyRpc
+  - DestroySpaceship
+  - Fire
+  - RespawnSpaceship
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 300311502}
   - component: {fileID: 300311501}
   - component: {fileID: 300311500}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Duck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,8 +250,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -833083235
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2439118624535714497, guid: 35e086690f09c9f46aa162a5be5a4133,
     type: 3}
@@ -8753,7 +8753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965309945}
   - component: {fileID: 1965309944}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8796,8 +8796,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -833083235
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7059297670216363161, guid: 326dd6eeaa0ca144ca01194dbacf63fa,
     type: 3}
@@ -8895,7 +8895,7 @@ PrefabInstance:
     - target: {fileID: 2550335310348660565, guid: 3cd4ac9a55483574eb5afcc8472d3144,
         type: 3}
       propertyPath: viewIdField
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cd4ac9a55483574eb5afcc8472d3144, type: 3}
@@ -8906,11 +8906,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7489106446694889591, guid: 36ba25c2f1a504741b938536b93b2f78,
-        type: 3}
-      propertyPath: viewIdField
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7489106446694889613, guid: 36ba25c2f1a504741b938536b93b2f78,
         type: 3}
       propertyPath: m_Name
