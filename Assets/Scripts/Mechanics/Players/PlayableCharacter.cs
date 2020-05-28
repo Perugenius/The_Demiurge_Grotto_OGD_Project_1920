@@ -21,14 +21,9 @@ namespace Mechanics.Players
         protected float Speed;
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
+
+        protected Vector2 networkPosition;
         
-        Vector3 latestPos;
-        //Lag compensation
-        float currentTime = 0;
-        double currentPacketTime = 0;
-        double lastPacketTime = 0;
-        Vector3 positionAtLastPacket = Vector3.zero;
-        Quaternion rotationAtLastPacket = Quaternion.identity;
         
         // Start is called before the first frame update
         void Start()
@@ -59,36 +54,23 @@ namespace Mechanics.Players
                 
                 Animate();
             }
-            else if (!gameObject.GetPhotonView().IsMine)
-            {
-                //Lag compensation
-                double timeToReachGoal = currentPacketTime - lastPacketTime;
-                currentTime += Time.deltaTime;
-
-                //Update remote player
-                transform.position = Vector3.Lerp(positionAtLastPacket, latestPos, (float)(currentTime / timeToReachGoal));
-            }
         }
         
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.IsWriting)
             {
-                //We own this player: send the others our data
-                stream.SendNext(transform.position);
-                stream.SendNext(transform.rotation);
+                stream.SendNext(Rb.position);
+                stream.SendNext(Rb.rotation);
+                stream.SendNext(Rb.velocity);
             }
             else
             {
-                //Network player, receive data
-                latestPos = (Vector3)stream.ReceiveNext();
+                networkPosition = (Vector3) stream.ReceiveNext();
+                GetComponent<Rigidbody>().velocity = (Vector3) stream.ReceiveNext();
 
-                //Lag compensation
-                currentTime = 0.0f;
-                lastPacketTime = currentPacketTime;
-                currentPacketTime = info.SentServerTime;
-                positionAtLastPacket = transform.position;
-                rotationAtLastPacket = transform.rotation;
+                float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+                networkPosition += (Rb.velocity * lag);
             }
         }
 
@@ -132,6 +114,10 @@ namespace Mechanics.Players
                 HorizontalDeceleration();
             }
             CheckJumpPhase();
+            if (!gameObject.GetPhotonView().IsMine)
+            {
+                Rb.position = Vector3.MoveTowards(Rb.position, networkPosition, Time.fixedDeltaTime);
+            }
         }
 
         protected void CheckJumpPhase()
