@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 
 namespace Mechanics.Players
 {
-    public abstract class PlayableCharacter : Character
+    public abstract class PlayableCharacter : Character, IPunObservable
     {
 
         public bool localTesting;
@@ -50,6 +50,24 @@ namespace Mechanics.Players
                 }
                 
                 Animate();
+            }
+        }
+        
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                stream.SendNext(Rb.position);
+                stream.SendNext(Rb.rotation);
+                stream.SendNext(Rb.velocity);
+            }
+            else
+            {
+                Rb.position = (Vector3) stream.ReceiveNext();
+                Rb.velocity = (Vector3) stream.ReceiveNext();
+
+                float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+                Rb.position += Rb.velocity * lag;
             }
         }
 
