@@ -315,7 +315,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: IsDescending
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!114 &8545686654378778623
 MonoBehaviour:
