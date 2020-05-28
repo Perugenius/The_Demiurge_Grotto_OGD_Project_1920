@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-namespace Mechanics
+namespace Mechanics.Traps
 {
     public class PressurePlate : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Mechanics
+namespace Mechanics.Traps
 {
     public class Trampoline : MonoBehaviour
     {

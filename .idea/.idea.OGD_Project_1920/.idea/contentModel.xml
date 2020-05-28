@@ -6,13 +6,6 @@
     <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="CameraFocusOnPlayer.cs" t="Include" />
-        <e p="Chest.cs" t="Include" />
-        <e p="ChestPiece.cs" t="Include" />
-        <e p="Food.cs" t="Include" />
-        <e p="Gem.cs" t="Include" />
-        <e p="MovingPlatform1.cs" t="Include" />
-        <e p="MovingPlatform2.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -375,8 +368,16 @@
             <e p="PlayerEventsListener.cs" t="Include" />
           </e>
           <e p="Mechanics" t="Include">
+            <e p="Camera" t="Include">
+              <e p="CameraFocusOnPlayer.cs" t="Include" />
+              <e p="VerticalTransition.cs" t="Include" />
+            </e>
             <e p="Character.cs" t="Include" />
             <e p="CheckPoint.cs" t="Include" />
+            <e p="Collectibles" t="Include">
+              <e p="Food.cs" t="Include" />
+              <e p="Gem.cs" t="Include" />
+            </e>
             <e p="CollectibleSpawner.cs" t="Include" />
             <e p="Enemies" t="Include">
               <e p="BlueBird.cs" t="Include" />
@@ -393,11 +394,17 @@
               <e p="PlayableCharacter.cs" t="Include" />
               <e p="Voodoo.cs" t="Include" />
             </e>
-            <e p="PressurePlate.cs" t="Include" />
             <e p="RoomArea.cs" t="Include" />
             <e p="SpawnPoint.cs" t="Include" />
-            <e p="StoneFace.cs" t="Include" />
-            <e p="Trampoline.cs" t="Include" />
+            <e p="Traps" t="Include">
+              <e p="Chest.cs" t="Include" />
+              <e p="ChestPiece.cs" t="Include" />
+              <e p="MovingPlatform1.cs" t="Include" />
+              <e p="MovingPlatform2.cs" t="Include" />
+              <e p="PressurePlate.cs" t="Include" />
+              <e p="StoneFace.cs" t="Include" />
+              <e p="Trampoline.cs" t="Include" />
+            </e>
           </e>
           <e p="Model" t="Include">
             <e p="DungeonRoom.cs" t="Include" />
@@ -410,7 +417,6 @@
             <e p="Singleton.cs" t="Include" />
           </e>
         </e>
-        <e p="VerticalTransition.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="OGD_Project_1920.sln" t="IncludeFlat" />

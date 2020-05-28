@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mechanics.Camera;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.PlayerLoop;

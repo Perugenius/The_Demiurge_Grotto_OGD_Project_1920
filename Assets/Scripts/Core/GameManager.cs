@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Core;
+using Mechanics.Camera;
 using Photon.Pun;
 using UnityEngine;
 

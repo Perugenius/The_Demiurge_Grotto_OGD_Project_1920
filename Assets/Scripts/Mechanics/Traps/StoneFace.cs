@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Mechanics
+namespace Mechanics.Traps
 {
     public class StoneFace : Movable
     {

@@ -43,4 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a696ddf4e8241cb46824acda16324445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectiblesThatCanBeSpawned: []
+  collectiblesThatCanBeSpawned:
+  - {fileID: 2076205905327343688, guid: a55560fc8d843f14f823fab4d25d42c5, type: 3}
