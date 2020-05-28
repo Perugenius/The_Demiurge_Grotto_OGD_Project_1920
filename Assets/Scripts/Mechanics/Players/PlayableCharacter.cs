@@ -38,7 +38,7 @@ namespace Mechanics.Players
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 Speed = Input.GetAxisRaw("Horizontal");
-                if (Input.GetKeyDown(KeyCode.Space) )
+                if (Input.GetButtonDown("Jump"))
                 {
                     RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
                     if (raycast)
