@@ -6,6 +6,7 @@
     <e p="C:\Users\david\Desktop\University\Online Game Design\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="CameraArea.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
