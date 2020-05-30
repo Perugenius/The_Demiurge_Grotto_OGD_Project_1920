@@ -19,6 +19,8 @@ namespace Mechanics
         private Vector2 _fixedDirection;
         private Vector3 _fixedDirectionVector3;
         private float _fixedAcceleration;
+        private Vector3 _lastPosition = Vector3.zero;
+        private Vector3 _currentMovingDirection = Vector3.zero;
 
         protected Vector2 m_velocity;
 
@@ -26,6 +28,16 @@ namespace Mechanics
         {
             Tr = GetComponent<Transform>();
             Rb = GetComponent<Rigidbody2D>();
+        }
+
+        /// <summary>
+        /// It returns the current moving direction (normalized) of the object computed from the difference between its
+        /// two last positions.
+        /// </summary>
+        /// <returns>Moving direction</returns>
+        public Vector3 GetMovingDirection()
+        {
+            return _currentMovingDirection;
         }
 
         public void MoveDynamic(Vector2 direction, float maxSpeed)
@@ -104,6 +116,11 @@ namespace Mechanics
             Rb.AddForce(new Vector2(0,jumpHeight),ForceMode2D.Impulse);
         }
 
+        public void AddForce(Vector2 direction, float intensity)
+        {
+            Rb.AddForce(direction*intensity, ForceMode2D.Impulse);
+        }
+
         // Update is called once per frame
         protected virtual void FixedUpdate()
         {
@@ -130,6 +147,9 @@ namespace Mechanics
                 else _fixedSpeed = _fixedSpeed - Time.deltaTime * _fixedAcceleration;
                 if(_fixedDistance <= 0) MoveFixedDistanceAcceleratedDecelerated = false;
             }
+
+            _currentMovingDirection = (Tr.position - _lastPosition).normalized;
+            _lastPosition = Tr.position;
         }
     }
 }
