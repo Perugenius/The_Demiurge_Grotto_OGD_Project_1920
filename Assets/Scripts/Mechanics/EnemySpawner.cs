@@ -35,7 +35,7 @@ namespace Mechanics
             //...
 
             if (suitableEnemies.Count == 0) return;
-            string enemyName = suitableEnemies[Random.Range(0, suitableEnemies.Count-1)].name;
+            string enemyName = suitableEnemies[Random.Range(0, suitableEnemies.Count)].name;
             GameObject enemy = PhotonNetwork.Instantiate(Path.Combine("Enemies", enemyName), _tr.position, _tr.rotation);
             enemy.transform.parent = gameObject.transform;
             _enemySpawned = true;
