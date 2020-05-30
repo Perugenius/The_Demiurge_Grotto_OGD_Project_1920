@@ -13,6 +13,10 @@ namespace Mechanics
 
         protected bool IsJumping;
 
+        public void SetIsJumping(bool j)
+        {
+            IsJumping = j;
+        }
 
         public void TakeDamage(float damage)
         {

@@ -46,6 +46,18 @@ namespace Mechanics
             Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref m_velocity, 0.2f);
         }
 
+        public void MoveDynamic(Vector2 direction, float maxSpeed, float smoothTime)
+        {
+            Vector2 targetVelocity = new Vector2(maxSpeed * direction.x, Rb.velocity.y);
+            Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref m_velocity, smoothTime);
+        }
+
+        public void MoveDynamicUp(Vector2 direction, float maxSpeed, float smoothTime)
+        {
+            Vector2 targetVelocity = new Vector2(Rb.velocity.x, maxSpeed*direction.y);
+            Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref m_velocity, smoothTime);
+        }
+
         public void HorizontalDeceleration()
         {
             Rb.velocity = Vector2.SmoothDamp(Rb.velocity, new Vector2(0,Rb.velocity.y), ref m_velocity, 0.1f);

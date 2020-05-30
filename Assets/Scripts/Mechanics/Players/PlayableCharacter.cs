@@ -21,6 +21,7 @@ namespace Mechanics.Players
         protected float Speed;
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
+        protected Vector2 FaceDir;
         
         protected bool IsAnchored;
         protected PhotonView AnchoredPlayer;
@@ -59,7 +60,6 @@ namespace Mechanics.Players
                         raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
                         if (raycast)
                         {
-                            IsJumping = true;
                             Jump(62);
                             Animator.SetBool(IsJumpingAnim, true);
                         }
@@ -76,10 +76,12 @@ namespace Mechanics.Players
             {
                 if (Speed > 0)
                 {
+                    FaceDir = Vector2.right;
                     Animator.SetFloat(FaceDirection,1);
                 }
                 else
                 {
+                    FaceDir = Vector2.left;
                     Animator.SetFloat(FaceDirection,-1);
                 }
                 Animator.SetBool(IsMoving,true);
@@ -124,20 +126,21 @@ namespace Mechanics.Players
         {
             if (IsJumping)
             {
-                RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
-                if (raycast)
+                if (Rb.velocity.y > 0)
                 {
-                    IsJumping = false;
-                    Animator.SetBool(IsJumpingAnim,false);
+                    Animator.SetBool(IsJumpingAnim,true);
                     Animator.SetBool(IsDescending,false);
                 }
                 else
                 {
-                    if (Rb.velocity.y < 0)
-                    {
-                        Animator.SetBool(IsDescending, true);
-                    }
+                    Animator.SetBool(IsJumpingAnim,false);
+                    Animator.SetBool(IsDescending,true);
                 }
+            }
+            else
+            {
+                Animator.SetBool(IsJumpingAnim,false);
+                Animator.SetBool(IsDescending,false);
             }
         }
 
@@ -164,7 +167,6 @@ namespace Mechanics.Players
                 }
             }
         }
-
 
         [PunRPC]
         public void MoveWithFriend(Vector2 direction, float speed)
