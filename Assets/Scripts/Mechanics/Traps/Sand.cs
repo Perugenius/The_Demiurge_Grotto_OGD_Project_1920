@@ -40,7 +40,7 @@ namespace Mechanics.Traps
                 player.AddForce(resistanceForceDirection, resistanceForceIntensity);
             }
 
-            if (_count >= Mathf.Floor(60f / particleFrequency))
+            if (_count >= Mathf.Floor(60f / particleFrequency) && player!=null)
             {
                 _count = 0;
                 CreateParticle(player.gameObject.transform.position-new Vector3(0,0.5f,0));
@@ -63,14 +63,14 @@ namespace Mechanics.Traps
         private void OnTriggerEnter2D(Collider2D other)
         {
             GameObject player = other.gameObject;
-            if (player != null)
+            if (player != null && player.GetComponent<Rigidbody2D>()!=null)
                 player.GetComponent<Rigidbody2D>().gravityScale = player.GetComponent<Rigidbody2D>().gravityScale / gravityReduceFactor;
         }
         
         private void OnTriggerExit2D(Collider2D other)
         {
             GameObject player = other.gameObject;
-            if (player != null)
+            if (player != null && player.GetComponent<Rigidbody2D>()!=null)
                 player.GetComponent<Rigidbody2D>().gravityScale = player.GetComponent<Rigidbody2D>().gravityScale * gravityReduceFactor;
         }
     }

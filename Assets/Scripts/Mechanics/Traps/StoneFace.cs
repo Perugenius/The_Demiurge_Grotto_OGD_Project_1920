@@ -16,6 +16,7 @@ namespace Mechanics.Traps
         private bool _callDuringTransition = false;
         private int _numOfPlayersOnPressurePlate = 0;
         private static readonly int IsDying = Animator.StringToHash("isDying");
+        [SerializeField] private bool disableForTesting = false;
 
         // Start is called before the first frame update
         void Start()
@@ -26,6 +27,7 @@ namespace Mechanics.Traps
 
         public void SwitchState(bool enabling)
         {
+            if(disableForTesting) gameObject.SetActive(false);
             if (enabling) _numOfPlayersOnPressurePlate++;
             else if(_numOfPlayersOnPressurePlate>0) _numOfPlayersOnPressurePlate--;
             

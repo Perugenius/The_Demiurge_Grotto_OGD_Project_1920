@@ -6032,7 +6032,7 @@ MonoBehaviour:
   height: 30
   dungeonType: 1
   minDifficulty: 0
-  requiredSkills: 00000000
+  requiredSkills: 
   isFirstRoom: 0
   isLastRoom: 0
 --- !u!1 &9071842491666246964
