@@ -15,6 +15,7 @@ namespace Mechanics.Traps
         private bool _isWaiting = false;
         private bool _callDuringTransition = false;
         private int _numOfPlayersOnPressurePlate = 0;
+        private static readonly int IsDying = Animator.StringToHash("isDying");
 
         // Start is called before the first frame update
         void Start()
@@ -27,6 +28,8 @@ namespace Mechanics.Traps
         {
             if (enabling) _numOfPlayersOnPressurePlate++;
             else if(_numOfPlayersOnPressurePlate>0) _numOfPlayersOnPressurePlate--;
+            
+            if(_numOfPlayersOnPressurePlate>1) return;
             
             if (MoveFixedDistanceAccelerated /*|| _callDuringTransition*/)
             {
@@ -46,6 +49,7 @@ namespace Mechanics.Traps
                 }
             } else
             {
+                if(_numOfPlayersOnPressurePlate>0) return;
                 SetFixedDistanceAccelerated(Vector2.down, initSpeed, _distance, _acceleration);
                 _isDown = true;
                 _animator.SetBool(IsDown,true);
@@ -95,6 +99,23 @@ namespace Mechanics.Traps
             if(_isDown != isDown && _numOfPlayersOnPressurePlate == 0) ReturnToDefaultState();
 
             _isWaiting = false;
+        }
+
+        public void Die()
+        {
+            _animator.SetBool(IsDying,true);
+            gameObject.layer = LayerMask.NameToLayer("Particle");
+            Rb.constraints = RigidbodyConstraints2D.None;
+            GetComponent<Rigidbody2D>().gravityScale = 10;
+            AddForce(new Vector2(Random.Range(-0.5f,0.5f),1f), 50f);
+            Rb.MoveRotation(Random.Range(0,180));
+            StartCoroutine(WaitBeforeDestroy());
+        }
+
+        private IEnumerator WaitBeforeDestroy()
+        {
+            yield return new WaitForSeconds(1.2f);
+            Destroy(gameObject);
         }
     }
 }

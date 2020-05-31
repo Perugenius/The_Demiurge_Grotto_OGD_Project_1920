@@ -12,6 +12,7 @@ namespace Mechanics.Traps
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if(stoneFace == null) return;
             _playersInside++;
             if(_playersInside > 1) return;
             activeBody.SetActive(true);
@@ -21,6 +22,7 @@ namespace Mechanics.Traps
     
         private void OnTriggerExit2D(Collider2D other)
         {
+            if(stoneFace == null) return;
             if(_playersInside > 0) _playersInside--;
             if(_playersInside > 0) return;
             activeBody.SetActive(false);

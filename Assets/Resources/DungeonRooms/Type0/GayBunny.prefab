@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5417703463428792184}
   - component: {fileID: 5508934447488195584}
   - component: {fileID: 1422190621814078633}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GayBunny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
