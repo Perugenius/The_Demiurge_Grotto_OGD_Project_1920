@@ -378,6 +378,7 @@
             <e p="Collectibles" t="Include">
               <e p="Food.cs" t="Include" />
               <e p="Gem.cs" t="Include" />
+              <e p="Letter.cs" t="Include" />
             </e>
             <e p="CollectibleSpawner.cs" t="Include" />
             <e p="Enemies" t="Include">
