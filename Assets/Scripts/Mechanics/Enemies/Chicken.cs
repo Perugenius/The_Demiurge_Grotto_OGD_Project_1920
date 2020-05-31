@@ -35,7 +35,7 @@ namespace Mechanics.Enemies
             if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1.1f, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
             MoveDynamic(_direction, speed);
-            if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, -1.1f, 0), LayerMask.GetMask("Obstacle"))
+            if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 1.5f, -1.1f, 0), LayerMask.GetMask("Obstacle"))
                 || Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, 0, 0), LayerMask.GetMask("Obstacle")))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
@@ -48,15 +48,17 @@ namespace Mechanics.Enemies
                     speed = tempSpeed;
                     tempSpeed = t;
                     _animator.SetBool("Run",false);
+                    run = false;
                 }
             }
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, 100, LayerMask.GetMask("PlayerPhysic"));
-            if (hit.collider && !run)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, 100, LayerMask.GetMask("PlayerPhysic","Obstacle"));
+            if (hit.collider && !run && hit.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
             {
                 var t = speed;
                 speed = tempSpeed;
                 tempSpeed = t;
                 _animator.SetBool("Run",true);
+                run = true;
             }
         }
     }
