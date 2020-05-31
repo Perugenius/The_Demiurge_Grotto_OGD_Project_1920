@@ -387,6 +387,7 @@
               <e p="Duck.cs" t="Include" />
               <e p="Mushroom.cs" t="Include" />
               <e p="Plant.cs" t="Include" />
+              <e p="PlantBullet.cs" t="Include" />
             </e>
             <e p="EnemyController.cs" t="Include" />
             <e p="EnemySpawner.cs" t="Include" />
