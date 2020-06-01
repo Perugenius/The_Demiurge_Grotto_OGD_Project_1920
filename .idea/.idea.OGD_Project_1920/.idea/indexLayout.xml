@@ -18,7 +18,6 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
-      <Path>Temp</Path>
       <Path>Template - 2D Game</Path>
       <Path>obj</Path>
     </explicitExcludes>
