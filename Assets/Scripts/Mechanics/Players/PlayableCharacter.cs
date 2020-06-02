@@ -29,7 +29,7 @@ namespace Mechanics.Players
         
         
         // Start is called before the first frame update
-        void Start()
+        protected virtual void Start()
         {
             CurrentSpeed = statistics.movSpeed;
             CurrentHealth = statistics.maxHealth;
@@ -44,26 +44,10 @@ namespace Mechanics.Players
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 Speed = Input.GetAxisRaw("Horizontal");
-                if (Input.GetButtonDown("Jump"))
+                if (Input.GetButtonDown("Jump") && !IsJumping)
                 {
-                    RaycastHit2D raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
-                    RaycastHit2D playerRaycastHit2D = Physics2D.Raycast(new Vector2(Tr.position.x,Tr.position.y-1.1f), Vector2.down, 0.5f,LayerMask.GetMask("PlayerPhysic"));
-                    if (raycast)
-                    {
-                        IsJumping = true;
-                        Jump(62);
-                        Animator.SetBool(IsJumpingAnim, true);
-                    }
-                    else if (playerRaycastHit2D)
-                    {
-                        Transform otherplayer = playerRaycastHit2D.transform;
-                        raycast = Physics2D.Raycast(Tr.position,Vector2.down, 1.1f,LayerMask.GetMask("Obstacle"));
-                        if (raycast)
-                        {
-                            Jump(62);
-                            Animator.SetBool(IsJumpingAnim, true);
-                        }
-                    }
+                    Jump(62);
+                    Animator.SetBool(IsJumpingAnim, true);
                 }
                 
                 Animate();
@@ -97,7 +81,7 @@ namespace Mechanics.Players
         {
             base.FixedUpdate();
             Vector2 direction;
-            if (Speed > 0)
+            if (Speed !=0)
             {
                 direction = Vector2.right;
                 MoveDynamic(direction,CurrentSpeed*Speed);
@@ -105,7 +89,7 @@ namespace Mechanics.Players
                 {
                     AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);
                 }
-            }
+            }/*
             else if (Speed < 0)
             {
                 direction = Vector2.left;
@@ -114,7 +98,7 @@ namespace Mechanics.Players
                 {
                     AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed*-1);
                 }
-            }
+            }*/
             else
             {
                 HorizontalDeceleration();

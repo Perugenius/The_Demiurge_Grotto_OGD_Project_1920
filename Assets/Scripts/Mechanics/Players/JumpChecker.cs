@@ -20,6 +20,11 @@ namespace Mechanics.Players
             _script.SetIsJumping(false);
         }
 
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (_script.GetIsJumping()) _script.SetIsJumping(false);
+        }
+
         private void OnTriggerExit2D(Collider2D other)
         {
             _script.SetIsJumping(true);

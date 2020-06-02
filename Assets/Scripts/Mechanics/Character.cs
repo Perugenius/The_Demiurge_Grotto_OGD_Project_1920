@@ -18,6 +18,11 @@ namespace Mechanics
             IsJumping = j;
         }
 
+        public bool GetIsJumping()
+        {
+            return IsJumping;
+        }
+
         public void TakeDamage(float damage)
         {
             CurrentHealth -= damage;

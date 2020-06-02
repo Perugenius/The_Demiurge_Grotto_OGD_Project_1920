@@ -8,27 +8,40 @@ namespace Mechanics.Players
 
         private bool _isDashing = false;
         private Vector2 _dashDirection;
-        
+
+        private GameObject _damageCollider;
+        private GameObject _playerHitbox;
+
+        protected override void Start()
+        {
+            _damageCollider = transform.Find("DamageCollider").gameObject;
+            _playerHitbox = transform.Find("PlayerHitbox").gameObject;
+            _damageCollider.SetActive(false);
+        }
         
         // Update is called once per frame
         protected override void Update()
         {
             base.Update();
             IEnumerator coroutine;
-            if (Input.GetAxis("Vertical") >0)
+            if (Input.GetAxis("Vertical") >0 && !_isDashing)
             {
                 _dashDirection = Vector2.up;
-                coroutine = DashTimer(0.03f);
+                coroutine = DashTimer(0.04f);
+            }
+            else if(!_isDashing)
+            {
+                _dashDirection = FaceDir;
+                coroutine = DashTimer(0.25f);
             }
             else
             {
-                _dashDirection = FaceDir;
-                coroutine = DashTimer(0.3f);
+                coroutine = null;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing)
+            if (Input.GetButtonDown("Attack") && !_isDashing)
             {
+                Attack();
                 _isDashing = true;
-                
                 StartCoroutine(coroutine);
             }
         }
@@ -45,7 +58,8 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
-            throw new System.NotImplementedException();
+            _damageCollider.SetActive(true);
+            _playerHitbox.SetActive(false);
         }
 
         private void Dash()
@@ -69,6 +83,8 @@ namespace Mechanics.Players
         private IEnumerator DashTimer(float toWait)
         {
             yield return new WaitForSeconds(toWait);
+            _damageCollider.SetActive(false);
+            _playerHitbox.SetActive(true);
             _isDashing = false;
             Rb.velocity = new Vector2(Rb.velocity.x,0);
         }
