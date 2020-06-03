@@ -14,6 +14,7 @@ namespace Mechanics.Enemies
         [SerializeField] private GameObject bullet;
         private bool _bulletReady;
         private bool _waiting;
+        [SerializeField] private bool testing;
         
         // Start is called before the first frame update
         void Start()
@@ -81,8 +82,8 @@ namespace Mechanics.Enemies
 
                 if (_bulletReady)
                 {
-                    Instantiate(bullet, firePoint.position, _tr.rotation);
-                    //PhotonNetwork.Instantiate("PlantBullet", firePoint.position, _tr.rotation);
+                    if(testing) Instantiate(bullet, firePoint.position, _tr.rotation);
+                    else PhotonNetwork.Instantiate("PlantBullet", firePoint.position, _tr.rotation);
                     _bulletReady = false;
                     StartCoroutine (nameof(Cooldown));
                 }

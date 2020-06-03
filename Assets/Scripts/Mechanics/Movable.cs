@@ -6,7 +6,6 @@ namespace Mechanics
 {
     public class Movable : MonoBehaviour
     {
-        public float Thrust;
         protected Transform Tr;
         protected Rigidbody2D Rb;
         protected Vector2 TargetPosition;
@@ -162,6 +161,11 @@ namespace Mechanics
 
             _currentMovingDirection = (Tr.position - _lastPosition).normalized;
             _lastPosition = Tr.position;
+        }
+
+        public void JumpLateral(float jumpHeight, Vector2 direction)
+        {
+            Rb.AddForce(new Vector2(direction.x, jumpHeight),ForceMode2D.Impulse);
         }
     }
 }
