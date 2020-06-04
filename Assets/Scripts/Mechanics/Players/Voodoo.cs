@@ -14,6 +14,7 @@ namespace Mechanics.Players
 
         protected override void Start()
         {
+            base.Start();
             _damageCollider = transform.Find("DamageCollider").gameObject;
             _playerHitbox = transform.Find("PlayerHitbox").gameObject;
             _damageCollider.SetActive(false);
