@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac8e4486db4e1fd408a674800fedc74f, type: 3}
-  m_Name: New Character Statistics
+  m_Name: Kinja
   m_EditorClassIdentifier: 
-  name: 
-  maxHealth: 0
-  movSpeed: 0
-  fightSpeed: 0
+  name: Kinja
+  maxHealth: 5
+  movSpeed: 15
+  fightSpeed: 2
   rangeOfView: 0
-  jumpHeight: 0
-  attack: 0
-  level: 0
-  maxJumps: 0
+  jumpHeight: 3
+  attack: 2
+  level: 1
+  maxJumps: 2

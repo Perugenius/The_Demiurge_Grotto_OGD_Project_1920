@@ -20,3 +20,4 @@ MonoBehaviour:
   jumpHeight: 3
   attack: 2
   level: 1
+  maxJumps: 1
