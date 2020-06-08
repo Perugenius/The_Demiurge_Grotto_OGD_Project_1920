@@ -22,7 +22,8 @@ namespace Mechanics.Players
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
         protected Vector2 FaceDir;
-        
+        protected int CollectedGems;
+
         protected bool IsAnchored;
         protected PhotonView AnchoredPlayer;
 
@@ -150,6 +151,11 @@ namespace Mechanics.Players
                     AnchoredPlayer = null;
                 }
             }
+        }
+
+        public void CollectGems(int gems)
+        {
+            CollectedGems += gems;
         }
 
         [PunRPC]

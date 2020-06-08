@@ -397,6 +397,7 @@
             <e p="PlayerController.cs" t="Include" />
             <e p="Players" t="Include">
               <e p="JumpChecker.cs" t="Include" />
+              <e p="Kinja.cs" t="Include" />
               <e p="PlayableCharacter.cs" t="Include" />
               <e p="PlayerDamageCollider.cs" t="Include" />
               <e p="PlayerHitBox.cs" t="Include" />

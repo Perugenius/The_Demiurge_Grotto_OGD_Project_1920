@@ -14,6 +14,7 @@ namespace Scriptable_Objects
         public float jumpHeight;
         public float attack;
         public int level;
-        
+        public int maxJumps;
+
     }
 }

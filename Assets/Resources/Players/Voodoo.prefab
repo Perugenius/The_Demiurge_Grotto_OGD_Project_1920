@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b473a0b147d484ba3daac065e5a2ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Thrust: 0
   statistics: {fileID: 11400000, guid: 3bc0e1139e9a2814e9a6f3c811002884, type: 2}
   localTesting: 0
 --- !u!61 &201550407633552256
