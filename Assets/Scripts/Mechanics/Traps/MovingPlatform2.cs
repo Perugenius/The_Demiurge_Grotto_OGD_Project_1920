@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 
@@ -32,6 +33,16 @@ namespace Mechanics.Traps
             if (MoveFixedDistance) return;
             if (_isStartPosition) MoveToDestination(_destination,_isStartPosition);
             else MoveToDestination(_startingPoint,_isStartPosition);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if(other.gameObject.CompareTag("Player")) other.gameObject.transform.SetParent(_tr);
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if(other.gameObject.CompareTag("Player")) other.gameObject.transform.SetParent(null);
         }
 
         private void MoveToDestination(Vector3 targetPosition, bool isStartPosition)
