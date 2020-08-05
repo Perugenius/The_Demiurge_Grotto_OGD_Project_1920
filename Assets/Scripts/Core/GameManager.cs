@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core;
 using Mechanics.Camera;
+using Model;
 using Photon.Pun;
 using UnityEngine;
 
@@ -25,7 +26,14 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(1,0,15,2);
+        //TODO for testing reasons all skills are passed to dungeon builder
+        List<DungeonRoom.PlatformingSkills> playersSkills = new List<DungeonRoom.PlatformingSkills>();
+        playersSkills.Add(DungeonRoom.PlatformingSkills.Headstrong);
+        playersSkills.Add(DungeonRoom.PlatformingSkills.DoubleJump);
+        playersSkills.Add(DungeonRoom.PlatformingSkills.Intangibility);
+        playersSkills.Add(DungeonRoom.PlatformingSkills.WallJump);
+        
+        if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(1,playersSkills,15,2);
         OnJoinScene();
     }
 

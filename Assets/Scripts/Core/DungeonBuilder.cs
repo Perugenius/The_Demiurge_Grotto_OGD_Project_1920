@@ -48,6 +48,7 @@ namespace Core
         private List<FrontierPointData> _frontier;
         private List<int> _randomIndexesList;
         private bool _leafRoomNeeded = false;
+        private int _currentDifficulty = 0;
 
         /// <summary>
         /// This function builds a procedural dungeon by instantiating random rooms in the scene. Dungeons are created
@@ -57,18 +58,18 @@ namespace Core
         /// room is increased. The build dungeon is loop free.
         /// </summary>
         /// <param name="type"> dungeon type <see cref="Model.DungeonRoom"/> </param>
-        /// <param name="difficulty"> dungeon level of difficulty </param>
+        /// <param name="requiredSkills"> skills required inside the dungeon </param>
         /// <param name="numOfRooms"> number of desired room to build a dungeon </param>
         /// <param name="maxNumOfUsages"> max number of time that a single prefab room can appear in the dungeon
         ///                               (flexible constraint) </param> 
-        public void BuildDungeon(int type, int difficulty, int numOfRooms, int maxNumOfUsages) {
+        public void BuildDungeon(int type, List<DungeonRoom.PlatformingSkills> requiredSkills, int numOfRooms, int maxNumOfUsages) {
             _roomsPositions = new List<Vector3>();
             _frontier = new List<FrontierPointData>();
             _numOfRooms = numOfRooms;
             _maxNumOfUsages = maxNumOfUsages;
             
             //Init all needed lists of rooms
-            InitLists(type);
+            InitLists(type, requiredSkills);
 
             //Initialization: instantiation of first room 
             GameObject firstRoom = SelectFirstRoom();
@@ -81,13 +82,16 @@ namespace Core
             for (int i = 0; i < numOfRooms - 2; i++)
             {
                 GameObject room = SelectRoom(_frontier[0].EntranceSide);
-                PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
+                GameObject instantiatedRoom = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
                 _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
                 _roomsPositions.Add(_frontier[0].Position);
                 _currentNumberOfRooms++;
                 UpdateFrontier(room, _frontier[0].Position, _frontier[0].EntranceSide);
                 _frontier.RemoveAt(0);
-                /*Debug.Log("Frontier top: " +_frontier[0].Position.ToString());
+                _currentDifficulty = Mathf.RoundToInt((i+2f) / numOfRooms * 5f);
+                instantiatedRoom.GetComponent<DungeonRoom>().SetDifficulty(_currentDifficulty);
+                /*Debug.Log("current room difficulty: " + _currentDifficulty);
+                Debug.Log("Frontier top: " +_frontier[0].Position.ToString());
                 Debug.Log("Frontier length = " + _frontier.Count);*/
             }
 
@@ -95,7 +99,7 @@ namespace Core
             PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
         }
 
-        private void InitLists(int type)
+        private void InitLists(int type, List<DungeonRoom.PlatformingSkills> skills)
         {
             //Initialization of room scripts list
             _roomsList = Resources.LoadAll(Path.Combine("DungeonRooms","Type" + type), typeof(GameObject));
@@ -103,11 +107,22 @@ namespace Core
             _roomsSpecificTypeList = new List<GameObject>();
             foreach (var room in _roomsList)
             {
-                GameObject roomGameObject = (GameObject) room; 
-                _roomsSpecificTypeList.Add(roomGameObject);
+                GameObject roomGameObject = (GameObject) room;
                 DungeonRoom roomScript = roomGameObject.GetComponent<DungeonRoom>();
-                roomScript.ResetNumOfUsages();
-                _roomsScriptsList.Add(roomScript);
+                bool skipRoom = false;
+
+                //Rooms are filtered on the basis of the required skills (rooms that require skills not contained in parameter
+                //"requiredSkills" are not considered)
+                foreach (var reqSkill in roomScript.requiredSkills)
+                {
+                    if (!skills.Contains(reqSkill)) skipRoom = true;
+                }
+                if (!skipRoom)
+                {
+                    _roomsSpecificTypeList.Add(roomGameObject);
+                    roomScript.ResetNumOfUsages();
+                    _roomsScriptsList.Add(roomScript);
+                }
             }
             
             //Find all leaf rooms (rooms that doesn't increase the frontier)

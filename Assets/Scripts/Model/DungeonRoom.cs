@@ -5,7 +5,9 @@
 using System;
 using System.Collections.Generic;
 using Core;
+using Mechanics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Model
 {
@@ -91,7 +93,7 @@ namespace Model
         /// <summary>
         /// Room level of difficulty
         /// </summary>
-        private int difficulty = 0;
+        public int _difficulty = 0;
 
         /// <summary>
         /// Getter for the total number of exits and entrance/exits of a room given an entrance side. If the room has
@@ -193,14 +195,41 @@ namespace Model
             return _numberOfUsages;
         }
 
+        /// <summary>
+        /// Function used to set difficulty of a room.
+        /// It also disables enemiesSpawner according to specified difficulty.
+        /// Difficulty 1 -> 20% of enemies
+        /// Difficulty 2 -> 40% of enemies
+        /// Difficulty 3 -> 60% of enemies
+        /// Difficulty 4 -> 80% of enemies
+        /// Difficulty 5 -> 100% of enemies 
+        /// </summary>
+        /// <param name="difficultyLevel">room level of challenge</param>
         public void SetDifficulty(int difficultyLevel)
         {
-            this.difficulty = difficultyLevel;
+            _difficulty = (difficultyLevel <= 5) ? (difficultyLevel>=0 ? difficultyLevel : 0) : 5;
+            //Debug.Log(gameObject.name + " " + difficultyLevel);
+            
+            //enable/disable enemies according to difficulty
+            GameObject roomArea = gameObject.transform.Find("RoomArea").gameObject;
+            List<GameObject> enemies = new List<GameObject>();
+            foreach (Transform child in roomArea.transform)
+            {
+                if(child.gameObject.GetComponent<EnemySpawner>()!=null) enemies.Add(child.gameObject);
+            }
+            
+            int totEnemies = enemies.Count;
+            for (int i = 0; i < Mathf.RoundToInt(totEnemies - _difficulty/5f*totEnemies); i++)
+            {
+                GameObject enemy = enemies[Random.Range(0, enemies.Count-1)];
+                enemies.Remove(enemy);
+                Destroy(enemy);
+            }
         }
         
         public int GetDifficulty()
         {
-            return difficulty;
+            return _difficulty;
         }
     }
 }

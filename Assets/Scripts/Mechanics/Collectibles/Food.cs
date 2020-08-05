@@ -24,7 +24,9 @@ namespace Mechanics.Collectibles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.GetPhotonView().IsMine) return;
+            PhotonView photonView = other.gameObject.GetPhotonView();
+            photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
+            if (!photonView.IsMine) return;
             //TODO call player
             _animator.SetBool(IsCollected, true);
             StartCoroutine(WaitBeforeDestroy());
