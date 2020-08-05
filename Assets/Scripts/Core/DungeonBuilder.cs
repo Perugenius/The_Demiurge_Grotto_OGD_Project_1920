@@ -36,7 +36,7 @@ namespace Core
         /// <summary>
         /// List of all existing rooms to build a dungeon
         /// </summary>
-        public List<GameObject> roomsList;
+        private Object[] _roomsList;
 
         private List<GameObject> _roomsSpecificTypeList;
         private List<DungeonRoom> _roomsScriptsList;
@@ -98,17 +98,16 @@ namespace Core
         private void InitLists(int type)
         {
             //Initialization of room scripts list
+            _roomsList = Resources.LoadAll(Path.Combine("DungeonRooms","Type" + type), typeof(GameObject));
             _roomsScriptsList = new List<DungeonRoom>();
             _roomsSpecificTypeList = new List<GameObject>();
-            foreach (var room in roomsList)
+            foreach (var room in _roomsList)
             {
-                DungeonRoom roomScript = room.GetComponent<DungeonRoom>();
+                GameObject roomGameObject = (GameObject) room; 
+                _roomsSpecificTypeList.Add(roomGameObject);
+                DungeonRoom roomScript = roomGameObject.GetComponent<DungeonRoom>();
                 roomScript.ResetNumOfUsages();
-                if (roomScript.dungeonType == type)
-                {
-                    _roomsSpecificTypeList.Add(room);
-                    _roomsScriptsList.Add(roomScript);
-                }
+                _roomsScriptsList.Add(roomScript);
             }
             
             //Find all leaf rooms (rooms that doesn't increase the frontier)

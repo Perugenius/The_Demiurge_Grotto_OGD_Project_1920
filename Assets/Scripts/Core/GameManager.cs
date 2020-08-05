@@ -25,13 +25,13 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        //if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(0,0,20,2);
+        if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(1,0,15,2);
         OnJoinScene();
     }
 
     public void OnJoinScene()
     {
-        GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players","Voodoo"), new Vector3(-15f, 5f, 0f), Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players","Voodoo"), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
         GameObject myCamera = Instantiate(camera, new Vector3(0f, 0f, -10f), Quaternion.identity);
         myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
     }
