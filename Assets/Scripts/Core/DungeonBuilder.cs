@@ -27,6 +27,24 @@ namespace Core
             EntranceSide = entranceSide;
         }
     }
+
+    public class RoomNode
+    {
+        public RoomNode Parent;
+        public GameObject RoomInstance;
+        public GameObject PrefabRoom;
+        public List<string> Blacklist;
+        public List<FrontierPointData> RoomFrontier;
+
+        public RoomNode(RoomNode parent, GameObject roomInstance, GameObject prefabRoom)
+        {
+            Parent = parent;
+            RoomInstance = roomInstance;
+            PrefabRoom = prefabRoom;
+            Blacklist = new List<string>();
+            RoomFrontier = new List<FrontierPointData>();
+        }
+    }
     
     /// <summary>
     /// Class whose task is to build procedural dungeons
@@ -73,26 +91,39 @@ namespace Core
 
             //Initialization: instantiation of first room 
             GameObject firstRoom = SelectFirstRoom();
-            PhotonNetwork.Instantiate(GetGameObjectPath(firstRoom, type), Vector3.zero, Quaternion.identity);
+            GameObject firstRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(firstRoom, type), Vector3.zero, Quaternion.identity);
+            RoomNode root = new RoomNode(null,firstRoomInstance, firstRoom);
             _roomsScriptsList[_roomsSpecificTypeList.IndexOf(firstRoom)].AddUsage();
             _roomsPositions.Add(Vector3.zero);
             _currentNumberOfRooms++;
-            UpdateFrontier(firstRoom, Vector3.zero, RoomSides.None);
+            UpdateFrontier(firstRoom, Vector3.zero, RoomSides.None, root);
+
+            RoomNode parent = root;
             
             for (int i = 0; i < numOfRooms - 2; i++)
             {
-                GameObject room = SelectRoom(_frontier[0].EntranceSide);
-                _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
-                GameObject instantiatedRoom = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
-                _roomsPositions.Add(_frontier[0].Position);
-                _currentNumberOfRooms++;
-                UpdateFrontier(room, _frontier[0].Position, _frontier[0].EntranceSide);
-                _frontier.RemoveAt(0);
-                _currentDifficulty = Mathf.RoundToInt((i+2f) / numOfRooms * 5f);
-                instantiatedRoom.GetComponent<DungeonRoom>().SetDifficulty(_currentDifficulty);
-                /*Debug.Log("current room difficulty: " + _currentDifficulty);
-                Debug.Log("Frontier top: " +_frontier[0].Position.ToString());
-                Debug.Log("Frontier length = " + _frontier.Count);*/
+                GameObject room = SelectRoom(_frontier[0].EntranceSide, parent);
+
+                if (room != null)
+                {
+                    _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
+                    GameObject roomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
+                    RoomNode child = new RoomNode(parent,roomInstance, room);
+                    parent = child;
+                    _roomsPositions.Add(_frontier[0].Position);
+                    _currentNumberOfRooms++;
+                    UpdateFrontier(room, _frontier[0].Position, _frontier[0].EntranceSide,child);
+                    _frontier.RemoveAt(0);
+                    _currentDifficulty = Mathf.RoundToInt((i+2f) / numOfRooms * 5f);
+                    roomInstance.GetComponent<DungeonRoom>().SetDifficulty(_currentDifficulty);
+                    /*Debug.Log("current room difficulty: " + _currentDifficulty);
+                    Debug.Log("Frontier top: " +_frontier[0].Position.ToString());
+                    Debug.Log("Frontier length = " + _frontier.Count);*/
+                }
+                else //Last room placed removed for tree backtracking
+                {
+                    i--;
+                }
             }
 
             GameObject lastRoom = SelectLastRoom(_frontier[0].EntranceSide);
@@ -174,25 +205,48 @@ namespace Core
         }*/
         //--------------------------------------------------------------
 
-        private void UpdateFrontier(GameObject room, Vector3 position, RoomSides entranceSide)
+        private void UpdateFrontier(GameObject room, Vector3 position, RoomSides entranceSide, RoomNode node)
         {
             DungeonRoom dungeonRoom = _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)];
-            
-            if(dungeonRoom.rightAccess == DungeonRoom.AccessType.Exit || 
-               dungeonRoom.rightAccess == DungeonRoom.AccessType.EntranceExit && entranceSide!=RoomSides.Right) 
-                _frontier.Add(new FrontierPointData(position + new Vector3(dungeonRoom.width,0f,0f), RoomSides.Left));
-            if(dungeonRoom.leftAccess == DungeonRoom.AccessType.Exit || 
-               dungeonRoom.leftAccess == DungeonRoom.AccessType.EntranceExit  && entranceSide!=RoomSides.Left) 
-                _frontier.Add(new FrontierPointData(position - new Vector3(dungeonRoom.width,0f,0f),RoomSides.Right));
-            if(dungeonRoom.topAccess == DungeonRoom.AccessType.Exit || 
-               dungeonRoom.topAccess == DungeonRoom.AccessType.EntranceExit  && entranceSide!=RoomSides.Top) 
-                _frontier.Add(new FrontierPointData(position + new Vector3(0f,dungeonRoom.height,0f),RoomSides.Down));
-            if(dungeonRoom.downAccess == DungeonRoom.AccessType.Exit ||
-               dungeonRoom.downAccess == DungeonRoom.AccessType.EntranceExit  && entranceSide!=RoomSides.Down) 
-                _frontier.Add(new FrontierPointData(position - new Vector3(0f,dungeonRoom.height,0f),RoomSides.Top));
+
+            if (dungeonRoom.rightAccess == DungeonRoom.AccessType.Exit ||
+                dungeonRoom.rightAccess == DungeonRoom.AccessType.EntranceExit && entranceSide != RoomSides.Right)
+            {
+                FrontierPointData roomFrontierPoint = 
+                    new FrontierPointData(position + new Vector3(dungeonRoom.width, 0f, 0f), RoomSides.Left);
+                _frontier.Add(roomFrontierPoint);
+                node.RoomFrontier.Add(roomFrontierPoint);
+            }
+
+            if (dungeonRoom.leftAccess == DungeonRoom.AccessType.Exit ||
+                dungeonRoom.leftAccess == DungeonRoom.AccessType.EntranceExit && entranceSide != RoomSides.Left)
+            {
+                FrontierPointData roomFrontierPoint =
+                    new FrontierPointData(position - new Vector3(dungeonRoom.width, 0f, 0f), RoomSides.Right);
+                _frontier.Add(roomFrontierPoint);
+                node.RoomFrontier.Add(roomFrontierPoint);
+            }
+
+            if (dungeonRoom.topAccess == DungeonRoom.AccessType.Exit ||
+                dungeonRoom.topAccess == DungeonRoom.AccessType.EntranceExit && entranceSide != RoomSides.Top)
+            {
+                FrontierPointData roomFrontierPoint =
+                    new FrontierPointData(position + new Vector3(0f, dungeonRoom.height, 0f), RoomSides.Down);
+                _frontier.Add(roomFrontierPoint);
+                node.RoomFrontier.Add(roomFrontierPoint);
+            }
+
+            if (dungeonRoom.downAccess == DungeonRoom.AccessType.Exit ||
+                dungeonRoom.downAccess == DungeonRoom.AccessType.EntranceExit && entranceSide != RoomSides.Down)
+            {
+                FrontierPointData roomFrontierPoint =
+                    new FrontierPointData(position - new Vector3(0f, dungeonRoom.height, 0f), RoomSides.Top);
+                _frontier.Add(roomFrontierPoint);
+                node.RoomFrontier.Add(roomFrontierPoint);
+            }
         }
 
-        private GameObject SelectRoom(RoomSides entranceSide)
+        private GameObject SelectRoom(RoomSides entranceSide, RoomNode parent)
         {
             //all remaining rooms to build must be leaf rooms
             if(!_leafRoomNeeded) _leafRoomNeeded = _frontier.Count >= (_numOfRooms - _currentNumberOfRooms);
@@ -201,14 +255,13 @@ namespace Core
 
             var rooms = (_leafRoomNeeded)?_leafRooms:_roomsScriptsList;
 
-            List<GameObject> suitableRooms = FindSuitableRooms(entranceSide, rooms);
-            return suitableRooms[Random.Range(0, suitableRooms.Count)];
-            
+            List<GameObject> suitableRooms = FindSuitableRooms(entranceSide, rooms, parent);
+            return suitableRooms?[Random.Range(0, suitableRooms.Count)];
         }
 
-        private List<GameObject> FindSuitableRooms(RoomSides entranceSide, List<DungeonRoom> rooms)
+        private List<GameObject> FindSuitableRooms(RoomSides entranceSide, List<DungeonRoom> rooms, RoomNode parent)
         {
-            //to avoid endless loops (used for debug)
+            //to avoid endless loops
             var numOfLoops = 0;
             
             var suitableRooms = new List<GameObject>();
@@ -216,8 +269,8 @@ namespace Core
             //if we can't find a suitable room the maxNumOfUsages is incremented
             var flexibleNumOfUsages = 0;
             
-            //While is used for making maxNumOfUsages a flexible constraint
-            while (suitableRooms.Count == 0 && numOfLoops < 10)
+            //While is used for making maxNumOfUsages a flexible constraint; max flexibility is set to 5
+            while (suitableRooms.Count == 0 && numOfLoops < 5)
             {
                 foreach (var room in rooms)
                 {
@@ -226,9 +279,12 @@ namespace Core
                     
                     /*if(_leafRooms.Contains(room)) Debug.Log(room.name + " IsLeaf");
                     else Debug.Log("IsNOTLeaf");*/
-                    
+
                     //Avoid to close the dungeon by bringing the frontier to zero before having instantiated all requested rooms
                     bool suitable = !(room.GetNumberOfEffectiveExits(entranceSide) == 0 && _frontier.Count <= 1 && _currentNumberOfRooms < (_numOfRooms-1));
+
+                    //Avoid to visit again wrong nodes (for tree backtracking) 
+                    if (suitable && parent.Blacklist.Contains(room.gameObject.name)) suitable = false;
 
                     //Don't instantiate lastRoom before others 
                     if (suitable && room.isLastRoom && _currentNumberOfRooms != _numOfRooms - 1) suitable = false; 
@@ -292,6 +348,8 @@ namespace Core
                 flexibleNumOfUsages++; //"maxNumOfUsages"flexibility increase
             }
 
+            if (suitableRooms.Count == 0) RemoveLastRoom(parent); //None room available, go back and remove last room 
+
             return suitableRooms;
         }
 
@@ -329,6 +387,23 @@ namespace Core
             }
 
             return leafRooms;
+        }
+        
+        /// <summary>
+        /// Remove last node/room created, and mark it to avoid to visit it again (tree backtracking)
+        /// </summary>
+        /// <param name="node">node to be removed</param>
+        private void RemoveLastRoom(RoomNode node)
+        {
+            Debug.LogWarning("One room removed - tree backtracking");
+            Destroy(node.RoomInstance);
+            node.Parent.Blacklist.Add(node.PrefabRoom.name);
+            _currentNumberOfRooms--;
+            _roomsPositions.RemoveAt(_roomsPositions.Count-1);
+            foreach (var point in node.RoomFrontier)
+            {
+                _frontier.Remove(point);
+            }
         }
 
         /// <summary>
