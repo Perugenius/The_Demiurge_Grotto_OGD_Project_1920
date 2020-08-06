@@ -2201,6 +2201,7 @@ MonoBehaviour:
   requiredSkills: 00000000
   isFirstRoom: 0
   isLastRoom: 0
+  _difficulty: 0
 --- !u!1 &5150363210901060046
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,9 @@ public class CameraArea : MonoBehaviour
     private float _roomHeight;
     private Vector2 _currentCameraMovementDirection;
     private Vector2 _lastCameraPosition;
+    private bool _triggerStayCameraEvent = false;
+    private const int CameraCooldownTime = 5;
+
     void Start()
     {
         _tr = GetComponent<Transform>();
@@ -30,6 +33,13 @@ public class CameraArea : MonoBehaviour
     {
         _currentCameraMovementDirection = ((Vector2) _tr.position - _lastCameraPosition).normalized;
         _lastCameraPosition = _tr.position;
+        if(!_triggerStayCameraEvent) return;
+        if (_count >= CameraCooldownTime * 60)
+        {
+            _triggerStayCameraEvent = false;
+            _count = 0;
+        }
+        else _count++;
     }
 
     private IEnumerator WaitForCamera()
@@ -47,8 +57,13 @@ public class CameraArea : MonoBehaviour
     {
         bool isHorizontalCameraMovement = _currentCameraMovementDirection == Vector2.right ||
                                           _currentCameraMovementDirection == Vector2.left;
-        if(_mainCameraFocusOnPlayer!=null && Vector2.Distance(_mainCamera.transform.position,_tr.position)> (isHorizontalCameraMovement ?_roomWidth/2:_roomHeight/2))
+        if (_mainCameraFocusOnPlayer != null &&
+            Vector2.Distance(_mainCamera.transform.position, _tr.position) >
+            (isHorizontalCameraMovement ? _roomWidth / 2 : _roomHeight / 2) & !_triggerStayCameraEvent)
+        {
+            _triggerStayCameraEvent = true;
             _mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

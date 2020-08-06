@@ -82,8 +82,8 @@ namespace Core
             for (int i = 0; i < numOfRooms - 2; i++)
             {
                 GameObject room = SelectRoom(_frontier[0].EntranceSide);
-                GameObject instantiatedRoom = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
                 _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
+                GameObject instantiatedRoom = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
                 _roomsPositions.Add(_frontier[0].Position);
                 _currentNumberOfRooms++;
                 UpdateFrontier(room, _frontier[0].Position, _frontier[0].EntranceSide);

@@ -93,7 +93,7 @@ namespace Model
         /// <summary>
         /// Room level of difficulty
         /// </summary>
-        public int _difficulty = 0;
+        private int _difficulty = 0;
 
         /// <summary>
         /// Getter for the total number of exits and entrance/exits of a room given an entrance side. If the room has
