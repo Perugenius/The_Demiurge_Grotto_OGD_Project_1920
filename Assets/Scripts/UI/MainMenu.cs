@@ -72,7 +72,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("NetworkTesting");
+        SceneManager.LoadScene("NetworkSetup");
     }
 
     public void QuitGame()

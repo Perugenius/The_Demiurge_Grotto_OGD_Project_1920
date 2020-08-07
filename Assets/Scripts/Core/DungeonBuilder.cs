@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using Model;
 using Photon.Pun;
 using UnityEditor;
@@ -51,6 +52,11 @@ namespace Core
     /// </summary>
     public class DungeonBuilder : MonoBehaviour
     {
+        /// <summary>
+        /// True if dungeon has been builded
+        /// </summary>
+        public bool dungeonReady = false;
+        
         /// <summary>
         /// List of all existing rooms to build a dungeon
         /// </summary>
@@ -128,6 +134,8 @@ namespace Core
 
             GameObject lastRoom = SelectLastRoom(_frontier[0].EntranceSide);
             PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
+
+            dungeonReady = true;
         }
 
         private void InitLists(int type, List<DungeonRoom.PlatformingSkills> skills)
