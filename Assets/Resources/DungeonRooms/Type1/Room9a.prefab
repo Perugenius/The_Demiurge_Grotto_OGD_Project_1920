@@ -6812,7 +6812,7 @@ GameObject:
   - component: {fileID: 4183046174228479438}
   - component: {fileID: 4183046174228479439}
   m_Layer: 0
-  m_Name: Room9
+  m_Name: Room9a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
