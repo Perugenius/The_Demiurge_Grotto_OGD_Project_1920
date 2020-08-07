@@ -55,6 +55,7 @@ namespace Core
         {
             GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players","Voodoo"), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
             _myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
+            loading.SetActive(false);
         }
 
 
@@ -64,7 +65,6 @@ namespace Core
             if (_dungeonBuilder.dungeonReady)
             {
                 _dungeonBuilder.dungeonReady = false;
-                loading.SetActive(false);
                 GetComponent<PhotonView>().RPC("InstantiatePlayer", RpcTarget.All);
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetResolution();
         _titleMenu = title.GetComponent<Menu>();
         _hillsMenu = backgroundHills.GetComponent<Menu>();
         _homeMenu = home.GetComponent<Menu>();
@@ -31,6 +33,12 @@ public class MainMenu : MonoBehaviour
         _perksMenu = perksShop.GetComponent<Menu>();
         _charactersMenu = characters.GetComponent<Menu>();
         _creditsMenu = credits.GetComponent<Menu>();
+    }
+
+    private void SetResolution()
+    {
+        float scale = UnityEngine.Screen.dpi / 96f;
+        transform.Find("Canvas").gameObject.GetComponent<CanvasScaler>().scaleFactor = scale;
     }
 
     // Update is called once per frame

@@ -6,8 +6,6 @@
     <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="BaloonBackground.cs" t="Include" />
-        <e p="CameraArea.cs" t="Include" />
         <e p="Graphics" t="Include">
           <e p="UI" t="Include">
             <e p="fonts" t="Include">
@@ -22,7 +20,6 @@
             </e>
           </e>
         </e>
-        <e p="Menu.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -387,6 +384,7 @@
           </e>
           <e p="Mechanics" t="Include">
             <e p="Camera" t="Include">
+              <e p="CameraArea.cs" t="Include" />
               <e p="CameraFocusOnPlayer.cs" t="Include" />
               <e p="VerticalTransition.cs" t="Include" />
             </e>
@@ -442,13 +440,15 @@
             <e p="QuickStartRoomController.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
+            <e p="BaloonBackground.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />
+            <e p="Menu.cs" t="Include" />
+            <e p="SlidingSky.cs" t="Include" />
           </e>
           <e p="Utilities" t="Include">
             <e p="Singleton.cs" t="Include" />
           </e>
         </e>
-        <e p="SlidingSky.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="OGD_Project_1920.sln" t="IncludeFlat" />
