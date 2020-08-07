@@ -1645,8 +1645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
-  distance: 1000
+  speed: 30
+  distance: 33
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 0
 --- !u!224 &309085926
@@ -4852,8 +4852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
-  distance: 1000
+  speed: 30
+  distance: 40
   unfocusedDirection: {x: 0, y: 1}
   defaultFocused: 1
 --- !u!1 &974085612
@@ -6831,8 +6831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1400
-  distance: 1500
+  speed: 30
+  distance: 42
   unfocusedDirection: {x: -1, y: 0}
   defaultFocused: 0
 --- !u!1 &1342129302
@@ -8986,8 +8986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1400
-  distance: 1500
+  speed: 30
+  distance: 42
   unfocusedDirection: {x: 1, y: 0}
   defaultFocused: 0
 --- !u!224 &1846123058
@@ -10417,7 +10417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 30
   distance: 40
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 0
@@ -10829,8 +10829,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1400
-  distance: 1200
+  speed: 30
+  distance: 33
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 0
 --- !u!224 &2125905519 stripped
