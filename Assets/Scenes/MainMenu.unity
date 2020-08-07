@@ -6118,20 +6118,20 @@ MonoBehaviour:
   m_Text: 'Kinja is a ninja frog who trained for several years. Thanks to her training,
     (and since
 
-    frogs are pretty good in jumping) she is really strong with
-    her leg, so much strong that
+    frogs are pretty good in jumping) she is really strong with her
+    leg, so much strong that
 
-    she can compress the air under the feet to
-    make a double jump while she is in the
+    she can compress the air under the feet to make
+    a double jump while she is in the
 
-    air. Like all the ninja, she is
-    able to throw shuriken to attack the enemy, but she can
+    air. Like all the ninja, she is able to
+    throw shuriken to attack the enemy, but she can
 
-    do this only while
-    she is in air (seems that the red bandana cover a little of her front
+    do this only while she is
+    in air (seems that the red bandana cover a little of her front
 
-    field
-    of view, so that she can see very well only the enemy below her).'
+    field of
+    view, so that she can see very well only the enemy below her).'
 --- !u!222 &1166759572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8527,8 +8527,8 @@ MonoBehaviour:
     knowledge of combat skill, so when he sees
     an enemy he is usual to dash towards
 
-    him, hoping that his head will be
-    more stronger than the opposing one.'
+    him, hoping that his head will be more
+    stronger than the opposing one.'
 --- !u!222 &1649574845
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10041,10 +10041,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -10061,7 +10061,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 732440155}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
