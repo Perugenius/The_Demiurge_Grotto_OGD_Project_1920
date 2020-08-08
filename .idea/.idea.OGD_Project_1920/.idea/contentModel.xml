@@ -368,11 +368,16 @@
             <e p="AudioManager.cs" t="Include" />
             <e p="DungeonBuilder.cs" t="Include" />
             <e p="EventManager.cs" t="Include" />
+            <e p="EventsCollector.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
             <e p="GameManagerTesting.cs" t="Include" />
             <e p="NetworkController.cs" t="Include" />
             <e p="ObjectPool.cs" t="Include" />
             <e p="ObjectPoolingManager.cs" t="Include" />
+            <e p="SaveLoadData" t="Include">
+              <e p="PlayerData.cs" t="Include" />
+              <e p="SaveSystem.cs" t="Include" />
+            </e>
           </e>
           <e p="Events Listeners" t="Include">
             <e p="EventListenerTemplate.cs" t="Include" />
@@ -443,6 +448,7 @@
             <e p="BaloonBackground.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />
             <e p="Menu.cs" t="Include" />
+            <e p="PlayerCollectiblesUI.cs" t="Include" />
             <e p="SlidingSky.cs" t="Include" />
           </e>
           <e p="Utilities" t="Include">

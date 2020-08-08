@@ -87,6 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2383986916188400842}
+  - component: {fileID: 6013687450719510938}
   m_Layer: 5
   m_Name: PlayersCollectibles
   m_TagString: Untagged
@@ -119,6 +120,21 @@ RectTransform:
   m_AnchoredPosition: {x: -992, y: 400}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6013687450719510938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496855344223533774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041383dbc9df82445939e707fb11d46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gems: {fileID: 5971154535898602903}
+  lettersTeammate: {fileID: 2450141419939229927}
+  lettersEldaan: {fileID: 9188011772471761478}
 --- !u!1 &5499802078899541698
 GameObject:
   m_ObjectHideFlags: 0

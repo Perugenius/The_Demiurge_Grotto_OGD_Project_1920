@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Core.SaveLoadData;
 using Mechanics.Camera;
 using Model;
 using Photon.Pun;
@@ -31,21 +32,40 @@ namespace Core
         }
 
         [PunRPC]
-        private void BuildDungeon()
+        private void BuildDungeon(string secondCharacter)
         {
-            //TODO for testing reasons all skills are passed to dungeon builder
+            List<string> characters = new List<string>{SaveSystem.LoadPlayerData().currentCharacter,secondCharacter};
             List<DungeonRoom.PlatformingSkills> playersSkills = new List<DungeonRoom.PlatformingSkills>();
-            playersSkills.Add(DungeonRoom.PlatformingSkills.Headstrong);
-            playersSkills.Add(DungeonRoom.PlatformingSkills.DoubleJump);
-            playersSkills.Add(DungeonRoom.PlatformingSkills.Intangibility);
-            playersSkills.Add(DungeonRoom.PlatformingSkills.WallJump);
-        
-            GetComponent<DungeonBuilder>().BuildDungeon(1,playersSkills,15,2);
+            foreach (var character in characters)
+            {
+                switch (character)
+                {
+                    case "Vodoo": playersSkills.Add(DungeonRoom.PlatformingSkills.Headstrong); break;
+                    case "Kinja": playersSkills.Add(DungeonRoom.PlatformingSkills.DoubleJump); break;
+                    case "Pinkie": playersSkills.Add(DungeonRoom.PlatformingSkills.Intangibility); break;
+                    case "Steve": playersSkills.Add(DungeonRoom.PlatformingSkills.WallJump); break;
+                }
+            }
+
+            int type = 1;
+            switch (SaveSystem.LoadPlayerData().lastSelectedDungeon)
+            {
+                case "RunupHills": type = 1;
+                    break;
+                case "PanicTown": type = 2;
+                    break;
+                case "MightyWoods": type = 3;
+                    break;
+                case "StairwayToGrotto": type = 4;
+                    break;
+            }
+
+            GetComponent<DungeonBuilder>().BuildDungeon(type,playersSkills,15,2);
         }
 
         public void OnJoinScene()
         {
-            if (PhotonNetwork.PlayerList.Length == _numOfPlayers) GetComponent<PhotonView>().RPC("BuildDungeon", RpcTarget.MasterClient);
+            if (PhotonNetwork.PlayerList.Length == _numOfPlayers) GetComponent<PhotonView>().RPC("BuildDungeon", RpcTarget.MasterClient, SaveSystem.LoadPlayerData().currentCharacter);
             _myCamera = Instantiate(camera, new Vector3(0f, 0f, -10f), Quaternion.identity);
             int i = 0;
         }
@@ -57,7 +77,6 @@ namespace Core
             _myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
             loading.SetActive(false);
         }
-
 
         void Update()
         {
