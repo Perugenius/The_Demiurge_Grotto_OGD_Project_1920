@@ -16,6 +16,7 @@ namespace Mechanics.Collectibles
         [SerializeField] private Animator _animator;
         private static readonly int IsCollected = Animator.StringToHash("isCollected");
         private CollectiblesManager _collectiblesManager;
+        private bool _isCollected = false;
 
         private void Start()
         {
@@ -27,6 +28,9 @@ namespace Mechanics.Collectibles
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
+            
+            if(_isCollected) return;
+            _isCollected = true;
 
             //collect for others players
             GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
