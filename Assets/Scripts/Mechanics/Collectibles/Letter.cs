@@ -29,7 +29,7 @@ namespace Mechanics.Collectibles
             if (!photonView.IsMine) return;
 
             //collect for others players
-            GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
+            transform.parent.gameObject.GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
             
             //collect for local player
             Collect();
