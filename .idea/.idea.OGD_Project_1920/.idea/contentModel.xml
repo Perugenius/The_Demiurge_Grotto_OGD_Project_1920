@@ -6,7 +6,7 @@
     <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="ButtonHighlightText.cs" t="Include" />
+        <e p="CollectiblesManager.cs" t="Include" />
         <e p="Graphics" t="Include">
           <e p="UI" t="Include">
             <e p="fonts" t="Include">
@@ -21,7 +21,6 @@
             </e>
           </e>
         </e>
-        <e p="PerkUI.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -448,8 +447,10 @@
           </e>
           <e p="UI" t="Include">
             <e p="BaloonBackground.cs" t="Include" />
+            <e p="ButtonHighlightText.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />
             <e p="Menu.cs" t="Include" />
+            <e p="PerkUI.cs" t="Include" />
             <e p="PlayerCollectiblesUI.cs" t="Include" />
             <e p="SlidingSky.cs" t="Include" />
           </e>

@@ -15,6 +15,7 @@ namespace Core
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private GameObject _myCamera;
+        private CollectiblesManager _collectiblesManager;
 
         void Awake()
         {
@@ -28,6 +29,7 @@ namespace Core
         void Start()
         {
             _dungeonBuilder = GetComponent<DungeonBuilder>();
+            _collectiblesManager = GameObject.Find("CollectiblesManager").GetComponent<CollectiblesManager>();
             OnJoinScene();
         }
 
@@ -86,6 +88,15 @@ namespace Core
                 _dungeonBuilder.dungeonReady = false;
                 GetComponent<PhotonView>().RPC("InstantiatePlayer", RpcTarget.All);
             }
+        }
+
+        public void ExitDungeon()
+        {
+            _collectiblesManager.SaveCollectibles();
+            
+            //TODO log victory message
+            
+            //TODO leave photon room
         }
     }
 }
