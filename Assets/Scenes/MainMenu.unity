@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   distance: 33
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 0
@@ -6473,7 +6473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   distance: 20
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 1
@@ -6554,7 +6554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   distance: 42
   unfocusedDirection: {x: -1, y: 0}
   defaultFocused: 0
@@ -8816,7 +8816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   distance: 42
   unfocusedDirection: {x: 1, y: 0}
   defaultFocused: 0
@@ -10163,7 +10163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   distance: 40
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 0
@@ -10591,7 +10591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   distance: 33
   unfocusedDirection: {x: 0, y: -1}
   defaultFocused: 0

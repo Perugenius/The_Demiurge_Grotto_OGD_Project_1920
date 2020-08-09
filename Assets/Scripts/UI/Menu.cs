@@ -14,6 +14,9 @@ public class Menu : Movable
     private bool _isFocused = false;
     private EventSystem _eventSystem;
     private List<GameObject> _dynamicContent;
+    private bool _duringTransition = false;
+
+    public bool DuringTransition => _duringTransition;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -32,16 +35,27 @@ public class Menu : Movable
     {
         if (_isFocused == isFocused)return;
         _isFocused = isFocused;
+        _duringTransition = true;
         if(isFocused)
         {
             SetFixedDistance(-unfocusedDirection, speed, distance);
             _eventSystem.SetSelectedGameObject(firstButton);
+            StartCoroutine(WaitTransitionEnd());
         }
         else
         {
             SetFixedDistance(unfocusedDirection, speed, distance);
             StartCoroutine(WaitBeforeDisabling());
         }
+    }
+
+    private IEnumerator WaitTransitionEnd()
+    {
+        while (MoveFixedDistance)
+        {
+            yield return null;
+        }
+        _duringTransition = false;
     }
 
     private IEnumerator WaitBeforeDisabling()
@@ -55,6 +69,7 @@ public class Menu : Movable
         {
             Destroy(element);
         }
+        _duringTransition = false;
         gameObject.SetActive(false);
     }
 

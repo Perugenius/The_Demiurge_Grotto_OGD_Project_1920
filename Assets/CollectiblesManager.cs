@@ -6,6 +6,12 @@ using UnityEngine.AI;
 
 public class CollectiblesManager : MonoBehaviour
 {
+    public int Gems => _gems;
+
+    public int TeammateLetters => _teammateLetters;
+
+    public int EldaanLetters => _eldaanLetters;
+
     private int _gems;
     private int _teammateLetters;
     private int _eldaanLetters;

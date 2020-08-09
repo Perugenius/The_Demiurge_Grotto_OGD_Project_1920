@@ -104,6 +104,7 @@ public class MainMenu : MonoBehaviour
 
     public void ShowHome()
     {
+        if(UITransition()) return;
         _titleMenu.Focus(false);
         _hillsMenu.Focus(false);
         
@@ -116,8 +117,20 @@ public class MainMenu : MonoBehaviour
         _homeMenu.Focus(true);
     }
 
+    /// <summary>
+    /// It returns true if a UI transition is being performed.
+    /// This method used to disable input during UI transitions
+    /// </summary>
+    /// <returns></returns>
+    private bool UITransition()
+    {
+        return (_homeMenu.DuringTransition || _charactersMenu.DuringTransition || _perksMenu.DuringTransition
+                ||_dungeonMenu.DuringTransition);
+    }
+
     public void ShowDungeonsMenu()
     {
+        if(UITransition()) return;
         _homeMenu.Focus(false);
         _dungeonMenu.gameObject.SetActive(true);
         _dungeonMenu.Focus(true);
@@ -180,6 +193,7 @@ public class MainMenu : MonoBehaviour
     
     public void ShowPerksMenu()
     {
+        if(UITransition()) return;
         _homeMenu.Focus(false);
         _perksMenu.gameObject.SetActive(true);
         _perksMenu.Focus(true);
@@ -253,6 +267,7 @@ public class MainMenu : MonoBehaviour
     
     public void ShowCharactersMenu()
     {
+        if(UITransition()) return;
         _homeMenu.Focus(false);
         _charactersMenu.gameObject.SetActive(true);
         _charactersMenu.Focus(true);
