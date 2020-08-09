@@ -38,6 +38,8 @@ namespace UI
         public void UpdateCollectiblesLabels()
         {
             //Debug.Log("Event triggered");
+            
+            if(_gemsText==null) return;
 
             PlayerData playerData = SaveSystem.LoadPlayerData();
 
