@@ -1,10 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Core;
 using Core.SaveLoadData;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+public delegate void PerkCback(string character, int level); // callback for executing perks;
+
+public class Perk
+{
+    public string name;
+    public string character;
+    public string description;
+    public Dictionary<int, int> levelCost; //<perkLevel, cost>
+    public PerkCback runPerk; //function to execute perk and persistence it
+
+    public Perk(string name,string character)
+    {
+        this.name = name;
+        this.character = character;
+    }
+}
 
 public class MainMenu : MonoBehaviour
 {
@@ -15,8 +34,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject perksShop;
     [SerializeField] private GameObject characters;
     [SerializeField] private GameObject credits;
+    [SerializeField] private GameObject perkUI;
+    [SerializeField] private RectTransform firstPerkPosition;
     [SerializeField] private Color normalColor;
     [SerializeField] private Color selectedColor;
+    [SerializeField] private float verticalPerksOffset;
 
     private Menu _titleMenu;
     private Menu _hillsMenu;
@@ -31,6 +53,8 @@ public class MainMenu : MonoBehaviour
     private const int dungeon4LettersThreshold = 30;
 
     private const int characterPrice = 10;
+
+    private List<Perk> perks;
 
     private List<string> charactersNames;
     private EventSystem _eventSystem;
@@ -54,12 +78,14 @@ public class MainMenu : MonoBehaviour
         //Randomly choose first character
         if(SaveSystem.LoadPlayerData()==null)
         {
-            SaveSystem.CreatePlayerData(charactersNames[Random.Range(0,charactersNames.Count-1)]);
+            SaveSystem.CreatePlayerData(charactersNames[Random.Range(0,charactersNames.Count-1)], charactersNames);
         }
+
+        LoadPerks();
 
         /*PlayerData playerData = SaveSystem.LoadPlayerData();
         playerData.teammateLetters = 23;
-        playerData.unlockedCharacters.Clear();
+        playerData.gems = 1000;
         SaveSystem.SavePlayerData(playerData);*/
     }
 
@@ -67,6 +93,13 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         if (_titleMenu.isFocused() && Input.anyKey) ShowHome();
+
+        if (Input.GetKeyDown("l")) //Debug values on console
+        {
+            PlayerData playerData = SaveSystem.LoadPlayerData();
+            Debug.Log(playerData.currentCharacter + " maxHealth = " + playerData.maxHealth[playerData.currentCharacter]);
+            Debug.Log(playerData.currentCharacter + " attack = " +  playerData.attack[playerData.currentCharacter]);
+        }
     }
 
     public void ShowHome()
@@ -150,6 +183,72 @@ public class MainMenu : MonoBehaviour
         _homeMenu.Focus(false);
         _perksMenu.gameObject.SetActive(true);
         _perksMenu.Focus(true);
+
+        PlayerData playerData = SaveSystem.LoadPlayerData();
+        int i = 0;
+        List<GameObject> dynamicContent = new List<GameObject>();
+        
+        foreach (var perk in perks)
+        {
+            if (perk.character == playerData.currentCharacter)
+            {
+                Vector2 firstPosition = firstPerkPosition.position;
+                RectTransform rectTransform = firstPerkPosition;
+                rectTransform.position = firstPosition;
+                GameObject perkUiInstance = Instantiate(perkUI, rectTransform);
+                perkUiInstance.transform.SetParent(perksShop.transform,false);
+                perkUiInstance.transform.position -= new Vector3(0,i*verticalPerksOffset,0);
+                perkUiInstance.GetComponent<PerkUI>().MainMenu = this;
+                dynamicContent.Add(perkUiInstance);
+                
+                UpdatePerks(playerData, perk, perkUiInstance);
+                
+                i++;
+            }
+        }
+        
+        _perksMenu.SetContent(dynamicContent);
+    }
+
+    public void UpdatePerks(PlayerData playerData, Perk perk, GameObject perkUiInstance)
+    {
+        List<string> perkList = playerData.perks[playerData.currentCharacter].Keys.ToList();
+        int perkLevel = perkList.Contains(perk.name)?playerData.perks[playerData.currentCharacter][perk.name]:0;
+        int levelLable = 0;
+        if (perkLevel == 0) levelLable = 1;
+        else
+        {
+            List<int> levelsList = perk.levelCost.Keys.ToList();
+            if (levelsList.IndexOf(playerData.perks[playerData.currentCharacter][perk.name]) !=
+                levelsList.Count - 1) levelLable = perkLevel + 1;
+            else
+            {
+                levelLable = perkLevel;
+                perkUiInstance.transform.Find("Buy").GetComponent<Button>().interactable = false;
+            }
+        }
+        perkUiInstance.GetComponent<PerkUI>().SetPerkValues(perk,levelLable);
+    }
+
+    public void BuyPerk(string perkName, int level, GameObject perkUi)
+    {
+        PlayerData playerData = SaveSystem.LoadPlayerData();
+        foreach (var perk in perks)
+        {
+            if (perk.name == perkName && perk.character == playerData.currentCharacter && perk.levelCost[level] <= playerData.gems)
+            {
+                playerData.gems -= perk.levelCost[level];
+                List<string> alreadyBought = playerData.perks[playerData.currentCharacter].Keys.ToList();
+                if (alreadyBought.Contains(perkName)) playerData.perks[playerData.currentCharacter][perkName] = level;
+                else playerData.perks[playerData.currentCharacter].Add(perkName,level);
+                
+                SaveSystem.SavePlayerData(playerData);
+                
+                perk.runPerk(playerData.currentCharacter,level); //execute perk
+
+                UpdatePerks(playerData,perk,perkUi);
+            }
+        }
     }
     
     public void ShowCharactersMenu()
@@ -235,5 +334,55 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+    
+    private void LoadPerks()
+    {
+        perks = new List<Perk>();
+        foreach (var character in charactersNames)
+        {
+            //Max Health perk
+            Perk healthPerk = new Perk("Maximum Health",character);
+            Dictionary<int,int> healthLevelCost = new Dictionary<int, int>
+            {
+                {1,200},
+                {2,300},
+                {3,500},
+                {4,600},
+                {5,800},
+            };
+            healthPerk.levelCost = healthLevelCost;
+            healthPerk.description = "Increase " + character + " maximum health.";
+            healthPerk.runPerk = (characterName, level) =>
+            {
+                PlayerData playerData = SaveSystem.LoadPlayerData();
+                playerData.maxHealth[characterName] += 1;
+                SaveSystem.SavePlayerData(playerData);
+            };
+            
+            //Attack perk
+            Perk attackPerk = new Perk("Attack",character);
+            Dictionary<int,int> attackLevelCost = new Dictionary<int, int>
+            {
+                {1,200},
+                {2,300},
+                {3,500},
+                {4,600},
+                {5,800},
+            };
+            attackPerk.levelCost = attackLevelCost;
+            attackPerk.description = "Increase " + character + " attack damage.";
+            attackPerk.runPerk = (characterName, level) =>
+            {
+                PlayerData playerData = SaveSystem.LoadPlayerData();
+                playerData.attack[characterName] += 0.5f;
+                SaveSystem.SavePlayerData(playerData);
+            };
+            
+            perks.Add(healthPerk);
+            perks.Add(attackPerk);
+        }
+        
+        //TODO add other perks
     }
 }

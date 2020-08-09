@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System;
+using Core;
 using Core.SaveLoadData;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,12 @@ namespace UI
         private Text _gemsText;
         private Text _lettersTeammateText;
         private Text _lettersEldaanText;
+
+        private void Awake()
+        {
+            if(EventsCollector.Instance.GetEvent("saveData")==null) EventsCollector.Instance.CreateEvent("saveData",UpdateCollectiblesLabels);
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -26,13 +33,11 @@ namespace UI
             _gemsText.text = playerData.gems.ToString();
             _lettersEldaanText.text = playerData.eldaanLetters.ToString();
             _lettersTeammateText.text = playerData.teammateLetters.ToString();
-
-            EventsCollector.Instance.CreateEvent("saveData",UpdateCollectiblesLabels);
         }
 
         public void UpdateCollectiblesLabels()
         {
-            Debug.Log("Event triggered");
+            //Debug.Log("Event triggered");
 
             PlayerData playerData = SaveSystem.LoadPlayerData();
 

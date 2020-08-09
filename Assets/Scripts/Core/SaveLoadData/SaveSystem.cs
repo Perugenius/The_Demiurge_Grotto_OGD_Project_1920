@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using Mechanics;
@@ -9,12 +10,12 @@ namespace Core.SaveLoadData
 {
     public static class SaveSystem
     {
-        public static void CreatePlayerData(string firstUnlockedCharacter)
+        public static void CreatePlayerData(string firstUnlockedCharacter, List<string> charactersNames)
         {
             BinaryFormatter formatter = new BinaryFormatter();
             string path = Application.persistentDataPath + "/player.data";
             FileStream stream = new FileStream(path,FileMode.Create);
-            PlayerData data = new PlayerData(firstUnlockedCharacter);
+            PlayerData data = new PlayerData(firstUnlockedCharacter, charactersNames);
             
             formatter.Serialize(stream,data);
             stream.Close();

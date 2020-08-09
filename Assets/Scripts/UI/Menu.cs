@@ -13,12 +13,14 @@ public class Menu : Movable
     [SerializeField] private GameObject firstButton;
     private bool _isFocused = false;
     private EventSystem _eventSystem;
+    private List<GameObject> _dynamicContent;
 
     // Start is called before the first frame update
     void OnEnable()
     {
         _isFocused = defaultFocused;
         _eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        _dynamicContent = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -48,11 +50,21 @@ public class Menu : Movable
         {
             yield return null;
         }
+
+        foreach (var element in _dynamicContent)
+        {
+            Destroy(element);
+        }
         gameObject.SetActive(false);
     }
 
     public bool isFocused()
     {
         return _isFocused;
+    }
+
+    public void SetContent(List<GameObject> content)
+    {
+        _dynamicContent = content;
     }
 }
