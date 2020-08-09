@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 9122676748241416470}
   - component: {fileID: 9122676748241416469}
   - component: {fileID: 9122676748241416468}
+  - component: {fileID: 1924351417438065892}
   m_Layer: 16
   m_Name: GemBody
   m_TagString: Untagged
@@ -200,3 +201,25 @@ PolygonCollider2D:
       - {x: -0.59758186, y: 0.25803518}
       - {x: 0.016179085, y: -0.6904855}
       - {x: 0.6129141, y: 0.31120825}
+--- !u!114 &1924351417438065892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122676748241416458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

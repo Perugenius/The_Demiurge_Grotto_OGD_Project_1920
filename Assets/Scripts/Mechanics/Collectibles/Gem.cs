@@ -24,7 +24,7 @@ namespace Mechanics.Collectibles
             if (!photonView.IsMine) return;
             
             //collect for others players
-            transform.parent.gameObject.GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
+            GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
             
             //collect for local player
             Collect();
@@ -43,6 +43,7 @@ namespace Mechanics.Collectibles
         [PunRPC]
         public void Collect()
         {
+            Debug.Log("Gem " + value + " collected");
             _collectiblesManager.CollectGem(value);
         }
     }
