@@ -32,10 +32,6 @@ namespace Mechanics.Collectibles
             
             //collect for local player
             Collect();
-            
-            transform.localScale = new Vector3(1,1,1);
-            _animator.SetBool(IsCollected, true);
-            StartCoroutine(WaitBeforeDestroy());
         }
 
         private IEnumerator WaitBeforeDestroy()
@@ -49,6 +45,9 @@ namespace Mechanics.Collectibles
         {
             Debug.Log("Gem " + value + " collected");
             _collectiblesManager.CollectGem(value);
+            transform.localScale = new Vector3(1,1,1);
+            _animator.SetBool(IsCollected, true);
+            StartCoroutine(WaitBeforeDestroy());
         }
     }
 }

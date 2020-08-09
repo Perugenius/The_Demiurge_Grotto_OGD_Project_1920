@@ -37,19 +37,24 @@ namespace Mechanics.Collectibles
             
             //collect for local player
             Collect();
-            
-            transform.localScale = new Vector3(1,1,1);
-            _animator.SetBool(IsCollected, true);
-            StartCoroutine(WaitBeforeDestroy());
         }
 
         [PunRPC]
         private void Collect()
         {
-            if (type == LetterType.Teammate) _collectiblesManager.CollectTeammateLetter();
+            if (type == LetterType.Teammate)
+            {
+                _collectiblesManager.CollectTeammateLetter();
+                transform.localScale = new Vector3(1,1,1);
+                _animator.SetBool(IsCollected, true);
+                StartCoroutine(WaitBeforeDestroy());
+            }
             else
             {
                 _collectiblesManager.CollectEldaanLetter();
+                transform.localScale = new Vector3(1,1,1);
+                _animator.SetBool(IsCollected, true);
+                StartCoroutine(WaitBeforeDestroy());
                 GameManager.Instance.ExitDungeon();
             }
         }
