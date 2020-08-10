@@ -31,7 +31,16 @@ public class DefenseBubble : MonoBehaviour
         if (_players.Count == _numOfPLayers)
         {
             letter.GetComponent<BoxCollider2D>().enabled = true;
-            gameObject.SetActive(false);
+            StartCoroutine(DestroyBubble());
+        }
+    }
+
+    private IEnumerator DestroyBubble()
+    {
+        while (gameObject.transform.localScale.x > 0.2f)
+        {
+            gameObject.transform.localScale -= new Vector3(0.1f,0.1f,0.1f);
+            yield return null;
         }
     }
 
