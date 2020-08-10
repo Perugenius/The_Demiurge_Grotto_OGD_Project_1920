@@ -58,8 +58,8 @@ public class DungeonMap : MonoBehaviour
         }
 
         DungeonRoom dungeonRoom = _roomsList[0].GetComponent<DungeonRoom>();
-        _xOffset = (xUpperBound + xLowerBound) / dungeonRoom.width;
-        _yOffset = (yUpperBound + yLowerBound) / dungeonRoom.height;
+        _xOffset = -(xUpperBound + xLowerBound) / dungeonRoom.width;
+        _yOffset = -(yUpperBound + yLowerBound) / dungeonRoom.height;
     }
 
     public void AddRoom(GameObject room)
