@@ -42,6 +42,7 @@ public class DefenseBubble : MonoBehaviour
             gameObject.transform.localScale -= new Vector3(0.1f,0.1f,0.1f);
             yield return null;
         }
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerExit2D(Collider2D other)
