@@ -2049,7 +2049,7 @@ MonoBehaviour:
   loading: {fileID: 923261185}
   victoryScreen: {fileID: 2049734658}
   messageBox: {fileID: 1191053969}
-  singlePlayerMode: 1
+  singlePlayerMode: 0
 --- !u!1001 &2118941614
 PrefabInstance:
   m_ObjectHideFlags: 0
