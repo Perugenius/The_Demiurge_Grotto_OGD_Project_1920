@@ -14,16 +14,22 @@ public class DungeonMap : MonoBehaviour
     [SerializeField] private Color inactiveColor;
     private Dictionary<GameObject, GameObject> _roomIcons;
     private GameObject _activeRoom;
+    private DungeonBuilder _dungeonBuilder;
+    private List<GameObject> _roomsList;
+    private bool _mapIsCentered = false;
 
     public GameObject ActiveRoom => _activeRoom;
 
     private Menu _menu;
+    private float _xOffset = 1f;
+    private float _yOffset = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
         _roomIcons = new Dictionary<GameObject, GameObject>();
         _menu = gameObject.GetComponent<Menu>();
+        _dungeonBuilder = GameObject.Find("GameManager").GetComponent<DungeonBuilder>();
     }
 
     // Update is called once per frame
@@ -31,6 +37,29 @@ public class DungeonMap : MonoBehaviour
     {
         if((Input.GetKeyDown("m") || Input.GetKeyDown(KeyCode.Joystick1Button6)) && !_menu.isFocused()) _menu.Focus(true);
         if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1)) && _menu.isFocused()) _menu.Focus(false);
+
+        if (!_mapIsCentered && _dungeonBuilder.dungeonReady) CenterMap();
+    }
+
+    private void CenterMap()
+    {
+        _roomsList = _dungeonBuilder.RoomInstancesList;
+        _mapIsCentered = true;
+        Vector3 firstRoomPosition = _roomsList[0].transform.position;
+        float xUpperBound = firstRoomPosition.x, yUpperBound = firstRoomPosition.y, xLowerBound = firstRoomPosition.x, yLowerBound = firstRoomPosition.y;
+        
+        foreach (var room in _roomsList)
+        {
+            Vector3 roomPosition = room.transform.position;
+            xUpperBound = roomPosition.x > xUpperBound ? roomPosition.x : xUpperBound;
+            yUpperBound = roomPosition.y > yUpperBound ? roomPosition.y : yUpperBound;
+            xLowerBound = roomPosition.x < xLowerBound ? roomPosition.x : xLowerBound;
+            yLowerBound = roomPosition.y < yLowerBound ? roomPosition.y : yLowerBound;
+        }
+
+        DungeonRoom dungeonRoom = _roomsList[0].GetComponent<DungeonRoom>();
+        _xOffset = (xUpperBound + xLowerBound) / dungeonRoom.width;
+        _yOffset = (yUpperBound + yLowerBound) / dungeonRoom.height;
     }
 
     public void AddRoom(GameObject room)
@@ -38,8 +67,8 @@ public class DungeonMap : MonoBehaviour
         if (room != null && !_roomIcons.Keys.Contains(room))
         {
             DungeonRoom dungeonRoom = room.GetComponent<DungeonRoom>();
-            float iconX = room.transform.position.x / dungeonRoom.width * iconsDistance;
-            float iconY = room.transform.position.y / dungeonRoom.height * iconsDistance;
+            float iconX = room.transform.position.x / dungeonRoom.width * iconsDistance + _xOffset;
+            float iconY = room.transform.position.y / dungeonRoom.height * iconsDistance + _yOffset;
             GameObject roomIconInstance = Instantiate(roomIcon);
             roomIconInstance.transform.SetParent(gameObject.transform, false);
             roomIconInstance.transform.position += new Vector3(iconX,iconY,0);

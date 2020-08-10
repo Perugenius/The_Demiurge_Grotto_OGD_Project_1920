@@ -32,11 +32,11 @@ namespace Mechanics
         
         private IEnumerator WaitForCamera()
         {
-            _mainCamera = GameObject.Find("Main Camera(Clone)");
+            _mainCamera = GameObject.Find("Main Camera");
             while (_mainCamera == null)
             {
                 yield return new WaitForSeconds(1);
-                _mainCamera = GameObject.Find("Main Camera(Clone)");
+                _mainCamera = GameObject.Find("Main Camera");
             }
             _mainCameraFocusOnPlayer = _mainCamera.GetComponent<CameraFocusOnPlayer>();
         }

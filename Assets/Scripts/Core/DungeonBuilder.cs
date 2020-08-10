@@ -62,6 +62,10 @@ namespace Core
         /// </summary>
         private Object[] _roomsList;
 
+        private List<GameObject> _roomInstancesList;
+
+        public List<GameObject> RoomInstancesList => _roomInstancesList;
+
         private List<GameObject> _roomsSpecificTypeList;
         private List<DungeonRoom> _roomsScriptsList;
         private List<DungeonRoom> _leafRooms;
@@ -91,6 +95,7 @@ namespace Core
             _frontier = new List<FrontierPointData>();
             _numOfRooms = numOfRooms;
             _maxNumOfUsages = maxNumOfUsages;
+            _roomInstancesList = new List<GameObject>();
             
             //Init all needed lists of rooms
             InitLists(type, requiredSkills);
@@ -98,6 +103,7 @@ namespace Core
             //Initialization: instantiation of first room 
             GameObject firstRoom = SelectFirstRoom();
             GameObject firstRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(firstRoom, type), Vector3.zero, Quaternion.identity);
+            _roomInstancesList.Add(firstRoomInstance);
             RoomNode root = new RoomNode(null,firstRoomInstance, firstRoom);
             _roomsScriptsList[_roomsSpecificTypeList.IndexOf(firstRoom)].AddUsage();
             _roomsPositions.Add(Vector3.zero);
@@ -114,6 +120,7 @@ namespace Core
                 {
                     _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
                     GameObject roomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
+                    _roomInstancesList.Add(roomInstance);
                     RoomNode child = new RoomNode(parent,roomInstance, room);
                     parent = child;
                     _roomsPositions.Add(_frontier[0].Position);
@@ -133,8 +140,9 @@ namespace Core
             }
 
             GameObject lastRoom = SelectLastRoom(_frontier[0].EntranceSide);
-            PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
-
+            GameObject lastRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
+            _roomInstancesList.Add(lastRoomInstance);
+            
             dungeonReady = true;
         }
 

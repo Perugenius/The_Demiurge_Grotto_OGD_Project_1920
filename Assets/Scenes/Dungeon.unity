@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomIcon: {fileID: 4799174486151805134, guid: 813aa014394bcb348b7443abc7d97146,
     type: 3}
-  iconsDistance: 1.6
+  iconsDistance: 3.625
   activeColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0.5882353}
   inactiveColor: {r: 0, g: 0, b: 0, a: 0.5882353}
 --- !u!114 &869155836
