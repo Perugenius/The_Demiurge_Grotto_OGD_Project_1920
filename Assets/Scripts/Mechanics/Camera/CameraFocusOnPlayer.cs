@@ -28,7 +28,7 @@ namespace Mechanics.Camera
             _playerTransitionPosition = new Vector3(transitionPosition.x, transitionPosition.y, -10f);
             _playerTransitionOrientation = transitionOrientation;
             _isInTransition = true;
-            UpdateCameraPosition();
+            UpdateCameraPosition(player);
         }
 
         public void PlayerOutTransition(GameObject player)
@@ -44,6 +44,23 @@ namespace Mechanics.Camera
             if(_isInTransition)
             {
                 if(Vector2.Distance(_playerTransitionPosition,Tr.position)<0.5) return;
+                //if(MoveFixedDistanceAcceleratedDecelerated) return;
+                SetFixedDistanceAcceleratedDecelerated(_playerTransitionPosition, initSpeed, acceleration);
+            }
+            else
+            {
+                if(Vector2.Distance(_playerRoomPosition,Tr.position)<0.5) return;
+                SetFixedDistanceAcceleratedDecelerated(_playerRoomPosition, initSpeed, acceleration);
+            }
+        }
+        
+        private void UpdateCameraPosition(GameObject player)
+        {
+            //Debug.Log("CameraPosition = " + Tr.position);
+            if(_isInTransition)
+            {
+                if(Vector2.Distance(_playerTransitionPosition,Tr.position)<0.5) return;
+                if(Vector2.Distance(player.transform.position,_playerTransitionPosition) > 7) return;
                 //if(MoveFixedDistanceAcceleratedDecelerated) return;
                 SetFixedDistanceAcceleratedDecelerated(_playerTransitionPosition, initSpeed, acceleration);
             }
