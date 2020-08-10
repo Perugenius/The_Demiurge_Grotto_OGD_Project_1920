@@ -1680,4 +1680,4 @@ MonoBehaviour:
   playerCamera: {fileID: 1822118010}
   loading: {fileID: 923261185}
   victoryScreen: {fileID: 2049734658}
-  singlePlayerMode: 1
+  singlePlayerMode: 0
