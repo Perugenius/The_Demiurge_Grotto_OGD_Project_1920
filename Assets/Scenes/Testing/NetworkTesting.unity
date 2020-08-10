@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf125a6d2d7bba2469d2bd5b073bc68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: 3
+  roomSize: 1
 --- !u!4 &493449053
 Transform:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7448956fa77d7fa46aa73935455cec01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplayerSceneIndex: 0
+  multiplayerSceneIndex: 1
 --- !u!4 &937857970
 Transform:
   m_ObjectHideFlags: 0

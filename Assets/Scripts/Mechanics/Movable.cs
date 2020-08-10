@@ -12,6 +12,8 @@ namespace Mechanics
         protected bool MoveFixedDistance;
         protected bool MoveFixedDistanceAccelerated;
         protected bool MoveFixedDistanceAcceleratedDecelerated;
+        protected bool FloatingUp;
+        protected bool FloatingDown;
         private float _fixedSpeed;
         private float _fixedDistance;
         private float _totalDistance;
@@ -20,6 +22,9 @@ namespace Mechanics
         private float _fixedAcceleration;
         private Vector3 _lastPosition = Vector3.zero;
         private Vector3 _currentMovingDirection = Vector3.zero;
+
+        private float _floatingAmplitude;
+        private float _floatingAcceleration;
 
         protected Vector2 m_velocity;
 
@@ -159,6 +164,20 @@ namespace Mechanics
                 if(_fixedDistance <= 0) MoveFixedDistanceAcceleratedDecelerated = false;
             }
 
+            if (FloatingUp && !MoveFixedDistanceAcceleratedDecelerated)
+            {
+                FloatingUp = false;
+                FloatingDown = true;
+                SetFixedDistanceAcceleratedDecelerated(Tr.position + Vector3.down*_floatingAmplitude, 0, _floatingAcceleration);
+            }
+            
+            if (FloatingDown && !MoveFixedDistanceAcceleratedDecelerated)
+            {
+                FloatingUp = true;
+                FloatingDown = false;
+                SetFixedDistanceAcceleratedDecelerated(Tr.position + Vector3.up*_floatingAmplitude, 0, _floatingAcceleration);
+            }
+
             _currentMovingDirection = (Tr.position - _lastPosition).normalized;
             _lastPosition = Tr.position;
         }
@@ -166,6 +185,21 @@ namespace Mechanics
         public void JumpLateral(float jumpHeight, Vector2 direction)
         {
             Rb.AddForce(new Vector2(direction.x, jumpHeight),ForceMode2D.Impulse);
+        }
+
+        public void SetFloating(float acceleration, float amplitude)
+        {
+            FloatingDown = true;
+            _floatingAmplitude = amplitude;
+            _floatingAcceleration = acceleration;
+            SetFixedDistanceAcceleratedDecelerated(Tr.position + Vector3.down*amplitude, 0, acceleration);
+        }
+
+        public void StopFloating()
+        {
+            FloatingUp = false;
+            FloatingDown = false;
+            MoveFixedDistanceAcceleratedDecelerated = false;
         }
     }
 }

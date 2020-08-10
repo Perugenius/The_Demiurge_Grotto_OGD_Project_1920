@@ -99,7 +99,7 @@ namespace Mechanics.Enemies
         private IEnumerator LoadingBullet()
         {
             _waiting = true;
-            Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).length/2f);
+            //Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).length/2f);
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length/2f);
             _waiting = false;
             _shooting = true;

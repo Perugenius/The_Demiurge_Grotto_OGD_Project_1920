@@ -199,7 +199,7 @@ MonoBehaviour:
   - {fileID: 966702508}
   - {fileID: 966702507}
   - {fileID: 966702506}
-  viewIdField: 6
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &966702508
