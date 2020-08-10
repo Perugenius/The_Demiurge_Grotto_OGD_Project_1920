@@ -25,7 +25,8 @@ namespace Mechanics
         {
             _tr = GetComponent<Transform>();
             if(_numOfPlayersInRoom == 0) SetActiveRoom(false);
-            _dungeonMap = GameObject.Find("Map").GetComponent<DungeonMap>();
+            _dungeonMap = GameObject.Find("Main Camera").transform.Find("Canvas").transform.Find("Map")
+                .GetComponent<DungeonMap>();
             StartCoroutine(WaitForCamera());
         }
         
@@ -45,6 +46,8 @@ namespace Mechanics
             _numOfPlayersInRoom++;
             if(_numOfPlayersInRoom > 0 && !_roomEnable) SetActiveRoom(true);
             GameObject parentRoom = gameObject.transform.parent.gameObject;
+            
+            Debug.Log("Updating map");
             _dungeonMap.AddRoom(parentRoom);
             _dungeonMap.ActiveRoomIcon(parentRoom);
         }

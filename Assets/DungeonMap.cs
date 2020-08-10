@@ -9,6 +9,8 @@ public class DungeonMap : MonoBehaviour
 {
     [SerializeField] private GameObject roomIcon;
     [SerializeField] private float iconsDistance = 2f;
+    [SerializeField] private Color activeColor;
+    [SerializeField] private Color inactiveColor;
     private Dictionary<GameObject, GameObject> _roomIcons;
     private GameObject _activeRoom;
     private Menu _menu;
@@ -24,7 +26,7 @@ public class DungeonMap : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown("m") && !_menu.isFocused()) _menu.Focus(true);
-        if(Input.anyKey && _menu.isFocused()) _menu.Focus(false);
+        if(Input.GetKeyDown(KeyCode.Escape) && _menu.isFocused()) _menu.Focus(false);
     }
 
     public void AddRoom(GameObject room)
@@ -33,20 +35,20 @@ public class DungeonMap : MonoBehaviour
         {
             DungeonRoom dungeonRoom = room.GetComponent<DungeonRoom>();
             float iconX = room.transform.position.x / dungeonRoom.width * iconsDistance;
-            float iconY = room.transform.position.x / dungeonRoom.width * iconsDistance;
+            float iconY = room.transform.position.y / dungeonRoom.height * iconsDistance;
             GameObject roomIconInstance = Instantiate(roomIcon);
-            roomIconInstance.transform.SetParent(gameObject.transform,false);
-            roomIconInstance.transform.position = new Vector3(iconX, iconY, 0);
+            roomIconInstance.transform.SetParent(gameObject.transform, false);
+            roomIconInstance.transform.position += new Vector3(iconX,iconY,0);
             _roomIcons.Add(room,roomIconInstance);
         }
     }
 
     public void ActiveRoomIcon(GameObject room)
     {
-        if(_activeRoom!=null) _activeRoom.GetComponent<Image>().color = Color.black;
+        if(_activeRoom!=null) _roomIcons[_activeRoom].GetComponent<Image>().color = inactiveColor;
         if (_roomIcons.Keys.Contains(room))
         {
-            _roomIcons[room].gameObject.GetComponent<Image>().color = Color.white;
+            _roomIcons[room].gameObject.GetComponent<Image>().color = activeColor;
             _activeRoom = room;
         }
     }
