@@ -13,6 +13,7 @@ namespace Mechanics.Camera
         [SerializeField ]private float acceleration = 1;
         [SerializeField ]private float initSpeed = 1;
         private Orientation _playerTransitionOrientation;
+        private GameObject _lastTransition;
 
         public void PlayerInRoom(Vector3 roomPosition, GameObject player)
         {
@@ -43,7 +44,7 @@ namespace Mechanics.Camera
             if(_isInTransition)
             {
                 if(Vector2.Distance(_playerTransitionPosition,Tr.position)<0.5) return;
-                if(MoveFixedDistanceAcceleratedDecelerated) return;
+                //if(MoveFixedDistanceAcceleratedDecelerated) return;
                 SetFixedDistanceAcceleratedDecelerated(_playerTransitionPosition, initSpeed, acceleration);
             }
             else
