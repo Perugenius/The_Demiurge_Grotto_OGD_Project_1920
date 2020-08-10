@@ -86,8 +86,11 @@ namespace Mechanics.Enemies
                     if(testing) Instantiate(bullet, firePoint.position, _tr.rotation);
                     else
                     {
-                        string path = Path.Combine("Enemies","PlantBullet");
-                        PhotonNetwork.Instantiate(path, firePoint.position, _tr.rotation);
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+                            string path = Path.Combine("Enemies","PlantBullet");
+                            PhotonNetwork.Instantiate(path, firePoint.position, _tr.rotation);
+                        }
                     }
                     _bulletReady = false;
                     StartCoroutine (nameof(Cooldown));
