@@ -15,6 +15,7 @@ namespace Mechanics.Enemies
         [SerializeField] private GameObject bullet;
         private bool _bulletReady;
         private bool _waiting;
+        private bool _ending;
         [SerializeField] private bool testing;
         
         // Start is called before the first frame update
@@ -64,10 +65,11 @@ namespace Mechanics.Enemies
                 right.collider.gameObject.layer != LayerMask.NameToLayer("PlayerPhysic") && _shooting)
             {
                 _shooting = false;
+                _ending = true;
                 _animator.SetBool("Shooting", false);
             }
             
-            if (_shooting)
+            if (_shooting || _ending)
             {
                 if (_direction == Vector2.left && left.collider.gameObject.layer != LayerMask.NameToLayer("PlayerPhysic"))
                 {
@@ -93,6 +95,7 @@ namespace Mechanics.Enemies
                         }
                     }
                     _bulletReady = false;
+                    _ending = false;
                     StartCoroutine (nameof(Cooldown));
                 }
                 
