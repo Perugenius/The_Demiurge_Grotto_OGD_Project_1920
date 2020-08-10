@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using Mechanics.Players.PlayerAttacks;
+using Photon.Pun;
+using UnityEngine;
 
 namespace Mechanics.Players
 {
@@ -7,12 +10,14 @@ namespace Mechanics.Players
 
         private int _maxJumpsNumber;
         private int _jumpsNumber;
+        private Transform _attackSpawner;
         
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
             _maxJumpsNumber = statistics.maxJumps;
+            _attackSpawner = transform.Find("AttackPoint").transform;
         }
 
         // Update is called once per frame
@@ -20,9 +25,14 @@ namespace Mechanics.Players
         {
             if (Input.GetButtonDown("Jump") && _jumpsNumber < _maxJumpsNumber && IsJumping)
             {
-                Jump(62);
+                Jump(45);
                 _jumpsNumber++;
                 Animator.SetBool(IsJumpingAnim, true);
+            }
+
+            if (Input.GetButtonDown("Attack") && IsJumping)
+            {
+                Attack();
             }
             base.Update();
         }
@@ -39,7 +49,10 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
-            throw new System.NotImplementedException();
+            GameObject shuriken = PhotonNetwork.Instantiate(Path.Combine("Players", "Shuriken"), _attackSpawner.position, Quaternion.identity);
+            Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
+            shurikenScript.SetDamage(CurrentAttack);
+            shurikenScript.SetSpeed(Vector2.down*12);
         }
     }
 }
