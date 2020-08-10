@@ -7,6 +7,7 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="DefenseBubble.cs" t="Include" />
+        <e p="DungeonMap.cs" t="Include" />
         <e p="Graphics" t="Include">
           <e p="UI" t="Include">
             <e p="fonts" t="Include">
