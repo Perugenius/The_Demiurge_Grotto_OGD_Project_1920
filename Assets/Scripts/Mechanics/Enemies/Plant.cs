@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.IO;
 using Photon.Pun;
 using UnityEngine;
 
@@ -83,7 +84,11 @@ namespace Mechanics.Enemies
                 if (_bulletReady)
                 {
                     if(testing) Instantiate(bullet, firePoint.position, _tr.rotation);
-                    else PhotonNetwork.Instantiate("PlantBullet", firePoint.position, _tr.rotation);
+                    else
+                    {
+                        string path = Path.Combine("Enemies","PlantBullet");
+                        PhotonNetwork.Instantiate(path, firePoint.position, _tr.rotation);
+                    }
                     _bulletReady = false;
                     StartCoroutine (nameof(Cooldown));
                 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Photon.Pun;
 using UnityEngine;
 
@@ -51,7 +52,11 @@ namespace Mechanics.Enemies
             if (_particleReady)
             {
                 if(testing) Instantiate(particle[Random.Range(0,4)], firePoint.position, Tr.rotation);
-                else PhotonNetwork.Instantiate("Particle" + Random.Range(1,5), firePoint.position, Tr.rotation);
+                else
+                {
+                    string path = Path.Combine("Enemies","Particle" + Random.Range(1,5));
+                    PhotonNetwork.Instantiate(path, firePoint.position, Tr.rotation);
+                }
                 _particleReady = false;
                 StartCoroutine (nameof(Cooldown));
             }
