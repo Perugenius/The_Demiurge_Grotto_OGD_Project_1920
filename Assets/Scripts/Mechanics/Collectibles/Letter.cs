@@ -55,7 +55,7 @@ namespace Mechanics.Collectibles
                 transform.localScale = new Vector3(1,1,1);
                 _animator.SetBool(IsCollected, true);
                 StartCoroutine(WaitBeforeDestroy());
-                GameManager.Instance.ExitDungeon();
+                GameManager.Instance.ShowVictoryScreen();
             }
         }
 

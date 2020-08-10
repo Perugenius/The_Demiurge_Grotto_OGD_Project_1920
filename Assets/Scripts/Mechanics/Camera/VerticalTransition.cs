@@ -19,11 +19,11 @@ namespace Mechanics.Camera
     
         private IEnumerator WaitForCamera()
         {
-            GameObject camera = GameObject.Find("Main Camera(Clone)");
+            GameObject camera = GameObject.Find("Main Camera");
             while (camera == null)
             {
                 yield return new WaitForSeconds(1);
-                camera = GameObject.Find("Main Camera(Clone)");
+                camera = GameObject.Find("Main Camera");
             }
 
             _mainCamera = camera.GetComponent<CameraFocusOnPlayer>();

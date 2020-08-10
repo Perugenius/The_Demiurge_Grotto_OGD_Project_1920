@@ -1,20 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Core.SaveLoadData;
 using Mechanics.Camera;
 using Model;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
     public class GameManager : Singleton<GameManager>
     {
-        public GameObject camera;
-        public GameObject loading;
+        [FormerlySerializedAs("camera")] [SerializeField] private GameObject playerCamera;
+        [SerializeField] private GameObject loading;
+        [SerializeField] private GameObject victoryScreen;
+        [SerializeField] private bool singlePlayerMode;
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
-        private GameObject _myCamera;
         private CollectiblesManager _collectiblesManager;
 
         void Awake()
@@ -67,16 +70,14 @@ namespace Core
 
         public void OnJoinScene()
         {
-            if (PhotonNetwork.PlayerList.Length == _numOfPlayers) GetComponent<PhotonView>().RPC("BuildDungeon", RpcTarget.MasterClient, SaveSystem.LoadPlayerData().currentCharacter);
-            _myCamera = Instantiate(camera, new Vector3(0f, 0f, -10f), Quaternion.identity);
-            int i = 0;
+            if (PhotonNetwork.PlayerList.Length == _numOfPlayers || singlePlayerMode) GetComponent<PhotonView>().RPC("BuildDungeon", RpcTarget.MasterClient, SaveSystem.LoadPlayerData().currentCharacter);
         }
 
         [PunRPC]
         public void InstantiatePlayer()
         {
             GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players","Voodoo"), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
-            _myCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
+            playerCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
             loading.SetActive(false);
         }
 
@@ -90,13 +91,25 @@ namespace Core
             }
         }
 
-        public void ExitDungeon()
+        private void ExitDungeon()
         {
             _collectiblesManager.SaveCollectibles();
             
             //TODO log victory message
             
             //TODO leave photon room
+        }
+
+        public void ShowVictoryScreen()
+        {
+            victoryScreen.SetActive(true);
+            StartCoroutine(WaitBeforeExit());
+        }
+
+        private IEnumerator WaitBeforeExit()
+        {
+            yield return new WaitForSeconds(5);
+            ExitDungeon();
         }
     }
 }
