@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6457953231736489535}
   - component: {fileID: 6457953231736489532}
   - component: {fileID: 5541923406814780005}
+  - component: {fileID: -8257030630660127887}
   m_Layer: 8
   m_Name: PlantBullet
   m_TagString: Untagged
@@ -134,8 +135,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2739609337adc346812eab3823efcb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Thrust: 0
   speed: 50
+--- !u!114 &-8257030630660127887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457953231736489528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8772138794645309558
 GameObject:
   m_ObjectHideFlags: 0
