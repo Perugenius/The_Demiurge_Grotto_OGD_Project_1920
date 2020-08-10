@@ -51,7 +51,7 @@ namespace Mechanics.Enemies
             }
             MoveDynamic(_direction, speed);
             if (!_following && (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 1.5f, -1.1f, 0), LayerMask.GetMask("Obstacle"))
-                || Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, 0, 0), LayerMask.GetMask("Obstacle"))))
+                || Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle"))))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
                 Vector3 newScale = Tr.localScale;
