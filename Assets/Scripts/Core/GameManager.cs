@@ -6,6 +6,7 @@ using Mechanics.Camera;
 using Model;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 
 namespace Core
@@ -15,6 +16,7 @@ namespace Core
         [FormerlySerializedAs("camera")] [SerializeField] private GameObject playerCamera;
         [SerializeField] private GameObject loading;
         [SerializeField] private GameObject victoryScreen;
+        [SerializeField] private GameObject messageBox;
         [SerializeField] private bool singlePlayerMode;
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
@@ -83,6 +85,14 @@ namespace Core
 
         void Update()
         {
+            //DebugMessageBox
+            /*if(Input.GetKeyDown("m"))
+            {
+                Debug.Log(messageBox.name);
+                messageBox.SetActive(true);
+                messageBox.GetComponent<MessageBox>().ShowMessage("Sample message to test message box. The book is on the table. The table is under the book. Today is sunny.");
+            }*/
+
             if(!PhotonNetwork.IsMasterClient) return;
             if (_dungeonBuilder.dungeonReady)
             {
@@ -110,6 +120,12 @@ namespace Core
         {
             yield return new WaitForSeconds(5);
             ExitDungeon();
+        }
+
+        public void ShowMessage(string message)
+        {
+            messageBox.SetActive(true);
+            messageBox.GetComponent<MessageBox>().ShowMessage(message);
         }
     }
 }
