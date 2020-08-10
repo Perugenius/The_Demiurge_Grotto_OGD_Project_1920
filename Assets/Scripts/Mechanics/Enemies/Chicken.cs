@@ -34,8 +34,11 @@ namespace Mechanics.Enemies
         {
             if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1.1f, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
-            MoveDynamic(_direction, speed);
-            if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 1.5f, -1.1f, 0), LayerMask.GetMask("Obstacle"))
+            MoveDynamic(_direction, speed, .5f);
+            float distance;
+            if (run) distance = 3;
+            else distance = 1.5f;
+            if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * distance, -1.1f, 0), LayerMask.GetMask("Obstacle"))
                 || Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, 0, 0), LayerMask.GetMask("Obstacle")))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
