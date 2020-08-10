@@ -7,7 +7,7 @@ namespace Mechanics.Players
 {
     public class Kinja : PlayableCharacter
     {
-
+        private static readonly int DoubleJump = Animator.StringToHash("DoubleJump");
         private int _maxJumpsNumber;
         private int _jumpsNumber;
         private Transform _attackSpawner;
@@ -28,6 +28,7 @@ namespace Mechanics.Players
                 Jump(45);
                 _jumpsNumber++;
                 Animator.SetBool(IsJumpingAnim, true);
+                Animator.SetTrigger(DoubleJump);
             }
 
             if (Input.GetButtonDown("Attack") && IsJumping)

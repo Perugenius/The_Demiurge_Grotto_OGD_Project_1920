@@ -5,7 +5,6 @@ namespace Mechanics.Players.PlayerAttacks
 {
     public class Shuriken : MonoBehaviour
     {
-
         private Rigidbody2D _rb;
         private float _damage;
         private Vector2 _speed;
