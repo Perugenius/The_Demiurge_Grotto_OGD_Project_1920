@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomIcon: {fileID: 4799174486151805134, guid: 813aa014394bcb348b7443abc7d97146,
     type: 3}
-  iconsDistance: 1.5
+  iconsDistance: 1.6
   activeColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0.5882353}
   inactiveColor: {r: 0, g: 0, b: 0, a: 0.5882353}
 --- !u!114 &869155836
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c19bbe4f5cfcb4d9bf4404c3bdea7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 30
   distance: 31
   unfocusedDirection: {x: 0, y: 1}
   defaultFocused: 0
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   loading: {fileID: 923261185}
   victoryScreen: {fileID: 2049734658}
   messageBox: {fileID: 1191053969}
-  singlePlayerMode: 0
+  singlePlayerMode: 1
 --- !u!1001 &2118941614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2075,7 +2075,7 @@ PrefabInstance:
     - target: {fileID: 1333193746244934897, guid: ef109908df19c184caf39a26b22e4d57,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.7019608
+      value: 0.8627451
       objectReference: {fileID: 0}
     - target: {fileID: 1333193746244934898, guid: ef109908df19c184caf39a26b22e4d57,
         type: 3}

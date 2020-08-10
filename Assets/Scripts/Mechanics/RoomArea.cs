@@ -45,17 +45,27 @@ namespace Mechanics
         {
             _numOfPlayersInRoom++;
             if(_numOfPlayersInRoom > 0 && !_roomEnable) SetActiveRoom(true);
-            GameObject parentRoom = gameObject.transform.parent.gameObject;
-            
-            Debug.Log("Updating map");
-            _dungeonMap.AddRoom(parentRoom);
-            _dungeonMap.ActiveRoomIcon(parentRoom);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if(_numOfPlayersInRoom>0) _numOfPlayersInRoom--;
             if (_numOfPlayersInRoom == 0 && _roomEnable) StartCoroutine(WaitBeforeDisabling());
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            GameObject parentRoom = gameObject.transform.parent.gameObject;
+
+            //get player photonView 
+            PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
+            photonView = photonView == null ? other.transform.parent.gameObject.GetComponent<PhotonView>() : photonView;
+            
+            if(photonView.IsMine && _dungeonMap.ActiveRoom != parentRoom)
+            {
+                _dungeonMap.AddRoom(parentRoom);
+                _dungeonMap.ActiveRoomIcon(parentRoom);
+            }
         }
 
         private IEnumerator WaitBeforeDisabling()
