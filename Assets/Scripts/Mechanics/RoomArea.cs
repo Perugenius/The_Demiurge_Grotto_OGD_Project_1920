@@ -19,11 +19,13 @@ namespace Mechanics
         private int _count = 0;
         private float _roomWidth;
         private float _roomHeight;
+        private DungeonMap _dungeonMap;
 
         private void Start()
         {
             _tr = GetComponent<Transform>();
             if(_numOfPlayersInRoom == 0) SetActiveRoom(false);
+            _dungeonMap = GameObject.Find("Map").GetComponent<DungeonMap>();
             StartCoroutine(WaitForCamera());
         }
         
@@ -42,6 +44,9 @@ namespace Mechanics
         {
             _numOfPlayersInRoom++;
             if(_numOfPlayersInRoom > 0 && !_roomEnable) SetActiveRoom(true);
+            GameObject parentRoom = gameObject.transform.parent.gameObject;
+            _dungeonMap.AddRoom(parentRoom);
+            _dungeonMap.ActiveRoomIcon(parentRoom);
         }
 
         private void OnTriggerExit2D(Collider2D other)

@@ -85,8 +85,8 @@ namespace Core
 
         void Update()
         {
-            //DebugMessageBox
-            /*if(Input.GetKeyDown("m"))
+            /*//DebugMessageBox
+            if(Input.GetKeyDown("m"))
             {
                 Debug.Log(messageBox.name);
                 messageBox.SetActive(true);

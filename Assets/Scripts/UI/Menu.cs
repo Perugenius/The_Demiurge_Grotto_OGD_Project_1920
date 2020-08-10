@@ -11,6 +11,7 @@ public class Menu : Movable
     [SerializeField] private Vector2 unfocusedDirection;
     [SerializeField] private bool defaultFocused;
     [SerializeField] private GameObject firstButton;
+    [SerializeField] private bool notDisableOnUnfocus = false;
     private bool _isFocused = false;
     private EventSystem _eventSystem;
     private List<GameObject> _dynamicContent;
@@ -70,7 +71,7 @@ public class Menu : Movable
             Destroy(element);
         }
         _duringTransition = false;
-        gameObject.SetActive(false);
+        if(!notDisableOnUnfocus) gameObject.SetActive(false);
     }
 
     public bool isFocused()
