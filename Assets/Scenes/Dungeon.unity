@@ -1974,4 +1974,4 @@ MonoBehaviour:
   loading: {fileID: 923261185}
   victoryScreen: {fileID: 2049734658}
   messageBox: {fileID: 1191053969}
-  singlePlayerMode: 1
+  singlePlayerMode: 0
