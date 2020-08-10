@@ -15,17 +15,18 @@ public class BaloonBackground : Movable
     void Start()
     {
         _tr = GetComponent<Transform>();
+        SetFloating(_accelertion,_deltaFloating);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!MoveFixedDistanceAcceleratedDecelerated)
+        /*if(!MoveFixedDistanceAcceleratedDecelerated)
         {
             SetFixedDistanceAcceleratedDecelerated(
                 up ? _tr.position + Vector3.up * _deltaFloating / 2f : _tr.position - Vector3.up * _deltaFloating / 2f,
                 _speed, _accelertion);
             up = !up;
-        }
+        }*/
     }
 }
