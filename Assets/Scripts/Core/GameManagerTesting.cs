@@ -33,7 +33,7 @@ public class GameManagerTesting : Singleton<GameManagerTesting>
         playersSkills.Add(DungeonRoom.PlatformingSkills.Intangibility);
         playersSkills.Add(DungeonRoom.PlatformingSkills.WallJump);
         
-        if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(1,playersSkills,15,2);
+        //if(PhotonNetwork.IsMasterClient) GetComponent<DungeonBuilder>().BuildDungeon(1,playersSkills,15,2);
         OnJoinScene();
     }
 

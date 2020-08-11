@@ -5591,7 +5591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1358974926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31874,6 +31874,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 515566433025183001, guid: c5253d9182830a34695db595cebc2595,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1870950778555154223, guid: c5253d9182830a34695db595cebc2595,
         type: 3}
       propertyPath: m_Tiles.Array.data[553].second.m_TileSpriteIndex
@@ -34274,6 +34279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: alwaysOn
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267823561094626344, guid: 29b8b9c42d4495c48838d636d63b19c5,
+        type: 3}
+      propertyPath: viewIdField
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 6145226389705320431, guid: 29b8b9c42d4495c48838d636d63b19c5,
         type: 3}
