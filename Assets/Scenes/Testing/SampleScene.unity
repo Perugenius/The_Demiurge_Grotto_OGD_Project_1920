@@ -34254,6 +34254,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fan (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1973765687725869563, guid: 29b8b9c42d4495c48838d636d63b19c5,
+        type: 3}
+      propertyPath: alwaysOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8402042476020723306, guid: 29b8b9c42d4495c48838d636d63b19c5,
         type: 3}
       propertyPath: m_LocalPosition.x
