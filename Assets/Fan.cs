@@ -21,12 +21,15 @@ public class Fan : MonoBehaviour
     private Vector2 _direction;
     private bool _enabled;
     private int _count;
+    private PhotonView _photonView;
     private static readonly int isOn = Animator.StringToHash("isOn");
 
     // Start is called before the first frame update
     void Start()
     {
         _body = transform.Find("Body").gameObject;
+
+        _photonView = GetComponent<PhotonView>();
         
         switch (transform.rotation.eulerAngles.z)
         {
@@ -42,6 +45,12 @@ public class Fan : MonoBehaviour
 
         _enabled = startEnabled || alwaysOn;
         animator.SetBool(isOn,_enabled);
+    }
+
+    [PunRPC]
+    public void EnableFan(bool enable)
+    {
+        _enabled = enable;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -105,20 +114,20 @@ public class Fan : MonoBehaviour
             _particleCount = 0;
             CreateParticle(transform.position + (Vector3)_direction*-0.5f + Random.Range(-1f,1f)*0.25f*Vector3.right);
         }
-        
+
         if(alwaysOn) return;
 
         if (_enabled && _count / 60f >= onTime)
         {
             _count = 0;
-            _enabled = false;
+            if(PhotonNetwork.IsMasterClient) _photonView.RPC("EnableFan", RpcTarget.All,false);
             animator.SetBool(isOn,false);
         }
         
         if (!_enabled && _count / 60f >= offTime)
         {
             _count = 0;
-            _enabled = true;
+            if(PhotonNetwork.IsMasterClient) _photonView.RPC("EnableFan", RpcTarget.All,true);
             animator.SetBool(isOn,true);
         }
     }
