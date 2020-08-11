@@ -432,6 +432,7 @@
               <e p="Pinkie.cs" t="Include" />
               <e p="PlayableCharacter.cs" t="Include" />
               <e p="PlayerAttacks" t="Include">
+                <e p="Pillow.cs" t="Include" />
                 <e p="Shuriken.cs" t="Include" />
               </e>
               <e p="PlayerDamageCollider.cs" t="Include" />
