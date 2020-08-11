@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Mechanics.Enemies
@@ -10,6 +11,7 @@ namespace Mechanics.Enemies
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
         [SerializeField] private float tempSpeed;
+        [SerializeField] private float lifePoints;
         private bool run;
         
         
@@ -63,6 +65,21 @@ namespace Mechanics.Enemies
                 _animator.SetBool("Run",true);
                 run = true;
             }
+        }
+        
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

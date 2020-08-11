@@ -9,10 +9,12 @@ namespace Mechanics.Enemies
     public class Slime : Movable
     {
         private Vector2 _direction;
+        private Animator _animator;
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
         [SerializeField] private Transform firePoint;
         [SerializeField] private List<GameObject> particle;
+        [SerializeField] private float lifePoints;
         [SerializeField] private bool testing;
         private bool _particleReady;
 
@@ -20,6 +22,7 @@ namespace Mechanics.Enemies
         // Start is called before the first frame update
         void Start()
         {
+            _animator = GetComponent<Animator>();
             _direction = initialDirection
                 ? Vector2.left
                 : Vector2.right;
@@ -70,6 +73,21 @@ namespace Mechanics.Enemies
         private IEnumerator Cooldown(){
             yield return new WaitForSeconds (.4f);
             _particleReady = true;
+        }
+
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

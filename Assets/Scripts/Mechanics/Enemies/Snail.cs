@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Mechanics.Enemies
 {
@@ -8,6 +9,7 @@ namespace Mechanics.Enemies
         private Animator _animator;
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
+        [SerializeField] private float lifePoints;
         private bool _withdrawn;
         
         
@@ -47,6 +49,22 @@ namespace Mechanics.Enemies
         {
             _withdrawn = true;
             _animator.SetBool("Withdraw",false);
+        }
+        
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+                Withdraw();
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Mechanics.Enemies
 {
@@ -9,6 +10,7 @@ namespace Mechanics.Enemies
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
         [SerializeField] private float tempSpeed;
+        [SerializeField] private float lifePoints;
         private bool _run;
         private Transform _player;
         private bool _following;
@@ -77,7 +79,23 @@ namespace Mechanics.Enemies
         private void Anger()
         {
             _run = true;
-            _animator.SetBool("True",false);
+            _animator.SetBool("Run",true);
+        }
+        
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                Anger();
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

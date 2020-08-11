@@ -13,6 +13,7 @@ namespace Mechanics.Enemies
         private Animator _animator;
         [SerializeField] private Transform firePoint;
         [SerializeField] private GameObject bullet;
+        [SerializeField] private float lifePoints;
         private bool _bulletReady;
         private bool _waiting;
         private bool _ending;
@@ -114,6 +115,21 @@ namespace Mechanics.Enemies
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length/2f);
             _waiting = false;
             _shooting = true;
+        }
+        
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

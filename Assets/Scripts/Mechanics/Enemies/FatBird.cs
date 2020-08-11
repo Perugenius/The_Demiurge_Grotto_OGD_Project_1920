@@ -10,6 +10,7 @@ namespace Mechanics.Enemies
         private Animator _animator;
         [SerializeField] private float acceleration;
         [SerializeField] private float amplitude;
+        [SerializeField] private float lifePoints;
         private float _altitude;
         private bool _falling;
         private bool _returning;
@@ -65,6 +66,21 @@ namespace Mechanics.Enemies
             SetFixedDistanceAcceleratedDecelerated(Tr.position + Vector3.up*(_altitude - Tr.position.y), 0, acceleration/2);
             _returning = true;
             _animator.SetBool("Ground", false);
+        }
+        
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

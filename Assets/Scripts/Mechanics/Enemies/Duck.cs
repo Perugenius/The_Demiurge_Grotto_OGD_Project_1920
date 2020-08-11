@@ -11,6 +11,7 @@ namespace Mechanics.Enemies
         [SerializeField] private bool initialDirection;
         [SerializeField] private float height;
         [SerializeField] private float thrust;
+        [SerializeField] private float lifePoints;
         private bool _jumping;
         private bool _ready;
         private Animator _animator;
@@ -70,6 +71,21 @@ namespace Mechanics.Enemies
         private IEnumerator Cooldown(){
             yield return new WaitForSeconds (1);
             _ready = true;
+        }
+        
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }

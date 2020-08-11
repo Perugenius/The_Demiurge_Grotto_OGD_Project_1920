@@ -11,6 +11,7 @@ namespace Mechanics.Enemies
         [SerializeField] private float speed;
         [SerializeField] private float knockbackHeight;
         [SerializeField] private float knockbackThrust;
+        [SerializeField] private float lifePoints;
         private bool _run;
         
         // Start is called before the first frame update
@@ -69,6 +70,21 @@ namespace Mechanics.Enemies
             _animator.SetBool("Bump", false);
             Tr.Rotate(0f,180,0f);
             _direction = Vector2.Reflect(_direction, Vector2.right);
+        }
+
+        private void Damage(float damage)
+        {
+            _animator.SetBool("Hit",true);
+            if (damage < lifePoints)
+            {
+                lifePoints = lifePoints - damage;
+            }
+            else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Die(){
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
         }
     }
 }
