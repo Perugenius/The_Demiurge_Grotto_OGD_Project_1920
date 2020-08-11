@@ -51,6 +51,7 @@ public class Fan : MonoBehaviour
     public void EnableFan(bool enable)
     {
         _enabled = enable;
+        animator.SetBool(isOn,enable);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -121,14 +122,12 @@ public class Fan : MonoBehaviour
         {
             _count = 0;
             if(PhotonNetwork.IsMasterClient) _photonView.RPC("EnableFan", RpcTarget.All,false);
-            animator.SetBool(isOn,false);
         }
         
         if (!_enabled && _count / 60f >= offTime)
         {
             _count = 0;
             if(PhotonNetwork.IsMasterClient) _photonView.RPC("EnableFan", RpcTarget.All,true);
-            animator.SetBool(isOn,true);
         }
     }
     
