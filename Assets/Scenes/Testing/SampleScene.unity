@@ -7327,7 +7327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1755282905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7828,7 +7828,7 @@ PrefabInstance:
     - target: {fileID: 7420898052033653429, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6479217673772860762, guid: cc3b8bc5ecc23f74695fe0a5e00c8dd7, type: 3}
@@ -7846,7 +7846,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871011989}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab3c03c895af9ed4ab749f09fe43972d, type: 3}
   m_Name: 
@@ -7869,6 +7869,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonReady: 0
+--- !u!114 &1871011992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871011989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b87104d930bc4c439b31ccf4ce44f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  PoolingExample: {fileID: 0}
+  screen: {fileID: 0}
+  camera: {fileID: 177512196}
 --- !u!1 &1896594700
 GameObject:
   m_ObjectHideFlags: 0
