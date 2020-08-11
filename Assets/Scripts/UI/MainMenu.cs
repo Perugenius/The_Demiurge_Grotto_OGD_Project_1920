@@ -78,7 +78,7 @@ public class MainMenu : MonoBehaviour
         //Randomly choose first character
         if(SaveSystem.LoadPlayerData()==null)
         {
-            SaveSystem.CreatePlayerData(charactersNames[Random.Range(0,charactersNames.Count-1)], charactersNames);
+            SaveSystem.CreatePlayerData(charactersNames[Random.Range(0,charactersNames.Count)], charactersNames);
         }
 
         LoadPerks();

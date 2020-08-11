@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Traps
@@ -35,6 +36,15 @@ namespace Mechanics.Traps
             Movable player = other.gameObject.GetComponent<Movable>();
             if (player != null)
             {
+                if (other.gameObject.CompareTag("Player"))
+                {
+                    //get player photonView 
+                    PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
+                    photonView = photonView == null ? other.transform.parent.gameObject.GetComponent<PhotonView>() : photonView;
+                
+                    if(!photonView.IsMine) return;
+                }
+                
                 Vector2 resistanceForceDirection = (player.GetMovingDirection().y > 0) ? Vector2.down: Vector2.up;
                 float resistanceForceIntensity = (player.GetMovingDirection().y > 0) ? intensity: intensity*0.60f;
                 player.AddForce(resistanceForceDirection, resistanceForceIntensity);
