@@ -78,13 +78,16 @@ namespace Mechanics.Enemies
 
         private void Anger()
         {
+            var t = speed;
+            speed = tempSpeed;
+            tempSpeed = t;
             _run = true;
             _animator.SetBool("Run",true);
         }
         
         private void Damage(float damage)
         {
-            _animator.SetBool("Hit",true);
+            _animator.SetTrigger("Hit");
             if (damage < lifePoints)
             {
                 Anger();

@@ -35,7 +35,7 @@ namespace Mechanics.Enemies
         {
             if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
-            MoveDynamic(_direction, speed);
+            if(!_withdrawn) MoveDynamic(_direction, speed);
             if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x, -1, 0), LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle")))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
@@ -48,12 +48,18 @@ namespace Mechanics.Enemies
         private void Withdraw()
         {
             _withdrawn = true;
+            _animator.SetBool("Withdraw",true);
+        }
+        
+        private IEnumerator Waiting(){
+            yield return new WaitForSeconds (3);
+            _withdrawn = false;
             _animator.SetBool("Withdraw",false);
         }
         
         private void Damage(float damage)
         {
-            _animator.SetBool("Hit",true);
+            _animator.SetTrigger("Hit");
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
