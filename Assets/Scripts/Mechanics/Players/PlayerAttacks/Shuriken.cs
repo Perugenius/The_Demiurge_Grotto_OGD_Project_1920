@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Mechanics.Players.PlayerAttacks
 {
-    public class Shuriken : MonoBehaviour
+    public class Shuriken : MonoBehaviour, IDamageInflictor
     {
         private Rigidbody2D _rb;
         private float _damage;
@@ -43,6 +43,10 @@ namespace Mechanics.Players.PlayerAttacks
         {
             _speed = speed;
         }
-    
+
+        public float GetDamage()
+        {
+            return _damage;
+        }
     }
 }

@@ -8,6 +8,9 @@ namespace Mechanics.Players
     public class Pinkie : PlayableCharacter
     {
         private Transform _pillowSpawnPosition;
+
+        private bool _canSummonPillow = true;
+        private int _maxPillowNumber;
         
         // Start is called before the first frame update
         protected override void Start()
@@ -20,7 +23,7 @@ namespace Mechanics.Players
         protected override void Update()
         {
             base.Update();
-            if (Input.GetButtonDown("Attack"))
+            if (Input.GetButtonDown("Attack") && _canSummonPillow)
             {
                 Attack();
             }
@@ -33,12 +36,21 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
+            _canSummonPillow = false;
             GameObject pillow = PhotonNetwork.Instantiate(Path.Combine("Players", "Pillow"),
                 _pillowSpawnPosition.position, Quaternion.identity);
             pillow.transform.SetParent(gameObject.transform);
             Pillow pillowScript = pillow.GetComponent<Pillow>();
+            pillowScript.SetPlayerPosition(transform);
             pillowScript.SetDamage(CurrentAttack);
-            pillowScript.SetSpeed(3);
+            pillowScript.SetDuration(5);
+            pillowScript.SetSpeed(90);
+            pillowScript.SetPinkie(this);
+        }
+
+        public void SetCanSummonPillow(bool canSummon)
+        {
+            _canSummonPillow = canSummon;
         }
     }
 }

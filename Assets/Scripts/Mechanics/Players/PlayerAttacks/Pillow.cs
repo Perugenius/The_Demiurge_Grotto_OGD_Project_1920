@@ -4,34 +4,37 @@ using UnityEngine;
 
 namespace Mechanics.Players.PlayerAttacks
 {
-    public class Pillow : MonoBehaviour
+    public class Pillow : MonoBehaviour, IDamageInflictor
     {
         private float _damage;
         private float _speed;
         private float _duration;
         private Transform _playerPosition;
+        private Pinkie _pinkie;
 
         // Start is called before the first frame update
         void Start()
         {
-            _playerPosition = GetComponentInParent<Transform>();
+            StartCoroutine(nameof(StartTimer));
         }
 
         // Update is called once per frame
         void Update()
         {
-            
         }
 
         private void FixedUpdate()
         {
-            transform.Rotate(Time.deltaTime * 2 * Vector3.back);
+            transform.Rotate(Time.deltaTime * 10* Vector3.back);
             transform.RotateAround(_playerPosition.position, Vector3.back,_speed*Time.deltaTime);
         }
 
         private IEnumerator StartTimer()
         {
-            yield return null;
+            
+            yield return new WaitForSeconds(_duration);
+            _pinkie.SetCanSummonPillow(true);
+            Destroy(gameObject);
         }
 
         public void SetDamage(float damage)
@@ -47,6 +50,22 @@ namespace Mechanics.Players.PlayerAttacks
         public void SetDuration(float duration)
         {
             _duration = duration;
+        }
+
+        public void SetPlayerPosition(Transform playerPosition)
+        {
+            _playerPosition = playerPosition;
+        }
+
+        public void SetPinkie(Pinkie pinkie)
+        {
+            _pinkie = pinkie;
+        }
+
+
+        public float GetDamage()
+        {
+            return _damage;
         }
     }
 }
