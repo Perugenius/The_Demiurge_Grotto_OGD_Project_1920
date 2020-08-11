@@ -424,6 +424,7 @@
             <e p="EnemySpawner.cs" t="Include" />
             <e p="GayBunny.cs" t="Include" />
             <e p="Health.cs" t="Include" />
+            <e p="IDamageInflictor.cs" t="Include" />
             <e p="Movable.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="Players" t="Include">

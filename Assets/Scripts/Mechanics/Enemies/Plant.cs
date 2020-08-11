@@ -117,6 +117,14 @@ namespace Mechanics.Enemies
             _shooting = true;
         }
         
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            {
+                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+            }
+        }
+        
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");

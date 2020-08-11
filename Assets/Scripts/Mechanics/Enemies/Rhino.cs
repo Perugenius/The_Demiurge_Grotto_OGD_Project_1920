@@ -63,6 +63,11 @@ namespace Mechanics.Enemies
                 JumpLateral(knockbackHeight, Vector2.Reflect(_direction, Vector2.right)*knockbackThrust);
                 StartCoroutine (nameof(Cooldown));
             }
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            {
+                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+            }
         }
         
         private IEnumerator Cooldown(){

@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Photon.Pun;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Mechanics.Enemies
 {
@@ -73,6 +75,14 @@ namespace Mechanics.Enemies
         private IEnumerator Cooldown(){
             yield return new WaitForSeconds (.4f);
             _particleReady = true;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            {
+                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+            }
         }
 
         private void Damage(float damage)
