@@ -34275,6 +34275,11 @@ PrefabInstance:
       propertyPath: alwaysOn
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6145226389705320431, guid: 29b8b9c42d4495c48838d636d63b19c5,
+        type: 3}
+      propertyPath: viewIdField
+      value: 109
+      objectReference: {fileID: 0}
     - target: {fileID: 8402042476020723306, guid: 29b8b9c42d4495c48838d636d63b19c5,
         type: 3}
       propertyPath: m_LocalPosition.x
