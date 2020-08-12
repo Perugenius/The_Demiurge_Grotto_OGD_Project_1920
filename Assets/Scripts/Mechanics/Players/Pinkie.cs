@@ -60,7 +60,7 @@ namespace Mechanics.Players
             pillowScript.SetPlayerPosition(transform);
             pillowScript.SetDamage(CurrentAttack);
             pillowScript.SetDuration(5);
-            pillowScript.SetSpeed(90);
+            pillowScript.SetSpeed(180);
             pillowScript.SetPinkie(this);
         }
 

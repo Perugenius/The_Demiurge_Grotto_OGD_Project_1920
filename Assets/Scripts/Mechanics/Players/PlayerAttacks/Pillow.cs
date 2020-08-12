@@ -25,7 +25,7 @@ namespace Mechanics.Players.PlayerAttacks
 
         private void FixedUpdate()
         {
-            transform.Rotate(Time.deltaTime * 10* Vector3.back);
+            transform.Rotate(Time.deltaTime * 180* Vector3.forward);
             transform.RotateAround(_playerPosition.position, Vector3.back,_speed*Time.deltaTime);
         }
 

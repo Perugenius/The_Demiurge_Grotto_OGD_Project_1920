@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statistics: {fileID: 11400000, guid: 89772b404e99a6c4eb241ab72781bda1, type: 2}
-  localTesting: 1
+  localTesting: 0
 --- !u!95 &5333398801255214137
 Animator:
   serializedVersion: 3
@@ -430,6 +430,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: IsDescending
+  - Type: 9
+    SynchronizeType: 0
+    Name: DoubleJump
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
