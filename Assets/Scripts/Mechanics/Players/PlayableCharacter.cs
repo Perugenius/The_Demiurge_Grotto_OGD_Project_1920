@@ -15,13 +15,13 @@ namespace Mechanics.Players
         protected Animator Animator;
         protected static readonly int Horizontal = Animator.StringToHash("Horizontal");
         protected static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        protected static readonly int FaceDirection = Animator.StringToHash("FaceDirection");
+        protected static readonly int FaceDirectionAnimator = Animator.StringToHash("FaceDirection");
         protected static readonly int IsJumpingAnim = Animator.StringToHash("IsJumping");
         protected static readonly int IsDescending = Animator.StringToHash("IsDescending");
         protected float Speed;
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
-        protected Vector2 FaceDir;
+        protected Vector2 FaceDirection;
         protected int CollectedGems;
 
         protected bool IsAnchored;
@@ -55,19 +55,19 @@ namespace Mechanics.Players
             }
         }
 
-        private void Animate()
+        protected virtual void Animate()
         {
             if (Speed != 0)
             {
                 if (Speed > 0)
                 {
-                    FaceDir = Vector2.right;
-                    Animator.SetFloat(FaceDirection,1);
+                    FaceDirection = Vector2.right;
+                    Animator.SetFloat(FaceDirectionAnimator,1);
                 }
                 else
                 {
-                    FaceDir = Vector2.left;
-                    Animator.SetFloat(FaceDirection,-1);
+                    FaceDirection = Vector2.left;
+                    Animator.SetFloat(FaceDirectionAnimator,-1);
                 }
                 Animator.SetBool(IsMoving,true);
             }
@@ -162,6 +162,12 @@ namespace Mechanics.Players
         public void MoveWithFriend(Vector2 direction, float speed)
         {
             MoveDynamic(direction,speed);
+        }
+
+        public Vector2 FaceDirection1
+        {
+            get => FaceDirection;
+            set => FaceDirection = value;
         }
     }
 }

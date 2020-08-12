@@ -428,8 +428,10 @@
             <e p="Movable.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="Players" t="Include">
+              <e p="Enumeration.cs" t="Include" />
               <e p="JumpChecker.cs" t="Include" />
               <e p="Kinja.cs" t="Include" />
+              <e p="LeftWallJumpTrigger.cs" t="Include" />
               <e p="Pinkie.cs" t="Include" />
               <e p="PlayableCharacter.cs" t="Include" />
               <e p="PlayerAttacks" t="Include">
@@ -439,6 +441,7 @@
               </e>
               <e p="PlayerDamageCollider.cs" t="Include" />
               <e p="PlayerHitBox.cs" t="Include" />
+              <e p="RightWallJumpTrigger.cs" t="Include" />
               <e p="Steve.cs" t="Include" />
               <e p="Voodoo.cs" t="Include" />
             </e>

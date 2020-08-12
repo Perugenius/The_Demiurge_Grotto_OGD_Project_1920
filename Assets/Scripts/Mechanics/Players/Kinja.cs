@@ -23,19 +23,23 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected override void Update()
         {
-            if (Input.GetButtonDown("Jump") && _jumpsNumber < _maxJumpsNumber && IsJumping)
+            if (gameObject.GetPhotonView().IsMine || localTesting)
             {
-                Jump(45);
-                _jumpsNumber++;
-                Animator.SetBool(IsJumpingAnim, true);
-                Animator.SetTrigger(DoubleJump);
-            }
+                if (Input.GetButtonDown("Jump") && _jumpsNumber < _maxJumpsNumber && IsJumping)
+                {
+                    Jump(45);
+                    _jumpsNumber++;
+                    Animator.SetBool(IsJumpingAnim, true);
+                    Animator.SetTrigger(DoubleJump);
+                }
 
-            if (Input.GetButtonDown("Attack") && IsJumping)
-            {
-                Attack();
+                if (Input.GetButtonDown("Attack") && IsJumping)
+                {
+                    Attack();
+                }
+
+                base.Update();
             }
-            base.Update();
         }
 
         public void SetJumpsNumber(int num)

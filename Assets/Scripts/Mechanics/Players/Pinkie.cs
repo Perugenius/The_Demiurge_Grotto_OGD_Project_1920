@@ -33,15 +33,18 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected override void Update()
         {
-            base.Update();
-            if (Input.GetButtonDown("Attack") && _canSummonPillow)
+            if (gameObject.GetPhotonView().IsMine || localTesting)
             {
-                Attack();
-            }
+                base.Update();
+                if (Input.GetButtonDown("Attack") && _canSummonPillow)
+                {
+                    Attack();
+                }
 
-            if (Input.GetButtonDown("SecondarySkill") && _canDisappear)
-            {
-                UseSecondary();
+                if (Input.GetButtonDown("SecondarySkill") && _canDisappear)
+                {
+                    UseSecondary();
+                }
             }
         }
 

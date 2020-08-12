@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Players
@@ -23,27 +24,31 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected override void Update()
         {
-            base.Update();
-            IEnumerator coroutine;
-            if (Input.GetAxis("Vertical") >0 && !_isDashing)
+            if (gameObject.GetPhotonView().IsMine || localTesting)
             {
-                _dashDirection = Vector2.up;
-                coroutine = DashTimer(0.04f);
-            }
-            else if(!_isDashing)
-            {
-                _dashDirection = FaceDir;
-                coroutine = DashTimer(0.25f);
-            }
-            else
-            {
-                coroutine = null;
-            }
-            if (Input.GetButtonDown("Attack") && !_isDashing)
-            {
-                Attack();
-                _isDashing = true;
-                StartCoroutine(coroutine);
+                base.Update();
+                IEnumerator coroutine;
+                if (Input.GetAxis("Vertical") > 0 && !_isDashing)
+                {
+                    _dashDirection = Vector2.up;
+                    coroutine = DashTimer(0.04f);
+                }
+                else if (!_isDashing)
+                {
+                    _dashDirection = FaceDirection;
+                    coroutine = DashTimer(0.25f);
+                }
+                else
+                {
+                    coroutine = null;
+                }
+
+                if (Input.GetButtonDown("Attack") && !_isDashing)
+                {
+                    Attack();
+                    _isDashing = true;
+                    StartCoroutine(coroutine);
+                }
             }
         }
 
