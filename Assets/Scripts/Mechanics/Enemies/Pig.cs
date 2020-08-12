@@ -14,6 +14,7 @@ namespace Mechanics.Enemies
         private bool _run;
         private Transform _player;
         private bool _following;
+        private bool _hit;
         
         // Start is called before the first frame update
         void Start()
@@ -51,7 +52,7 @@ namespace Mechanics.Enemies
                 newScale.x = -_direction.x;
                 Tr.localScale = newScale;
             }
-            MoveDynamic(_direction, speed);
+            if(!_hit) MoveDynamic(_direction, speed);
             if (!_following && (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 1.5f, -1.1f, 0), LayerMask.GetMask("Obstacle"))
                 || Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle"))))
             {
@@ -80,7 +81,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
 
@@ -96,12 +97,20 @@ namespace Mechanics.Enemies
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            _hit = true;
             if (damage < lifePoints)
             {
                 Anger();
                 lifePoints = lifePoints - damage;
+                StartCoroutine (nameof(Stop));
             }
             else StartCoroutine (nameof(Die));
+        }
+        
+        private IEnumerator Stop()
+        {
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
         }
 
         private IEnumerator Die(){

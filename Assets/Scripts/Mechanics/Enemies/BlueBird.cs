@@ -10,6 +10,7 @@ namespace Mechanics.Enemies
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
         [SerializeField] private float lifePoints;
+        private bool _hit;
         
         
         // Start is called before the first frame update
@@ -33,7 +34,7 @@ namespace Mechanics.Enemies
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveDynamic(_direction, speed);
+            if(!_hit) MoveDynamic(_direction, speed);
             if (Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle")))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
@@ -47,18 +48,26 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
         
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            _hit = true;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
+                StartCoroutine (nameof(Stop));
             }
             else StartCoroutine (nameof(Die));
+        }
+        
+        private IEnumerator Stop()
+        {
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
         }
 
         private IEnumerator Die(){

@@ -11,6 +11,7 @@ namespace Mechanics.Enemies
         [SerializeField] private bool initialDirection;
         [SerializeField] private float lifePoints;
         private bool _withdrawn;
+        //private bool _hit;
         
         
         // Start is called before the first frame update
@@ -49,7 +50,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_withdrawn) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
 
@@ -68,6 +69,7 @@ namespace Mechanics.Enemies
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            //_hit = true;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
@@ -75,6 +77,12 @@ namespace Mechanics.Enemies
             }
             else StartCoroutine (nameof(Die));
         }
+        
+        /*private IEnumerator Stop()
+        {
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
+        }*/
 
         private IEnumerator Die(){
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);

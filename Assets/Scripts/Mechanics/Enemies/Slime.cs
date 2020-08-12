@@ -19,6 +19,7 @@ namespace Mechanics.Enemies
         [SerializeField] private float lifePoints;
         [SerializeField] private bool testing;
         private bool _particleReady;
+        private bool _hit;
 
 
         // Start is called before the first frame update
@@ -45,7 +46,7 @@ namespace Mechanics.Enemies
         {
             if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
-            MoveDynamic(_direction, speed, .5f);
+            if(!_hit) MoveDynamic(_direction, speed, .5f);
             if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 2f, -1, 0), LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle")))
             {
                 _direction = Vector2.Reflect(_direction, Vector2.right);
@@ -81,18 +82,26 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
 
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            _hit = true;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
+                StartCoroutine (nameof(Stop));
             }
             else StartCoroutine (nameof(Die));
+        }
+
+        private IEnumerator Stop()
+        {
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
         }
 
         private IEnumerator Die(){

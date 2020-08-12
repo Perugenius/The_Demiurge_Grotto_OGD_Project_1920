@@ -15,6 +15,7 @@ namespace Mechanics.Enemies
         private bool _jumping;
         private bool _ready;
         private Animator _animator;
+        private bool _hit;
 
         // Start is called before the first frame update
         void Start()
@@ -38,7 +39,7 @@ namespace Mechanics.Enemies
 
         protected override void FixedUpdate()
         {
-            if (!_jumping && _ready)
+            if (!_jumping && _ready && !_hit)
             {
                 //Rb.AddForce(new Vector2(_direction.x * 3, height),ForceMode2D.Impulse);
                 JumpLateral(height, _direction * thrust);
@@ -77,18 +78,26 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
         
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            _hit = true;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
+                StartCoroutine (nameof(Stop));
             }
             else StartCoroutine (nameof(Die));
+        }
+        
+        private IEnumerator Stop()
+        {
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
         }
 
         private IEnumerator Die(){

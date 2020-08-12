@@ -18,6 +18,7 @@ namespace Mechanics.Enemies
         private bool _waiting;
         private bool _ending;
         [SerializeField] private bool testing;
+        private bool _hit;
         
         // Start is called before the first frame update
         void Start()
@@ -84,7 +85,7 @@ namespace Mechanics.Enemies
                     _direction = Vector2.left;
                 }
 
-                if (_bulletReady)
+                if (_bulletReady && !_hit)
                 {
                     if(testing) Instantiate(bullet, firePoint.position, _tr.rotation);
                     else
@@ -121,18 +122,26 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
         
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            _hit = true;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
+                StartCoroutine (nameof(Stop));
             }
             else StartCoroutine (nameof(Die));
+        }
+        
+        private IEnumerator Stop()
+        {
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
         }
 
         private IEnumerator Die(){
