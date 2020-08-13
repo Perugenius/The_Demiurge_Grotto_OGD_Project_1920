@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: VoodooStats
   m_EditorClassIdentifier: 
   name: Voodoo
-  maxHealth: 5
+  maxHealth: 4
   movSpeed: 15
   fightSpeed: 2
   rangeOfView: 0
-  jumpHeight: 3
+  jumpHeight: 62
   attack: 2
   level: 1
   maxJumps: 1
+  attackSpeed: 0
+  attackRate: 0
+  projectileNumber: 0
+  attackRange: 0
+  attackDuration: 0
+  secondarySkillDuration: 0
+  secondarySkillTimeRecharge: 0

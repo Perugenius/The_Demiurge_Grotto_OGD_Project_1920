@@ -19,6 +19,7 @@ namespace Mechanics.Players
         protected static readonly int IsJumpingAnim = Animator.StringToHash("IsJumping");
         protected static readonly int IsDescending = Animator.StringToHash("IsDescending");
         protected float Speed;
+        protected float JumpHeight;
         protected int MaxConsecutiveJump = 1;
         protected int CurrentConsecutiveJump = 0;
         protected Vector2 FaceDirection;
@@ -35,6 +36,7 @@ namespace Mechanics.Players
             CurrentSpeed = statistics.movSpeed;
             CurrentHealth = statistics.maxHealth;
             CurrentAttack = statistics.attack;
+            JumpHeight = statistics.jumpHeight;
 
             Animator = GetComponent<Animator>();
         }
@@ -47,7 +49,7 @@ namespace Mechanics.Players
                 Speed = Input.GetAxisRaw("Horizontal");
                 if (Input.GetButtonDown("Jump") && !IsJumping)
                 {
-                    Jump(62);
+                    Jump(JumpHeight);
                     Animator.SetBool(IsJumpingAnim, true);
                 }
                 
@@ -88,7 +90,7 @@ namespace Mechanics.Players
                 MoveDynamic(direction,CurrentSpeed*Speed);
                 if (AnchoredPlayer)
                 {
-                    AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);
+                    /*AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);*/
                 }
             }/*
             else if (Speed < 0)

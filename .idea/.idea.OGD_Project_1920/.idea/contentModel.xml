@@ -441,6 +441,7 @@
               </e>
               <e p="PlayerDamageCollider.cs" t="Include" />
               <e p="PlayerHitBox.cs" t="Include" />
+              <e p="PlayerHitbox1.cs" t="Include" />
               <e p="RightWallJumpTrigger.cs" t="Include" />
               <e p="Steve.cs" t="Include" />
               <e p="Voodoo.cs" t="Include" />

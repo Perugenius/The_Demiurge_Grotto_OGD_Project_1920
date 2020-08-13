@@ -66,6 +66,11 @@ namespace Mechanics
         {
             Rb.velocity = Vector2.SmoothDamp(Rb.velocity, new Vector2(0,Rb.velocity.y), ref m_velocity, 0.1f);
         }
+
+        public void VerticalDeceleration()
+        {
+            Rb.velocity = Vector2.SmoothDamp(Rb.velocity, new Vector2(Rb.velocity.x,0), ref m_velocity, 0.1f);
+        }
         
         public void MoveKinematic(Vector2 direction, float speed)
         {

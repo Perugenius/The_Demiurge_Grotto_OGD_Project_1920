@@ -13,12 +13,20 @@ namespace Mechanics.Players
         private GameObject _damageCollider;
         private GameObject _playerHitbox;
 
+        private float _initialMass;
+        private float _horizontalDashSpeed;
+        private float _verticalDashSpeed;
+
+        private SpriteRenderer _spriteRenderer;
+
         protected override void Start()
         {
             base.Start();
             _damageCollider = transform.Find("DamageCollider").gameObject;
             _playerHitbox = transform.Find("PlayerHitbox").gameObject;
             _damageCollider.SetActive(false);
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _initialMass = Rb.mass;
         }
         
         // Update is called once per frame
@@ -31,7 +39,7 @@ namespace Mechanics.Players
                 if (Input.GetAxis("Vertical") > 0 && !_isDashing)
                 {
                     _dashDirection = Vector2.up;
-                    coroutine = DashTimer(0.04f);
+                    coroutine = DashTimer(0.15f);
                 }
                 else if (!_isDashing)
                 {
@@ -43,7 +51,7 @@ namespace Mechanics.Players
                     coroutine = null;
                 }
 
-                if (Input.GetButtonDown("Attack") && !_isDashing)
+                if (Input.GetButtonDown("Attack") && !_isDashing && !IsJumping)
                 {
                     Attack();
                     _isDashing = true;
@@ -64,6 +72,7 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
+            _spriteRenderer.color = new Color(255,255,255,0.6f);
             _damageCollider.SetActive(true);
             _playerHitbox.SetActive(false);
         }
@@ -72,12 +81,27 @@ namespace Mechanics.Players
         {
             if (_dashDirection == Vector2.up)
             {
-                MoveDynamicUp(_dashDirection,CurrentSpeed*6,0.005f);
+                MoveDynamicUp(_dashDirection,30,0.02f);
             }
             else
             {
-                MoveDynamic(_dashDirection,CurrentSpeed*3,0.05f);
+                MoveDynamic(_dashDirection,30,0.05f);
             }
+            /*if (_dashDirection == Vector2.up)
+            {
+                
+                Rb.velocity = new Vector2(Rb.velocity.x,0);
+                Rb.mass = 0.1f;
+                Rb.AddForce(new Vector2(0,3),ForceMode2D.Impulse);
+            }
+            else
+            {
+                if(_dashDirection == Vector2.right) Rb.AddForce(new Vector2(JumpHeight+8,0),ForceMode2D.Impulse);
+                else
+                {
+                    Rb.AddForce(new Vector2(-JumpHeight-8,0),ForceMode2D.Impulse);
+                }
+            }*/
             
         }
 
@@ -91,6 +115,7 @@ namespace Mechanics.Players
             yield return new WaitForSeconds(toWait);
             _damageCollider.SetActive(false);
             _playerHitbox.SetActive(true);
+            _spriteRenderer.color = new Color(255,255,255,1);
             _isDashing = false;
             Rb.velocity = new Vector2(Rb.velocity.x,0);
         }

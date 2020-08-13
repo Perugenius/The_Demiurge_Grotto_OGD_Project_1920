@@ -27,7 +27,8 @@ namespace Mechanics.Players
             _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
             _renderer = GetComponent<SpriteRenderer>();
             _hitBox = transform.Find("PlayerHitbox").gameObject;
-            _timeLapse = 4;
+            _timeLapse = statistics.attackRate;
+            _maxPillowNumber = statistics.projectileNumber;
         }
 
         // Update is called once per frame
@@ -62,13 +63,14 @@ namespace Mechanics.Players
             Pillow pillowScript = pillow.GetComponent<Pillow>();
             pillowScript.SetPlayerPosition(transform);
             pillowScript.SetDamage(CurrentAttack);
-            pillowScript.SetDuration(5);
-            pillowScript.SetSpeed(180);
+            pillowScript.SetDuration(statistics.attackDuration);
+            pillowScript.SetSpeed(statistics.attackSpeed);
             pillowScript.SetPinkie(this);
         }
 
         public void SetCanSummonPillow(bool canSummon)
         {
+            
             _canSummonPillow = canSummon;
         }
 
@@ -82,8 +84,8 @@ namespace Mechanics.Players
 
         private IEnumerator InvincibilityTime()
         {
-            yield return new WaitForSeconds(4);
-            for (int i = 0; i <= 4; i++)
+            yield return new WaitForSeconds(statistics.secondarySkillDuration);
+            for (int i = 0; i < 4; i++)
             {
                 _renderer.color = new Color(255,255,255, 0.8f);
                 yield return new WaitForSeconds(0.25f);

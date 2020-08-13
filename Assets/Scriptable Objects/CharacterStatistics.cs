@@ -15,6 +15,13 @@ namespace Scriptable_Objects
         public float attack;
         public int level;
         public int maxJumps;
+        public float attackSpeed;
+        public float attackRate;
+        public int projectileNumber;
+        public float attackRange;
+        public float attackDuration;
+        public float secondarySkillDuration;
+        public float secondarySkillTimeRecharge;
 
     }
 }
