@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    public class Plant : MonoBehaviour
+    public class Plant : Movable
     {
         private Vector2 _direction;
         private Transform _tr;
@@ -105,7 +105,7 @@ namespace Mechanics.Enemies
         }
 
         private IEnumerator Cooldown(){
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length - 0.25f);
             _bulletReady = true;
         }
         
@@ -113,7 +113,7 @@ namespace Mechanics.Enemies
         {
             _waiting = true;
             //Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).length/2f);
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length/2f);
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length/2f + 0.25f);
             _waiting = false;
             _shooting = true;
         }

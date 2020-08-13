@@ -96,11 +96,13 @@ namespace Mechanics.Enemies
         
         private IEnumerator Stop()
         {
+            Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
             _hit = false;
         }
 
         private IEnumerator Die(){
+            Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject);
         }
