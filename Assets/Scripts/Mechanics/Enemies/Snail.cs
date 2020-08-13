@@ -56,8 +56,10 @@ namespace Mechanics.Enemies
 
         private void Withdraw()
         {
+            Rb.velocity = Vector2.zero;
             _withdrawn = true;
             _animator.SetBool("Withdraw",true);
+            StartCoroutine (nameof(Waiting));
         }
         
         private IEnumerator Waiting(){

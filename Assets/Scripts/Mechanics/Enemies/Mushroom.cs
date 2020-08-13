@@ -77,8 +77,14 @@ namespace Mechanics.Enemies
         }
 
         private IEnumerator Die(){
-            Rb.velocity = Vector2.zero;
+            Rb.velocity = Vector2.down*5;
+            GetComponent<Collider2D>().enabled = false;
+            foreach (var collider in GetComponentsInChildren<Collider2D>())
+            {
+                collider.enabled = false;
+            }
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds (5);
             Destroy(gameObject);
         }
     }

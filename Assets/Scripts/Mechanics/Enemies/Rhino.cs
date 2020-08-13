@@ -13,6 +13,7 @@ namespace Mechanics.Enemies
         [SerializeField] private float knockbackThrust;
         [SerializeField] private float lifePoints;
         private bool _run;
+        private bool _hit;
         
         // Start is called before the first frame update
         void Start()
@@ -80,14 +81,24 @@ namespace Mechanics.Enemies
         private void Damage(float damage)
         {
             _animator.SetTrigger("Hit");
+            _hit = true;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
+                StartCoroutine (nameof(Stop));
             }
             else StartCoroutine (nameof(Die));
         }
+        
+        private IEnumerator Stop()
+        {
+            Rb.velocity = Vector2.zero;
+            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            _hit = false;
+        }
 
         private IEnumerator Die(){
+            Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject);
         }
