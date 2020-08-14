@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 1443176510712170015}
   - component: {fileID: 8245245405666972943}
   - component: {fileID: 7426800185892431502}
+  - component: {fileID: 8701774675619559737}
   m_Layer: 9
   m_Name: Steve
   m_TagString: Player
@@ -386,10 +387,12 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 8701774675619559737}
+  - {fileID: 2842636078415337836}
+  - {fileID: 2842636078479410761}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -517,6 +520,21 @@ EdgeCollider2D:
   m_Points:
   - {x: -0.605, y: 0.6}
   - {x: -0.605, y: -0.24}
+--- !u!114 &8701774675619559737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842636078479410763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &2842636079087575291
 GameObject:
   m_ObjectHideFlags: 0
