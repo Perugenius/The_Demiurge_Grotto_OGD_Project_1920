@@ -2,7 +2,7 @@
 
 namespace Mechanics.Players
 {
-    public class PlayerDamageCollider : MonoBehaviour
+    public class PlayerDamageCollider : MonoBehaviour,IDamageInflictor
     {
 
         private Character _father;
