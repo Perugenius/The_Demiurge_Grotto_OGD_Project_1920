@@ -73,7 +73,7 @@ public class MainMenu : MonoBehaviour
         _eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
 
         //characters names list
-        charactersNames = new List<string>{"Vodoo","Kinja","Pinkie","Steve"};
+        charactersNames = new List<string>{"Voodoo","Kinja","Pinkie","Steve"};
         
         //Randomly choose first character
         if(SaveSystem.LoadPlayerData()==null)
@@ -83,10 +83,10 @@ public class MainMenu : MonoBehaviour
 
         LoadPerks();
 
-        /*PlayerData playerData = SaveSystem.LoadPlayerData();
-        playerData.teammateLetters = 23;
-        playerData.gems = 1000;
-        SaveSystem.SavePlayerData(playerData);*/
+        PlayerData playerData = SaveSystem.LoadPlayerData();
+        if(playerData.unlockedCharacters.Contains("Vodoo")) playerData.unlockedCharacters.Remove("Vodoo");
+        playerData.unlockedCharacters.Add("Voodoo");
+        SaveSystem.SavePlayerData(playerData);
     }
 
     // Update is called once per frame
