@@ -234,7 +234,7 @@ namespace Mechanics.Players
             while (i > 0.1f)
             {
                 SpriteRenderer.color = new Color(0,0,0,i);
-                yield return  new WaitForSeconds(0.25f);
+                yield return  new WaitForSeconds(0.75f);
                 i -= 0.05f;
             }
         }
