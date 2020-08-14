@@ -3226,7 +3226,7 @@ PrefabInstance:
     - target: {fileID: 7128878733178503349, guid: 086b1019acc83f247bb62cf82bba2024,
         type: 3}
       propertyPath: m_Name
-      value: unlockVodoo
+      value: unlockVoodoo
       objectReference: {fileID: 0}
     - target: {fileID: 7128878733178503349, guid: 086b1019acc83f247bb62cf82bba2024,
         type: 3}
@@ -6128,7 +6128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225024032}
   m_Layer: 5
-  m_Name: Vodoo
+  m_Name: Voodoo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7416,7 +7416,7 @@ PrefabInstance:
     - target: {fileID: 7128878733178503349, guid: 086b1019acc83f247bb62cf82bba2024,
         type: 3}
       propertyPath: m_Name
-      value: Vodoo
+      value: Voodoo
       objectReference: {fileID: 0}
     - target: {fileID: 7128878733178503349, guid: 086b1019acc83f247bb62cf82bba2024,
         type: 3}
