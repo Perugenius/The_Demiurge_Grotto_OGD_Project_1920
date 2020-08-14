@@ -37,12 +37,12 @@ namespace Mechanics.Traps
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Player") && gameObject.GetPhotonView().IsMine) other.gameObject.transform.SetParent(_tr);
+            if(other.gameObject.CompareTag("Player") && other.gameObject.GetPhotonView().IsMine) other.gameObject.transform.SetParent(_tr);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Player") && gameObject.GetPhotonView().IsMine) other.gameObject.transform.SetParent(null);
+            if(other.gameObject.CompareTag("Player") && other.gameObject.GetPhotonView().IsMine) other.gameObject.transform.SetParent(null);
         }
 
         private void MoveToDestination(Vector3 targetPosition, bool isStartPosition)
