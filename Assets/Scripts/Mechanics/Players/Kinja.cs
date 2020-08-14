@@ -46,11 +46,6 @@ namespace Mechanics.Players
         {
             _jumpsNumber = num;
         }
-        
-        protected override void Die()
-        {
-            throw new System.NotImplementedException();
-        }
 
         protected override void Attack()
         {

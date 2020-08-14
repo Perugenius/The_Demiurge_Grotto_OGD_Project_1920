@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8124804563445562812}
   m_Layer: 9
   m_Name: Kinja
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,6 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5333398802194830764}
   - component: {fileID: 5333398802194830765}
+  - component: {fileID: 3811247339723007637}
   m_Layer: 11
   m_Name: PlayerHitbox
   m_TagString: Untagged
@@ -508,3 +509,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 1.8}
   m_EdgeRadius: 0
+--- !u!114 &3811247339723007637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333398802194830767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014f45efa375df74bbdf17e35a0de69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -6,19 +6,18 @@ namespace Mechanics.Players
     public class PlayerHitBox : MonoBehaviour
     {
 
-        private Character _father;
+        private PlayableCharacter _father;
 
         private void Start()
         {
-            _father = gameObject.GetComponentInParent<Character>();
+            _father = gameObject.GetComponentInParent<PlayableCharacter>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            String layer = LayerMask.LayerToName(other.gameObject.GetComponent<LayerMask>());
-            if (layer.Contains("DamageEnemy") || layer.Contains("DamageTrap"))
+            if (!_father.IsTakingDamage1)
             {
-                //TODO take damage;
+                _father.TakeDamage(other);
             }
         }
     }

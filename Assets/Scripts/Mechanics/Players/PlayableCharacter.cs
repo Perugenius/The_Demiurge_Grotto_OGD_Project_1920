@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Photon.Pun;
 using Scriptable_Objects;
 using UnityEngine;
@@ -25,8 +26,14 @@ namespace Mechanics.Players
         protected Vector2 FaceDirection;
         protected int CollectedGems;
 
+        protected GameObject Hitbox;
+        protected bool IsTakingDamage;
+        protected SpriteRenderer SpriteRenderer;
+
         protected bool IsAnchored;
         protected PhotonView AnchoredPlayer;
+
+        protected IEnumerator FadingOut = null;
 
         
         
@@ -38,6 +45,8 @@ namespace Mechanics.Players
             CurrentAttack = statistics.attack;
             JumpHeight = statistics.jumpHeight;
 
+            SpriteRenderer = GetComponent<SpriteRenderer>();
+            Hitbox = transform.Find("PlayerHitbox").gameObject;
             Animator = GetComponent<Animator>();
         }
 
@@ -131,15 +140,66 @@ namespace Mechanics.Players
             }
         }
 
-        private void OnCollisionEnter(Collision other)
+        public bool IsTakingDamage1
+        {
+            get => IsTakingDamage;
+            set => IsTakingDamage = value;
+        }
+
+        public void TakeDamage(Collider2D other)
+        {
+            CurrentHealth -= 1;
+            if (CurrentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                IsTakingDamage = true;
+                
+                if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+                {
+
+                }
+                else
+                {
+                    StartCoroutine(nameof(DamageEffect));
+                }
+            }
+        }
+
+        public IEnumerator DamageEffect()
+        {
+            Color red = new Color(255,0,0,0.6f);
+            Color white = new Color(255,255,255,0.6f);
+            for (int i = 0; i < 4; i++)
+            {
+                SpriteRenderer.color = red;
+                yield return  new WaitForSeconds(0.2f);
+                SpriteRenderer.color = white;
+                yield return  new WaitForSeconds(0.2f);
+            }
+            SpriteRenderer.color = Color.white;
+            IsTakingDamage = false;
+        }
+        
+        private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.collider.gameObject.CompareTag("Player"))
             {
-                RaycastHit2D hit2D = Physics2D.BoxCast(new Vector2(Tr.position.x, Tr.position.y + 1.3f),
+                /*RaycastHit2D hit2D = Physics2D.BoxCast(new Vector2(Tr.position.x, Tr.position.y + 1.3f),
                     new Vector2(0.5f, 0.5f), 0, Vector2.up, LayerMask.GetMask("PlayerPhysic"));
                 if (hit2D)
                 {
                     AnchoredPlayer = hit2D.collider.gameObject.GetPhotonView();
+                }*/
+                if (FadingOut != null)
+                {
+                    StopCoroutine(FadingOut);
+                    SpriteRenderer.color = Color.white;
+                    CurrentHealth = 2;
+                    FadingOut = null;
+                    Hitbox.SetActive(true);
                 }
             }
         }
@@ -158,6 +218,25 @@ namespace Mechanics.Players
         public void CollectGems(int gems)
         {
             CollectedGems += gems;
+        }
+
+        protected override void Die()
+        {
+            Hitbox.SetActive(false);
+            FadingOut = BecomingGhost();
+            StartCoroutine(FadingOut);
+        }
+
+        protected IEnumerator BecomingGhost()
+        {
+            SpriteRenderer.color = Color.black;
+            float i = 0.9f;
+            while (i > 0.1f)
+            {
+                SpriteRenderer.color = new Color(0,0,0,i);
+                yield return  new WaitForSeconds(0.25f);
+                i -= 0.05f;
+            }
         }
 
         [PunRPC]

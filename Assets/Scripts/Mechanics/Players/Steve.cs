@@ -71,11 +71,7 @@ namespace Mechanics.Players
                 
             }
         }
-
-        protected override void Die()
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         protected override void Attack()
         {

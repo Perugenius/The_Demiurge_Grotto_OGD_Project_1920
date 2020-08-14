@@ -14,7 +14,6 @@ namespace Mechanics.Players
         private int _maxPillowNumber;
 
         private bool _canDisappear = true;
-        private SpriteRenderer _renderer;
         private float _invincibilityDuration;
         private float _timeLapse;
         private GameObject _hitBox;
@@ -25,7 +24,6 @@ namespace Mechanics.Players
         {
             base.Start();
             _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
-            _renderer = GetComponent<SpriteRenderer>();
             _hitBox = transform.Find("PlayerHitbox").gameObject;
             _timeLapse = statistics.attackRate;
             _maxPillowNumber = statistics.projectileNumber;
@@ -48,11 +46,7 @@ namespace Mechanics.Players
                 }
             }
         }
-
-        protected override void Die()
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         protected override void Attack()
         {
@@ -77,7 +71,7 @@ namespace Mechanics.Players
         private void UseSecondary()
         {
             _canDisappear = false;
-            _renderer.color = new Color(255,255,255,0.5f);
+            SpriteRenderer.color = new Color(255,255,255,0.5f);
             _hitBox.SetActive(false);
             StartCoroutine(nameof(InvincibilityTime));
         }
@@ -87,12 +81,12 @@ namespace Mechanics.Players
             yield return new WaitForSeconds(statistics.secondarySkillDuration);
             for (int i = 0; i < 4; i++)
             {
-                _renderer.color = new Color(255,255,255, 0.8f);
+                SpriteRenderer.color = new Color(255,255,255, 0.8f);
                 yield return new WaitForSeconds(0.25f);
-                _renderer.color = new Color(255,255,255, 0.5f);
+                SpriteRenderer.color = new Color(255,255,255, 0.5f);
                 yield return new WaitForSeconds(0.25f);
             }
-            _renderer.color = new Color(255,255,255,1);
+            SpriteRenderer.color = new Color(255,255,255,1);
             _hitBox.SetActive(true);
             StartCoroutine(nameof(TimeLapse));
 

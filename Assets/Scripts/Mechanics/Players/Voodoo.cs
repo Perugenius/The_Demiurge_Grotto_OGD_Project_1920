@@ -104,11 +104,7 @@ namespace Mechanics.Players
             }*/
             
         }
-
-        protected override void Die()
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         private IEnumerator DashTimer(float toWait)
         {
