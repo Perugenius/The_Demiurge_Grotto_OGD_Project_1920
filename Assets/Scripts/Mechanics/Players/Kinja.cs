@@ -52,7 +52,7 @@ namespace Mechanics.Players
             GameObject shuriken = PhotonNetwork.Instantiate(Path.Combine("Players", "Shuriken"), _attackSpawner.position, Quaternion.identity);
             Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
             shurikenScript.SetDamage(CurrentAttack);
-            shurikenScript.SetSpeed(Vector2.down*12);
+            shurikenScript.SetSpeed(Vector2.down*18);
         }
     }
 }
