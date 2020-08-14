@@ -46,7 +46,7 @@ namespace Mechanics.Enemies
         {
             RaycastHit2D left = Physics2D.Raycast(_tr.position, Vector2.left, 100, LayerMask.GetMask("PlayerPhysic","Obstacle"));
             RaycastHit2D right = Physics2D.Raycast(_tr.position, Vector2.right, 100, LayerMask.GetMask("PlayerPhysic","Obstacle"));
-            if (left.collider && left.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") && !_shooting && !_waiting)
+            if (left.collider && left.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") && !_shooting && !_waiting && !_ending)
             {
                 _tr.Rotate(0f,Vector3.Angle(_direction,Vector2.left),0f);
                 _direction = Vector2.left;
@@ -54,7 +54,7 @@ namespace Mechanics.Enemies
                 _animator.SetBool("Shooting", true);
                 StartCoroutine (nameof(LoadingBullet));
             }
-            if (right.collider && right.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") && !_shooting && !_waiting)
+            if (right.collider && right.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") && !_shooting && !_waiting && !_ending)
             {
                 _tr.Rotate(0f,Vector3.Angle(_direction,Vector2.right),0f);
                 _direction = Vector2.right;
@@ -73,13 +73,13 @@ namespace Mechanics.Enemies
             
             if (_shooting || _ending)
             {
-                if (_direction == Vector2.left && left.collider.gameObject.layer != LayerMask.NameToLayer("PlayerPhysic"))
+                if (_direction == Vector2.left && right.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
                 {
                     _tr.Rotate(0f,Vector3.Angle(_direction,Vector2.right),0f);
                     _direction = Vector2.right;
                 }
                 
-                if (_direction == Vector2.right && right.collider.gameObject.layer != LayerMask.NameToLayer("PlayerPhysic"))
+                if (_direction == Vector2.right && left.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
                 {
                     _tr.Rotate(0f,Vector3.Angle(_direction,Vector2.left),0f);
                     _direction = Vector2.left;
@@ -145,7 +145,15 @@ namespace Mechanics.Enemies
         }
 
         private IEnumerator Die(){
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Rb.velocity = Vector2.zero;
+            GetComponent<Collider2D>().enabled = false;
+            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
+            {
+                Color c = GetComponent<Renderer>().material.color;
+                c.a = ft;
+                GetComponent<Renderer>().material.color = c;
+                yield return null;
+            }
             Destroy(gameObject);
         }
     }

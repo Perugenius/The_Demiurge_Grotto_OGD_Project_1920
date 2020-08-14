@@ -76,15 +76,17 @@ namespace Mechanics.Enemies
             _hit = false;
         }
 
-        private IEnumerator Die(){
-            Rb.velocity = Vector2.down*5;
+        private IEnumerator Die()
+        {
+            Rb.velocity = Vector2.zero;
             GetComponent<Collider2D>().enabled = false;
-            foreach (var collider in GetComponentsInChildren<Collider2D>())
+            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
             {
-                collider.enabled = false;
+                Color c = GetComponent<Renderer>().material.color;
+                c.a = ft;
+                GetComponent<Renderer>().material.color = c;
+                yield return null;
             }
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
-            yield return new WaitForSeconds (5);
             Destroy(gameObject);
         }
     }

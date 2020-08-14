@@ -87,7 +87,15 @@ namespace Mechanics.Enemies
         }*/
 
         private IEnumerator Die(){
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            Rb.velocity = Vector2.zero;
+            GetComponent<Collider2D>().enabled = false;
+            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
+            {
+                Color c = GetComponent<Renderer>().material.color;
+                c.a = ft;
+                GetComponent<Renderer>().material.color = c;
+                yield return null;
+            }
             Destroy(gameObject);
         }
     }
