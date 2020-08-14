@@ -8,20 +8,29 @@ namespace Mechanics.Players
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            steveScript.IsOnWall = true;
-            steveScript.WallSide = WallSide.LeftWall;
+            if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            {
+                steveScript.IsOnWall = true;
+                steveScript.WallSide = WallSide.LeftWall;
+            }
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            steveScript.IsOnWall = true;
-            steveScript.WallSide = WallSide.LeftWall;
+            if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            {
+                steveScript.IsOnWall = true;
+                steveScript.WallSide = WallSide.LeftWall;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            steveScript.IsOnWall = false;
-            steveScript.SetIsJumping(true);
+            if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            {
+                steveScript.IsOnWall = false;
+                steveScript.SetIsJumping(true);
+            }
         }
     }
 }
