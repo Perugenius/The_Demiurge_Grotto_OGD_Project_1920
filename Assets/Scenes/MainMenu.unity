@@ -3187,7 +3187,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Vodoo
+  m_Text: Voodoo
 --- !u!222 &692699177
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7591,7 +7591,7 @@ PrefabInstance:
     - target: {fileID: 7128878733178503351, guid: 086b1019acc83f247bb62cf82bba2024,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Vodoo
+      value: Voodoo
       objectReference: {fileID: 0}
     - target: {fileID: 7128878733178503351, guid: 086b1019acc83f247bb62cf82bba2024,
         type: 3}
