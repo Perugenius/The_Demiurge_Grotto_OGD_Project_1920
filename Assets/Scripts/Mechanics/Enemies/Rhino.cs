@@ -4,21 +4,18 @@ using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    public class Rhino : Movable
+    public class Rhino : Enemy
     {
         private Vector2 _direction;
-        private Animator _animator;
         [SerializeField] private float speed;
         [SerializeField] private float knockbackHeight;
         [SerializeField] private float knockbackThrust;
-        [SerializeField] private float lifePoints;
         private bool _run;
-        private bool _hit;
         
         // Start is called before the first frame update
         void Start()
         {
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             RaycastHit2D left = Physics2D.Raycast(Tr.position, Vector2.left,100, LayerMask.GetMask("PlayerPhysic","Obstacle"));
             RaycastHit2D right = Physics2D.Raycast(Tr.position, Vector2.right, 100, LayerMask.GetMask("PlayerPhysic","Obstacle"));
             if (left.distance > right.distance)
@@ -50,7 +47,7 @@ namespace Mechanics.Enemies
             if (hit.collider && !_run && hit.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
             {
                 _run = true;
-                _animator.SetBool("Run",true);
+                Animator.SetBool("Run",true);
             }
         }
 
@@ -59,8 +56,8 @@ namespace Mechanics.Enemies
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
                 _run = false;
-                _animator.SetBool("Run",false);
-                _animator.SetBool("Bump",true);
+                Animator.SetBool("Run",false);
+                Animator.SetBool("Bump",true);
                 JumpLateral(knockbackHeight, Vector2.Reflect(_direction, Vector2.right)*knockbackThrust);
                 StartCoroutine (nameof(Cooldown));
             }
@@ -72,42 +69,10 @@ namespace Mechanics.Enemies
         }
         
         private IEnumerator Cooldown(){
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
-            _animator.SetBool("Bump", false);
+            yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
+            Animator.SetBool("Bump", false);
             Tr.Rotate(0f,180,0f);
             _direction = Vector2.Reflect(_direction, Vector2.right);
-        }
-
-        private void Damage(float damage)
-        {
-            _animator.SetTrigger("Hit");
-            _hit = true;
-            if (damage < lifePoints)
-            {
-                lifePoints = lifePoints - damage;
-                StartCoroutine (nameof(Stop));
-            }
-            else StartCoroutine (nameof(Die));
-        }
-        
-        private IEnumerator Stop()
-        {
-            Rb.velocity = Vector2.zero;
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
-            _hit = false;
-        }
-
-        private IEnumerator Die(){
-            Rb.velocity = Vector2.zero;
-            GetComponent<Collider2D>().enabled = false;
-            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
-            {
-                Color c = GetComponent<Renderer>().material.color;
-                c.a = ft;
-                GetComponent<Renderer>().material.color = c;
-                yield return null;
-            }
-            Destroy(gameObject);
         }
     }
 }

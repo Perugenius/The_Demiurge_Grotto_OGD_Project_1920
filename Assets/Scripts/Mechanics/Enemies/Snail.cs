@@ -3,13 +3,11 @@ using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    public class Snail : Movable
+    public class Snail : Enemy
     {
         private Vector2 _direction;
-        private Animator _animator;
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
-        [SerializeField] private float lifePoints;
         private bool _withdrawn;
         //private bool _hit;
         
@@ -17,7 +15,7 @@ namespace Mechanics.Enemies
         // Start is called before the first frame update
         void Start()
         {
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             _direction = initialDirection
                 ? Vector2.left
                 : Vector2.right;
@@ -58,19 +56,19 @@ namespace Mechanics.Enemies
         {
             Rb.velocity = Vector2.zero;
             _withdrawn = true;
-            _animator.SetBool("Withdraw",true);
+            Animator.SetBool("Withdraw",true);
             StartCoroutine (nameof(Waiting));
         }
         
         private IEnumerator Waiting(){
             yield return new WaitForSeconds (3);
             _withdrawn = false;
-            _animator.SetBool("Withdraw",false);
+            Animator.SetBool("Withdraw",false);
         }
         
         private void Damage(float damage)
         {
-            _animator.SetTrigger("Hit");
+            Animator.SetTrigger("Hit");
             //_hit = true;
             if (damage < lifePoints)
             {

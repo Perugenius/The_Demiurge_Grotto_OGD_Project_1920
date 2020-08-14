@@ -4,22 +4,19 @@ using UnityEngine.Serialization;
 
 namespace Mechanics.Enemies
 {
-    public class Chicken : Movable
+    public class Chicken : Enemy
     {
         private Vector2 _direction;
-        private Animator _animator;
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
         [SerializeField] private float tempSpeed;
-        [SerializeField] private float lifePoints;
-        private bool run;
-        private bool _hit;
+        private bool _run;
         
         
         // Start is called before the first frame update
         void Start()
         {
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             _direction = initialDirection
                 ? Vector2.left
                 : Vector2.right;
@@ -37,9 +34,9 @@ namespace Mechanics.Enemies
         {
             if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1.1f, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
-            if(!_hit) MoveDynamic(_direction, speed, .5f);
+            if(!Hit) MoveDynamic(_direction, speed, .5f);
             float distance;
-            if (run) distance = 3;
+            if (_run) distance = 3;
             else distance = 1.5f;
             if (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * distance, -1.1f, 0), LayerMask.GetMask("Obstacle"))
                 || Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle")))
@@ -53,18 +50,18 @@ namespace Mechanics.Enemies
                     var t = speed;
                     speed = tempSpeed;
                     tempSpeed = t;
-                    _animator.SetBool("Run",false);
-                    run = false;
+                    Animator.SetBool("Run",false);
+                    _run = false;
                 }
             }
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, 100, LayerMask.GetMask("PlayerPhysic","Obstacle"));
-            if (hit.collider && !run && hit.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
+            if (hit.collider && !_run && hit.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
             {
                 var t = speed;
                 speed = tempSpeed;
                 tempSpeed = t;
-                _animator.SetBool("Run",true);
-                run = true;
+                Animator.SetBool("Run",true);
+                _run = true;
             }
         }
         
@@ -72,40 +69,8 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!Hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
-        }
-        
-        private void Damage(float damage)
-        {
-            _animator.SetTrigger("Hit");
-            _hit = true;
-            if (damage < lifePoints)
-            {
-                lifePoints = lifePoints - damage;
-                StartCoroutine (nameof(Stop));
-            }
-            else StartCoroutine (nameof(Die));
-        }
-        
-        private IEnumerator Stop()
-        {
-            Rb.velocity = Vector2.zero;
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
-            _hit = false;
-        }
-
-        private IEnumerator Die(){
-            Rb.velocity = Vector2.zero;
-            GetComponent<Collider2D>().enabled = false;
-            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
-            {
-                Color c = GetComponent<Renderer>().material.color;
-                c.a = ft;
-                GetComponent<Renderer>().material.color = c;
-                yield return null;
-            }
-            Destroy(gameObject);
         }
     }
 }

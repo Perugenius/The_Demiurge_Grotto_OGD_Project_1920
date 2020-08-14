@@ -4,23 +4,20 @@ using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    public class FatBird : Movable
+    public class FatBird : Enemy
     {
         private Vector2 _direction;
-        private Animator _animator;
         [SerializeField] private float acceleration;
         [SerializeField] private float amplitude;
-        [SerializeField] private float lifePoints;
         private float _altitude;
         private bool _falling;
         private bool _returning;
-        private bool _hit;
         
         
         // Start is called before the first frame update
         void Start()
         {
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             _direction = Vector2.up;
             _altitude = Tr.position.y;
             SetFloating(acceleration, amplitude);
@@ -38,7 +35,7 @@ namespace Mechanics.Enemies
             if (hit.collider && hit.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") && !_falling)
             {
                 _falling = true;
-                _animator.SetBool("Falling", true);
+                Animator.SetBool("Falling", true);
                 StopFloating();
                 RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, 100, LayerMask.GetMask("Obstacle"));
                 SetFixedDistanceAccelerated(Vector3.down, 0, ground.distance - 1, acceleration*5);
@@ -56,57 +53,25 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
-                _animator.SetBool("Falling", false);
-                _animator.SetBool("Ground", true);
+                Animator.SetBool("Falling", false);
+                Animator.SetBool("Ground", true);
                 StartCoroutine (nameof(Cooldown));
             }
         }
         
         private IEnumerator Cooldown(){
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
             SetFixedDistanceAcceleratedDecelerated(Tr.position + Vector3.up*(_altitude - Tr.position.y), 0, acceleration/2);
             _returning = true;
-            _animator.SetBool("Ground", false);
+            Animator.SetBool("Ground", false);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!Hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
-        }
-        
-        private void Damage(float damage)
-        {
-            _animator.SetTrigger("Hit");
-            _hit = true;
-            if (damage < lifePoints)
-            {
-                lifePoints = lifePoints - damage;
-                StartCoroutine (nameof(Stop));
-            }
-            else StartCoroutine (nameof(Die));
-        }
-        
-        private IEnumerator Stop()
-        {
-            Rb.velocity = Vector2.zero;
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
-            _hit = false;
-        }
-
-        private IEnumerator Die(){
-            Rb.velocity = Vector2.zero;
-            GetComponent<Collider2D>().enabled = false;
-            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
-            {
-                Color c = GetComponent<Renderer>().material.color;
-                c.a = ft;
-                GetComponent<Renderer>().material.color = c;
-                yield return null;
-            }
-            Destroy(gameObject);
         }
     }
 }

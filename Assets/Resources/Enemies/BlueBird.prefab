@@ -162,7 +162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   initialDirection: 0
-  lifePoints: 0
 --- !u!114 &2550335310348660565
 MonoBehaviour:
   m_ObjectHideFlags: 0

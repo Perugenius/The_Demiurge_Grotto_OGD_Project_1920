@@ -3,23 +3,20 @@ using UnityEngine;
 
 namespace Mechanics.Enemies
 {
-    public class Pig : Movable
+    public class Pig : Enemy
     {
         private Vector2 _direction;
-        private Animator _animator;
         [SerializeField] private float speed;
         [SerializeField] private bool initialDirection;
         [SerializeField] private float tempSpeed;
-        [SerializeField] private float lifePoints;
         private bool _run;
         private Transform _player;
         private bool _following;
-        private bool _hit;
         
         // Start is called before the first frame update
         void Start()
         {
-            _animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
             _direction = initialDirection
                 ? Vector2.left
                 : Vector2.right;
@@ -41,7 +38,7 @@ namespace Mechanics.Enemies
                     var t = speed;
                     speed = tempSpeed;
                     tempSpeed = t;
-                    _animator.SetBool("Run",false);
+                    Animator.SetBool("Run",false);
                     _run = false;
                 }
             }
@@ -52,7 +49,7 @@ namespace Mechanics.Enemies
                 newScale.x = -_direction.x;
                 Tr.localScale = newScale;
             }
-            if(!_hit) MoveDynamic(_direction, speed);
+            if(!Hit) MoveDynamic(_direction, speed);
             if (!_following && (!Physics2D.OverlapPoint(Tr.position + new Vector3(_direction.x * 1.5f, -1.1f, 0), LayerMask.GetMask("Obstacle"))
                 || Physics2D.OverlapCircle(Tr.position + new Vector3(_direction.x, 0, 0), .1f, LayerMask.GetMask("Obstacle"))))
             {
@@ -81,7 +78,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!_hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!Hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
 
@@ -91,13 +88,13 @@ namespace Mechanics.Enemies
             speed = tempSpeed;
             tempSpeed = t;
             _run = true;
-            _animator.SetBool("Run",true);
+            Animator.SetBool("Run",true);
         }
         
         private void Damage(float damage)
         {
-            _animator.SetTrigger("Hit");
-            _hit = true;
+            Animator.SetTrigger("Hit");
+            Hit = true;
             if (damage < lifePoints)
             {
                 Anger();
@@ -110,8 +107,8 @@ namespace Mechanics.Enemies
         private IEnumerator Stop()
         {
             Rb.velocity = Vector2.zero;
-            yield return new WaitForSeconds (_animator.GetCurrentAnimatorStateInfo(0).length);
-            _hit = false;
+            yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
+            Hit = false;
         }
 
         private IEnumerator Die(){
