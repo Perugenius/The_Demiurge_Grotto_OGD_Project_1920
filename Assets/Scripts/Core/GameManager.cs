@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Core.SaveLoadData;
@@ -78,7 +79,8 @@ namespace Core
         [PunRPC]
         public void InstantiatePlayer()
         {
-            GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players","Voodoo"), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
+            PlayerData playerData = SaveSystem.LoadPlayerData();
+            GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players",playerData.currentCharacter), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
             playerCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
             loading.SetActive(false);
         }
