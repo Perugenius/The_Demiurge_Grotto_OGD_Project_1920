@@ -336,9 +336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa82a0b4a309b744bb21d09ec250a889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifePoints: 0
   firePoint: {fileID: 6929989675519379596}
   bullet: {fileID: 6457953231736489528, guid: 450c68d5da9833642b2bb8e8ae59febb, type: 3}
-  lifePoints: 0
   testing: 0
 --- !u!114 &1592149301
 MonoBehaviour:

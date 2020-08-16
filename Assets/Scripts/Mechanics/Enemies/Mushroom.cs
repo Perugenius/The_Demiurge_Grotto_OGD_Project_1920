@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -50,7 +51,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!Hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!Hit && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("Damage", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
     }

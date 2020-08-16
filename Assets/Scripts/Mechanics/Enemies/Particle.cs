@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Enemies
@@ -19,7 +20,7 @@ namespace Mechanics.Enemies
     
         private IEnumerator Disappear(){
             yield return new WaitForSeconds (5);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

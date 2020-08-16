@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Enemies
@@ -23,7 +24,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             }
         }
     }

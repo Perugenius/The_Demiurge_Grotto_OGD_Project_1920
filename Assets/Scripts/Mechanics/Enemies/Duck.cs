@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -75,7 +76,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!Hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!Hit && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("Damage", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
     }

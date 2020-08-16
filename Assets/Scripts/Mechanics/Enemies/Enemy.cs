@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace Mechanics.Enemies
         
         }
         
+        [PunRPC]
         protected void Damage(float damage)
         {
             Animator.SetTrigger("Hit");
@@ -52,7 +54,7 @@ namespace Mechanics.Enemies
                 GetComponent<Renderer>().material.color = c;
                 yield return null;
             }
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

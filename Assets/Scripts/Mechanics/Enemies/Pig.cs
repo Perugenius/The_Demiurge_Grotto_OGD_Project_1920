@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Enemies
@@ -78,7 +79,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!Hit) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!Hit && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("DamagePig", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
 
@@ -91,7 +92,8 @@ namespace Mechanics.Enemies
             Animator.SetBool("Run",true);
         }
         
-        private void Damage(float damage)
+        [PunRPC]
+        private void DamagePig(float damage)
         {
             Animator.SetTrigger("Hit");
             Hit = true;
@@ -99,19 +101,19 @@ namespace Mechanics.Enemies
             {
                 Anger();
                 lifePoints = lifePoints - damage;
-                StartCoroutine (nameof(Stop));
+                StartCoroutine (nameof(StopPig));
             }
-            else StartCoroutine (nameof(Die));
+            else StartCoroutine (nameof(DiePig));
         }
         
-        private IEnumerator Stop()
+        private IEnumerator StopPig()
         {
             Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
             Hit = false;
         }
 
-        private IEnumerator Die(){
+        private IEnumerator DiePig(){
             Rb.velocity = Vector2.zero;
             GetComponent<Collider2D>().enabled = false;
             for (float ft = 1f; ft >= 0; ft -= 0.01f) 

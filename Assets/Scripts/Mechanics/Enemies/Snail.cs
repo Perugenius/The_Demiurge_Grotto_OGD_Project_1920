@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Enemies
@@ -48,7 +49,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                if(!_withdrawn) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                if(!_withdrawn && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("DamageSnail", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
             }
         }
 
@@ -66,7 +67,8 @@ namespace Mechanics.Enemies
             Animator.SetBool("Withdraw",false);
         }
         
-        private void Damage(float damage)
+        [PunRPC]
+        private void DamageSnail(float damage)
         {
             Animator.SetTrigger("Hit");
             //_hit = true;
@@ -75,7 +77,7 @@ namespace Mechanics.Enemies
                 lifePoints = lifePoints - damage;
                 Withdraw();
             }
-            else StartCoroutine (nameof(Die));
+            else StartCoroutine (nameof(DieSnail));
         }
         
         /*private IEnumerator Stop()
@@ -84,7 +86,7 @@ namespace Mechanics.Enemies
             _hit = false;
         }*/
 
-        private IEnumerator Die(){
+        private IEnumerator DieSnail(){
             Rb.velocity = Vector2.zero;
             GetComponent<Collider2D>().enabled = false;
             for (float ft = 1f; ft >= 0; ft -= 0.01f) 
