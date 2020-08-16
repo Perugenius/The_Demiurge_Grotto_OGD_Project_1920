@@ -9,6 +9,7 @@
         <e p="AirParticle.cs" t="Include" />
         <e p="DefenseBubble.cs" t="Include" />
         <e p="DungeonMap.cs" t="Include" />
+        <e p="FallingPlatform.cs" t="Include" />
         <e p="Fan.cs" t="Include" />
         <e p="Graphics" t="Include">
           <e p="UI" t="Include">
@@ -410,6 +411,7 @@
               <e p="BlueBird.cs" t="Include" />
               <e p="Chicken.cs" t="Include" />
               <e p="Duck.cs" t="Include" />
+              <e p="Enemy.cs" t="Include" />
               <e p="FatBird.cs" t="Include" />
               <e p="Mushroom.cs" t="Include" />
               <e p="Particle.cs" t="Include" />
