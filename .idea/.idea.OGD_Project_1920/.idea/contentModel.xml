@@ -6,11 +6,6 @@
     <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="AirParticle.cs" t="Include" />
-        <e p="DefenseBubble.cs" t="Include" />
-        <e p="DungeonMap.cs" t="Include" />
-        <e p="FallingPlatform.cs" t="Include" />
-        <e p="Fan.cs" t="Include" />
         <e p="Graphics" t="Include">
           <e p="UI" t="Include">
             <e p="fonts" t="Include">
@@ -451,12 +446,17 @@
             <e p="RoomArea.cs" t="Include" />
             <e p="SpawnPoint.cs" t="Include" />
             <e p="Traps" t="Include">
+              <e p="AirParticle.cs" t="Include" />
               <e p="Chest.cs" t="Include" />
               <e p="ChestPiece.cs" t="Include" />
+              <e p="DefenseBubble.cs" t="Include" />
+              <e p="FallingPlatform.cs" t="Include" />
+              <e p="Fan.cs" t="Include" />
               <e p="MovingPlatform1.cs" t="Include" />
               <e p="MovingPlatform2.cs" t="Include" />
               <e p="PressurePlate.cs" t="Include" />
               <e p="Sand.cs" t="Include" />
+              <e p="SewerWaste.cs" t="Include" />
               <e p="StoneFace.cs" t="Include" />
               <e p="StoneFaceDeathTrigger.cs" t="Include" />
               <e p="Trampoline.cs" t="Include" />
@@ -472,6 +472,7 @@
           <e p="UI" t="Include">
             <e p="BaloonBackground.cs" t="Include" />
             <e p="ButtonHighlightText.cs" t="Include" />
+            <e p="DungeonMap.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />
             <e p="Menu.cs" t="Include" />
             <e p="MessageBox.cs" t="Include" />
