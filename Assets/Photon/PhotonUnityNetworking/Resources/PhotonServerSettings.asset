@@ -43,6 +43,9 @@ MonoBehaviour:
   - MoveWithFriend
   - RespawnSpaceship
   - StartFalling
+  - Damage
+  - DamagePig
+  - DamageSnail
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
