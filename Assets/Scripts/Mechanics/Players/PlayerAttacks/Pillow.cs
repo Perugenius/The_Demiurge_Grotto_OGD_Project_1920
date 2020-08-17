@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Players.PlayerAttacks
@@ -12,10 +13,20 @@ namespace Mechanics.Players.PlayerAttacks
         private Transform _playerPosition;
         private Pinkie _pinkie;
 
+        private bool _isMine;
+
         // Start is called before the first frame update
         void Start()
         {
-            StartCoroutine(nameof(StartTimer));
+            if (gameObject.GetPhotonView().IsMine)
+            {
+                _isMine = true;
+                StartCoroutine(nameof(StartTimer));
+            }
+            else
+            {
+                _isMine = false;
+            }
         }
 
         // Update is called once per frame
@@ -25,8 +36,11 @@ namespace Mechanics.Players.PlayerAttacks
 
         private void FixedUpdate()
         {
-            transform.Rotate(Time.deltaTime * 180* Vector3.forward);
-            transform.RotateAround(_playerPosition.position, Vector3.back,_speed*Time.deltaTime);
+            if (_isMine)
+            {
+                transform.Rotate(Time.deltaTime * 180 * Vector3.forward);
+                transform.RotateAround(_playerPosition.position, Vector3.back, _speed * Time.deltaTime);
+            }
         }
 
         private IEnumerator StartTimer()
@@ -34,7 +48,7 @@ namespace Mechanics.Players.PlayerAttacks
             
             yield return new WaitForSeconds(_duration);
             _pinkie.SetCanSummonPillow(true);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
 
         public void SetDamage(float damage)

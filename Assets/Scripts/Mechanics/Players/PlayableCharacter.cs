@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Core.SaveLoadData;
 using Photon.Pun;
 using Scriptable_Objects;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace Mechanics.Players
         protected int CurrentConsecutiveJump = 0;
         protected Vector2 FaceDirection;
         protected int CollectedGems;
+        protected string characterName;
 
         protected GameObject Hitbox;
         protected bool IsTakingDamage;
@@ -35,25 +37,38 @@ namespace Mechanics.Players
 
         protected IEnumerator FadingOut = null;
 
+        protected bool _isMine;
+        protected PlayerData PlayerData;
+
         
         
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            CurrentSpeed = statistics.movSpeed;
-            CurrentHealth = statistics.maxHealth;
-            CurrentAttack = statistics.attack;
-            JumpHeight = statistics.jumpHeight;
+            if (gameObject.GetPhotonView().IsMine || localTesting)
+            {
+                PlayerData = SaveSystem.LoadPlayerData();
+                _isMine = true;
+                characterName = statistics.name;
+                CurrentSpeed = PlayerData.speed[characterName];
+                CurrentHealth = PlayerData.maxHealth[characterName];
+                CurrentAttack = PlayerData.attack[characterName];
+                JumpHeight = PlayerData.jumpHeight[characterName];
 
-            SpriteRenderer = GetComponent<SpriteRenderer>();
-            Hitbox = transform.Find("PlayerHitbox").gameObject;
-            Animator = GetComponent<Animator>();
+                SpriteRenderer = GetComponent<SpriteRenderer>();
+                Hitbox = transform.Find("PlayerHitbox").gameObject;
+                Animator = GetComponent<Animator>();
+            }
+            else
+            {
+                _isMine = false;
+            }
         }
 
         // Update is called once per frame
         protected virtual void Update()
         {
-            if (gameObject.GetPhotonView().IsMine || localTesting)
+            if (_isMine || localTesting)
             {
                 Speed = Input.GetAxisRaw("Horizontal");
                 if (Input.GetButtonDown("Jump") && !IsJumping)
@@ -91,17 +106,19 @@ namespace Mechanics.Players
 
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();
-            Vector2 direction;
-            if (Speed !=0)
+            if (_isMine || localTesting)
             {
-                direction = Vector2.right;
-                MoveDynamic(direction,CurrentSpeed*Speed);
-                if (AnchoredPlayer)
+                base.FixedUpdate();
+                Vector2 direction;
+                if (Speed != 0)
                 {
-                    /*AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);*/
-                }
-            }/*
+                    direction = Vector2.right;
+                    MoveDynamic(direction, CurrentSpeed * Speed);
+                    if (AnchoredPlayer)
+                    {
+                        /*AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);*/
+                    }
+                } /*
             else if (Speed < 0)
             {
                 direction = Vector2.left;
@@ -111,11 +128,13 @@ namespace Mechanics.Players
                     AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed*-1);
                 }
             }*/
-            else
-            {
-                HorizontalDeceleration();
+                else
+                {
+                    HorizontalDeceleration();
+                }
+
+                CheckJumpPhase();
             }
-            CheckJumpPhase();
         }
 
         protected void CheckJumpPhase()

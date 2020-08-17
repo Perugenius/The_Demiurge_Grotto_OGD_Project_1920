@@ -394,8 +394,100 @@ public class MainMenu : MonoBehaviour
                 SaveSystem.SavePlayerData(playerData);
             };
             
+            
+            
             perks.Add(healthPerk);
             perks.Add(attackPerk);
+
+            if (character.Contains("Pinkie") || character.Contains("Kinja") || character.Contains("Steve"))
+            {
+                Perk attackRate = new Perk("Rate of fire", character);
+                Dictionary<int, int> attackRateCost = new Dictionary<int, int>
+                {
+                    {1, 200},
+                    {2, 300},
+                    {3, 500},
+                    {4, 600},
+                    {5, 800}
+                };
+
+                attackRate.levelCost = attackRateCost;
+                attackRate.description = "Increase " + character + " rate of fire";
+                attackRate.runPerk = (s, level) =>
+                {
+                    PlayerData playerData = SaveSystem.LoadPlayerData();
+                    playerData.attackRate[s] -= 0.3f;
+                    SaveSystem.SavePlayerData(playerData);
+                };
+
+                Perk secondarySkillPerk = new Perk("Skill level",character);
+                Dictionary<int, int> secondarySkillCost = new Dictionary<int, int>
+                {
+                    {1, 200},
+                    {2, 600},
+                    {3, 1000},
+                };
+                secondarySkillPerk.levelCost = secondarySkillCost;
+                secondarySkillPerk.runPerk = (s, level) =>
+                {
+                    PlayerData playerData = SaveSystem.LoadPlayerData();
+                    playerData.secondarySkillLevel[s] += 1;
+                    SaveSystem.SavePlayerData(playerData);
+                };
+
+                if (character.Contains("Pinkie") || character.Contains("Kinja"))
+                {
+                    Perk numberOfProjectiles = new Perk("Number of Projectile", character);
+                    Dictionary<int, int> numberOfProjectileCost = new Dictionary<int, int>
+                    {
+                        {1, 200},
+                        {2, 300},
+                        {3, 600},
+                        {4, 800},
+                    };
+                    numberOfProjectiles.levelCost = numberOfProjectileCost;
+                    numberOfProjectiles.description = "Increase " + character + " number of projectiles";
+                    numberOfProjectiles.runPerk = (characterName, level) =>
+                    {
+                        PlayerData playerData = SaveSystem.LoadPlayerData();
+                        playerData.projectileNumber[characterName] += 1;
+                        SaveSystem.SavePlayerData(playerData);
+                    };
+                    if (character.Contains("Pinkie"))
+                    {
+                        secondarySkillPerk.description = "Increase invulnerability duration";
+                    }
+
+                    if (character.Contains("Kinja"))
+                    {
+                        secondarySkillPerk.description = "Raise maximum number of consecutive jump";
+                    }
+                }
+
+                if (character.Contains("Steve"))
+                {
+                    secondarySkillPerk.description = "Raise the friction on the wall";
+                    
+                    Perk attackRange = new Perk("Attack Range", character);
+                    Dictionary<int, int> attackRangeCost = new Dictionary<int, int>
+                    {
+                        {1, 200},
+                        {2, 300},
+                        {3, 500},
+                        {4, 600},
+                        {5, 800}
+                    };
+                    attackRange.levelCost = attackRangeCost;
+                    attackRange.description = "Increase laser range";
+                    attackRange.runPerk = (s, level) =>
+                    {
+                        PlayerData playerData = SaveSystem.LoadPlayerData();
+                        playerData.attackRange[s] += 0.3f;
+                        SaveSystem.SavePlayerData(playerData);
+                    };
+                }
+            }
+            
         }
         
         //TODO add other perks

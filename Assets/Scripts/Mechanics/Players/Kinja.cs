@@ -16,8 +16,11 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            _maxJumpsNumber = statistics.maxJumps;
-            _attackSpawner = transform.Find("AttackPoint").transform;
+            if (_isMine || localTesting)
+            {
+                _maxJumpsNumber = PlayerData.secondarySkillLevel[name] +1;
+                _attackSpawner = transform.Find("AttackPoint").transform;
+            }
         }
 
         // Update is called once per frame

@@ -22,17 +22,21 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            _damageCollider = transform.Find("DamageCollider").gameObject;
-            _playerHitbox = transform.Find("PlayerHitbox").gameObject;
-            _damageCollider.SetActive(false);
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _initialMass = Rb.mass;
+            if (_isMine)
+            {
+                
+                _damageCollider = transform.Find("DamageCollider").gameObject;
+                _playerHitbox = transform.Find("PlayerHitbox").gameObject;
+                _damageCollider.SetActive(false);
+                _spriteRenderer = GetComponent<SpriteRenderer>();
+                _initialMass = Rb.mass;
+            }
         }
         
         // Update is called once per frame
         protected override void Update()
         {
-            if (gameObject.GetPhotonView().IsMine || localTesting)
+            if (_isMine || localTesting)
             {
                 base.Update();
                 IEnumerator coroutine;
@@ -62,11 +66,14 @@ namespace Mechanics.Players
 
         protected override void FixedUpdate()
         {
-            if(!_isDashing)
-                base.FixedUpdate();
-            else
+            if (_isMine)
             {
-                Dash();
+                if (!_isDashing)
+                    base.FixedUpdate();
+                else
+                {
+                    Dash();
+                }
             }
         }
 

@@ -16,9 +16,9 @@ namespace Mechanics.Players
         private bool _isOnWall = false;
         private WallSide _wallSide;
 
-        private float _fireRate = 1.5f;
+        private float _fireRate = 2;
         private bool _canAttack = true;
-        private float _range = 5;
+        private float _range = 3;
         private float _projectileSpeed = 10;
         
         
@@ -29,7 +29,13 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            _spawnPosition = transform.Find("LaserSpawner");
+            if (_isMine)
+            {
+                _range = PlayerData.attackRange[name];
+                _fireRate = PlayerData.attackRate[name];
+                _spawnPosition = transform.Find("LaserSpawner");
+            }
+            
         }
 
         // Update is called once per frame

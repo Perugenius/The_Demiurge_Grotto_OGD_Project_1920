@@ -9,6 +9,12 @@ namespace Core.SaveLoadData
     {
         public Dictionary<string,int> maxHealth;    //<characterName, characterMaxHealth>
         public Dictionary<string,float> attack;     //<characterName, characterAttack>
+        public Dictionary<string, float> attackRange;
+        public Dictionary<string, int> secondarySkillLevel;
+        public Dictionary<string, float> attackRate;
+        public Dictionary<string, int> projectileNumber;
+        public Dictionary<string, int> jumpHeight;
+        public Dictionary<string, int> speed;
         public int gems;
         public int teammateLetters;
         public int eldaanLetters;
@@ -27,6 +33,8 @@ namespace Core.SaveLoadData
             perks = new Dictionary<string, Dictionary<string, int>>();
             maxHealth = new Dictionary<string, int>();
             attack = new Dictionary<string, float>();
+            
+            
             gems = 0;
             teammateLetters = 0;
             eldaanLetters = 0;
@@ -39,6 +47,29 @@ namespace Core.SaveLoadData
                 //TODO update this value if needed @Ice    
                 maxHealth.Add(character,5);
                 attack.Add(character,1);
+                jumpHeight.Add(character, 62);
+                speed.Add(character, 15);
+                if (character.Contains("Pinkie") || character.Contains("Kinja") || character.Contains("Steve"))
+                {
+                    secondarySkillLevel.Add(character, 1);
+                    if (character.Contains("Kinja"))
+                    {
+                        attackRate.Add(character,1f);
+                        projectileNumber.Add(character, 1);
+                    }
+
+                    if (character.Contains("Pinkie"))
+                    {
+                        attackRate.Add(character, 1.5f);
+                        projectileNumber.Add(character,1);
+                    }
+
+                    if (character.Contains("Steve"))
+                    {
+                        attackRate.Add(character,2);
+                        attackRange.Add(character, 3);
+                    }
+                }
             }
         }
     }

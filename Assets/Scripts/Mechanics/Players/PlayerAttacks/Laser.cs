@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Players.PlayerAttacks
@@ -25,16 +26,19 @@ namespace Mechanics.Players.PlayerAttacks
 
         private void FixedUpdate()
         {
-            if (_traveledDistance < _range)
+            if (gameObject.GetPhotonView().IsMine)
             {
-                Vector2 pos = transform.position;
-                Vector2 oldPos = new Vector2(pos.x,pos.y);
-                transform.position = pos + Time.deltaTime * _speed * _direction;
-                _traveledDistance += Vector2.Distance(pos, oldPos);
-            }
-            else
-            {
-                Destroy(gameObject);
+                if (_traveledDistance < _range)
+                {
+                    Vector2 pos = transform.position;
+                    Vector2 oldPos = new Vector2(pos.x, pos.y);
+                    transform.position = pos + Time.deltaTime * _speed * _direction;
+                    _traveledDistance += Vector2.Distance(pos, oldPos);
+                }
+                else
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
             }
         }
 
