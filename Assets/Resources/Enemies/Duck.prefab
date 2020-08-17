@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab774a5fac2614044ba2b9ab2b5e2fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifePoints: 0
   initialDirection: 0
   height: 20
   thrust: 5
