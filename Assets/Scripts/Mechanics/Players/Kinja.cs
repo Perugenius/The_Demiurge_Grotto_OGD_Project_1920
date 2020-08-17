@@ -11,6 +11,8 @@ namespace Mechanics.Players
         private int _maxJumpsNumber;
         private int _jumpsNumber;
         private Transform _attackSpawner;
+        private int _projectileNumber;
+        private float _projectileSpeed;
         
         // Start is called before the first frame update
         protected override void Start()
@@ -20,6 +22,8 @@ namespace Mechanics.Players
             {
                 _maxJumpsNumber = PlayerData.secondarySkillLevel[name] +1;
                 _attackSpawner = transform.Find("AttackPoint").transform;
+                _projectileNumber = PlayerData.projectileNumber[name];
+                _projectileSpeed = PlayerData.projectileSpeed[name];
             }
         }
 
@@ -52,10 +56,44 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
-            GameObject shuriken = PhotonNetwork.Instantiate(Path.Combine("Players", "Shuriken"), _attackSpawner.position, Quaternion.identity);
-            Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
-            shurikenScript.SetDamage(CurrentAttack);
-            shurikenScript.SetSpeed(Vector2.down*18);
+            for (int i = 1; i <= _projectileNumber; i++)
+            {
+                Animator.SetTrigger(DoubleJump);
+                GameObject shuriken = PhotonNetwork.Instantiate(Path.Combine("Players", "Shuriken"),
+                    _attackSpawner.position, Quaternion.identity);
+                Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
+                shurikenScript.SetDamage(CurrentAttack);
+                Vector2 direction = Vector2.down;
+                switch (i)
+                {
+                    case 1:
+                    {
+                        direction = Vector2.down;
+                        break;
+                    }
+                    case 2:
+                    {
+                        direction = new Vector2(FaceDirection.x/2,-1).normalized;
+                        break;
+                    }
+                    case 3:
+                    {
+                        direction = new Vector2(-FaceDirection.x/2,-1).normalized;
+                        break;
+                    }
+                    case 4:
+                    {
+                        direction = new Vector2(FaceDirection.x, -1).normalized;
+                        break;
+                    }
+                    case 5:
+                    {
+                        direction = new Vector2(-FaceDirection.x, -1).normalized;
+                        break;
+                    }
+                }
+                shurikenScript.SetSpeed(direction * _projectileSpeed);
+            }
         }
     }
 }

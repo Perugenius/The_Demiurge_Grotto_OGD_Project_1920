@@ -419,6 +419,7 @@ public class MainMenu : MonoBehaviour
                     playerData.attackRate[s] -= 0.3f;
                     SaveSystem.SavePlayerData(playerData);
                 };
+                perks.Add(attackRate);
 
                 Perk secondarySkillPerk = new Perk("Skill level",character);
                 Dictionary<int, int> secondarySkillCost = new Dictionary<int, int>
@@ -456,12 +457,31 @@ public class MainMenu : MonoBehaviour
                     if (character.Contains("Pinkie"))
                     {
                         secondarySkillPerk.description = "Increase invulnerability duration";
+                        
+                        Perk attackDurationPerk = new Perk("Attack duration",character);
+                        Dictionary<int, int> attackDurationCost = new Dictionary<int, int>
+                        {
+                            {1, 200},
+                            {2, 300},
+                            {3, 600},
+                            {4, 800},
+                        };
+                        attackDurationPerk.levelCost = attackDurationCost;
+                        attackDurationPerk.description = "Increase the duration of the projectiles";
+                        attackDurationPerk.runPerk = (s, level) =>
+                        {
+                            PlayerData playerData = SaveSystem.LoadPlayerData();
+                            playerData.attackDuration[s] += 0.35f;
+                            SaveSystem.SavePlayerData(playerData);
+                        };
+                        perks.Add(attackDurationPerk);
                     }
 
                     if (character.Contains("Kinja"))
                     {
                         secondarySkillPerk.description = "Raise maximum number of consecutive jump";
                     }
+                    perks.Add(numberOfProjectiles);
                 }
 
                 if (character.Contains("Steve"))
@@ -486,6 +506,7 @@ public class MainMenu : MonoBehaviour
                         SaveSystem.SavePlayerData(playerData);
                     };
                 }
+                perks.Add(secondarySkillPerk);
             }
             
         }

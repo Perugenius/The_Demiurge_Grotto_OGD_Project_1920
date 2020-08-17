@@ -33,6 +33,7 @@ namespace Mechanics.Players
             {
                 _range = PlayerData.attackRange[name];
                 _fireRate = PlayerData.attackRate[name];
+                _projectileSpeed = PlayerData.projectileSpeed[name];
                 _spawnPosition = transform.Find("LaserSpawner");
             }
             

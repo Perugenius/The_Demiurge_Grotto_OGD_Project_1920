@@ -15,6 +15,8 @@ namespace Core.SaveLoadData
         public Dictionary<string, int> projectileNumber;
         public Dictionary<string, int> jumpHeight;
         public Dictionary<string, int> speed;
+        public Dictionary<string, float> projectileSpeed;
+        public Dictionary<string, float> attackDuration;
         public int gems;
         public int teammateLetters;
         public int eldaanLetters;
@@ -56,18 +58,22 @@ namespace Core.SaveLoadData
                     {
                         attackRate.Add(character,1f);
                         projectileNumber.Add(character, 1);
+                        projectileSpeed.Add(character,18);
                     }
 
                     if (character.Contains("Pinkie"))
                     {
                         attackRate.Add(character, 1.5f);
                         projectileNumber.Add(character,1);
+                        projectileSpeed.Add(character,200);
+                        attackDuration.Add(character, 3);
                     }
 
                     if (character.Contains("Steve"))
                     {
                         attackRate.Add(character,2);
                         attackRange.Add(character, 3);
+                        projectileSpeed.Add(character, 10);
                     }
                 }
             }

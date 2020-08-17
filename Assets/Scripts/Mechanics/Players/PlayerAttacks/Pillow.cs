@@ -38,7 +38,7 @@ namespace Mechanics.Players.PlayerAttacks
         {
             if (_isMine)
             {
-                transform.Rotate(Time.deltaTime * 180 * Vector3.forward);
+                transform.Rotate(Time.deltaTime * _speed * Vector3.forward);
                 transform.RotateAround(_playerPosition.position, Vector3.back, _speed * Time.deltaTime);
             }
         }

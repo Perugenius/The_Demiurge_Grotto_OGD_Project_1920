@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Mechanics.Players.PlayerAttacks;
 using Photon.Pun;
@@ -17,16 +18,37 @@ namespace Mechanics.Players
         private float _invincibilityDuration;
         private float _timeLapse;
         private GameObject _hitBox;
+
+        private List<GameObject> _pillowSpawners;
+        private float _attackDuration;
+        private float _projectileSpeed;
         
         
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-            _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
-            _hitBox = transform.Find("PlayerHitbox").gameObject;
-            _timeLapse = statistics.attackRate;
-            _maxPillowNumber = statistics.projectileNumber;
+            if (_isMine)
+            {
+                _pillowSpawners = new List<GameObject>();
+                foreach (Transform child in transform)
+                {
+                    if (child.CompareTag("ProjectileSpawner"))
+                    {
+                        _pillowSpawners.Add(child.gameObject);
+                    }
+                }
+                _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
+                _hitBox = transform.Find("PlayerHitbox").gameObject;
+                _timeLapse = statistics.attackRate;
+                _maxPillowNumber = statistics.projectileNumber;
+                for (int i = 3; i>=_maxPillowNumber; i--)
+                {
+                    _pillowSpawners[i].SetActive(false);
+                }
+                _attackDuration = PlayerData.attackDuration[name];
+                _projectileSpeed = PlayerData.projectileSpeed[name];
+            }
         }
 
         // Update is called once per frame
@@ -50,16 +72,24 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
-            _canSummonPillow = false;
-            GameObject pillow = PhotonNetwork.Instantiate(Path.Combine("Players", "Pillow"),
-                _pillowSpawnPosition.position, Quaternion.identity);
-            pillow.transform.SetParent(gameObject.transform);
-            Pillow pillowScript = pillow.GetComponent<Pillow>();
-            pillowScript.SetPlayerPosition(transform);
-            pillowScript.SetDamage(CurrentAttack);
-            pillowScript.SetDuration(statistics.attackDuration);
-            pillowScript.SetSpeed(statistics.attackSpeed);
-            pillowScript.SetPinkie(this);
+            foreach (var elem in _pillowSpawners)
+            {
+                if (elem.activeSelf)
+                {
+                    _canSummonPillow = false;
+                    GameObject pillow = PhotonNetwork.Instantiate(Path.Combine("Players", "Pillow"),
+                        elem.transform.position, Quaternion.identity);
+                    pillow.transform.SetParent(gameObject.transform);
+                    Pillow pillowScript = pillow.GetComponent<Pillow>();
+                    pillowScript.SetPlayerPosition(transform);
+                    pillowScript.SetDamage(CurrentAttack);
+                    pillowScript.SetDuration(_attackDuration);
+                    pillowScript.SetSpeed(_projectileSpeed);
+                    pillowScript.SetPinkie(this);
+                }
+                
+            }
+            
         }
 
         public void SetCanSummonPillow(bool canSummon)
