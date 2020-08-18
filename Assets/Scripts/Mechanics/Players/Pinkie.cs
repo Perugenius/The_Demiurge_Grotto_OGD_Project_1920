@@ -46,8 +46,8 @@ namespace Mechanics.Players
                 {
                     _pillowSpawners[i].SetActive(false);
                 }
-                _attackDuration = PlayerData.attackDuration[name];
-                _projectileSpeed = PlayerData.projectileSpeed[name];
+                _attackDuration = PlayerData.attackDuration[characterName];
+                _projectileSpeed = PlayerData.projectileSpeed[characterName];
             }
         }
 

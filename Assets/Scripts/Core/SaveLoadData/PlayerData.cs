@@ -35,6 +35,14 @@ namespace Core.SaveLoadData
             perks = new Dictionary<string, Dictionary<string, int>>();
             maxHealth = new Dictionary<string, int>();
             attack = new Dictionary<string, float>();
+            jumpHeight = new Dictionary<string, int>();
+            speed = new Dictionary<string, int>();
+            secondarySkillLevel = new Dictionary<string, int>();
+            attackRate = new Dictionary<string, float>();
+            projectileNumber = new Dictionary<string, int>();
+            projectileSpeed = new Dictionary<string, float>();
+            attackRange = new Dictionary<string, float>();
+            attackDuration = new Dictionary<string, float>();
             
             
             gems = 0;

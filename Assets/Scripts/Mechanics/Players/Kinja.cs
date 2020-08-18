@@ -20,10 +20,10 @@ namespace Mechanics.Players
             base.Start();
             if (_isMine || localTesting)
             {
-                _maxJumpsNumber = PlayerData.secondarySkillLevel[name] +1;
+                _maxJumpsNumber = PlayerData.secondarySkillLevel[characterName] +1;
                 _attackSpawner = transform.Find("AttackPoint").transform;
-                _projectileNumber = PlayerData.projectileNumber[name];
-                _projectileSpeed = PlayerData.projectileSpeed[name];
+                _projectileNumber = PlayerData.projectileNumber[characterName];
+                _projectileSpeed = PlayerData.projectileSpeed[characterName];
             }
         }
 

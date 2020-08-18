@@ -6,7 +6,7 @@ namespace Scriptable_Objects
     [CreateAssetMenu(menuName = "CharacterStatistics")]
     public class CharacterStatistics : ScriptableObject
     {
-        public String name;
+        public String characterName;
         public float maxHealth;
         public float movSpeed;
         public float fightSpeed;

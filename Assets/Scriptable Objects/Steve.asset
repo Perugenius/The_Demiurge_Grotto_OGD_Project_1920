@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8e4486db4e1fd408a674800fedc74f, type: 3}
   m_Name: Steve
   m_EditorClassIdentifier: 
-  name: Steve
+  characterName: Steve
   maxHealth: 4
   movSpeed: 15
   fightSpeed: 2

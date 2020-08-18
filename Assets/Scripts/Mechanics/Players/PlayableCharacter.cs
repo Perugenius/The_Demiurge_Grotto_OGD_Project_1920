@@ -49,7 +49,7 @@ namespace Mechanics.Players
             {
                 PlayerData = SaveSystem.LoadPlayerData();
                 _isMine = true;
-                characterName = statistics.name;
+                characterName = statistics.characterName;
                 CurrentSpeed = PlayerData.speed[characterName];
                 CurrentHealth = PlayerData.maxHealth[characterName];
                 CurrentAttack = PlayerData.attack[characterName];

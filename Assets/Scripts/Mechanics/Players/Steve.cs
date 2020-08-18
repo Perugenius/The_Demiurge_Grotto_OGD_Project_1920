@@ -31,9 +31,9 @@ namespace Mechanics.Players
             base.Start();
             if (_isMine)
             {
-                _range = PlayerData.attackRange[name];
-                _fireRate = PlayerData.attackRate[name];
-                _projectileSpeed = PlayerData.projectileSpeed[name];
+                _range = PlayerData.attackRange[characterName];
+                _fireRate = PlayerData.attackRate[characterName];
+                _projectileSpeed = PlayerData.projectileSpeed[characterName];
                 _spawnPosition = transform.Find("LaserSpawner");
             }
             
