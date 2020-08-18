@@ -310,7 +310,7 @@ MonoBehaviour:
   downAccess: 2
   width: 54
   height: 30
-  dungeonType: 1
+  dungeonType: 2
   minDifficulty: 0
   requiredSkills: 
   isFirstRoom: 0
