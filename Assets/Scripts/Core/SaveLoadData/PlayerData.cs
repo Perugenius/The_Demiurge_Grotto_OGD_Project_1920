@@ -80,7 +80,7 @@ namespace Core.SaveLoadData
                     if (character.Contains("Steve"))
                     {
                         attackRate.Add(character,2);
-                        attackRange.Add(character, 5);
+                        attackRange.Add(character, 7);
                         projectileSpeed.Add(character, 10);
                     }
                 }
