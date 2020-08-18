@@ -36,6 +36,7 @@ namespace Core
         public GameObject PrefabRoom;
         public List<string> Blacklist;
         public List<FrontierPointData> RoomFrontier;
+        public int NumOfChildren;
 
         public RoomNode(RoomNode parent, GameObject roomInstance, GameObject prefabRoom)
         {
@@ -44,6 +45,7 @@ namespace Core
             PrefabRoom = prefabRoom;
             Blacklist = new List<string>();
             RoomFrontier = new List<FrontierPointData>();
+            NumOfChildren = -1;
         }
     }
     
@@ -129,12 +131,17 @@ namespace Core
                     _frontier.RemoveAt(0);
                     _currentDifficulty = Mathf.RoundToInt((i+2f) / numOfRooms * 5f);
                     roomInstance.GetComponent<DungeonRoom>().SetDifficulty(_currentDifficulty);
-                    /*Debug.Log("current room difficulty: " + _currentDifficulty);
+                    
+                    /*Debug.Log("RoomNode: " + child.RoomInstance.name);
+                    Debug.Log("RoomNode parent: " + child.Parent.RoomInstance.name);
                     Debug.Log("Frontier top: " +_frontier[0].Position.ToString());
-                    Debug.Log("Frontier length = " + _frontier.Count);*/
+                    Debug.Log("Frontier length = " + _frontier.Count);
+                    Debug.Log("current room difficulty: " + _currentDifficulty);*/
+                    
                 }
                 else //Last room placed removed for tree backtracking
                 {
+                    parent = parent.Parent;
                     i--;
                 }
             }
@@ -272,7 +279,7 @@ namespace Core
             var rooms = (_leafRoomNeeded)?_leafRooms:_roomsScriptsList;
 
             List<GameObject> suitableRooms = FindSuitableRooms(entranceSide, rooms, parent);
-            return suitableRooms?[Random.Range(0, suitableRooms.Count)];
+            return suitableRooms.Count > 0 ? suitableRooms[Random.Range(0, suitableRooms.Count)] : null;
         }
 
         private List<GameObject> FindSuitableRooms(RoomSides entranceSide, List<DungeonRoom> rooms, RoomNode parent)
@@ -364,6 +371,9 @@ namespace Core
                 flexibleNumOfUsages++; //"maxNumOfUsages"flexibility increase
             }
 
+            //set num of children (if it has never been set) for parent node (note: first time this statement is executed parent.Blacklist is empty)
+            if (parent.NumOfChildren == -1) parent.NumOfChildren = suitableRooms.Count;
+
             if (suitableRooms.Count == 0) RemoveLastRoom(parent); //None room available, go back and remove last room 
 
             return suitableRooms;
@@ -412,6 +422,16 @@ namespace Core
         private void RemoveLastRoom(RoomNode node)
         {
             Debug.LogWarning("One room removed - tree backtracking");
+            Debug.Log("RemovedRoom: " + node.RoomInstance.name);
+            Debug.Log("ParentRoom: " + node.Parent.RoomInstance.name + "NumOfChildren: " + node.Parent.NumOfChildren);
+            Debug.Log("---ParentRoom Blacklist---");
+            foreach (var room in node.Parent.Blacklist)
+            {
+                Debug.Log("- " + room);
+            }
+            Debug.Log("--------------------------");
+            
+            _roomInstancesList.Remove(node.RoomInstance);
             Destroy(node.RoomInstance);
             node.Parent.Blacklist.Add(node.PrefabRoom.name);
             _currentNumberOfRooms--;

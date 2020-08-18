@@ -48,13 +48,13 @@ namespace Core
             {
                 switch (character)
                 {
-                    case "Vodoo": playersSkills.Add(DungeonRoom.PlatformingSkills.Headstrong); break;
+                    case "Voodoo": playersSkills.Add(DungeonRoom.PlatformingSkills.Headstrong); break;
                     case "Kinja": playersSkills.Add(DungeonRoom.PlatformingSkills.DoubleJump); break;
                     case "Pinkie": playersSkills.Add(DungeonRoom.PlatformingSkills.Intangibility); break;
                     case "Steve": playersSkills.Add(DungeonRoom.PlatformingSkills.WallJump); break;
                 }
-            }
-
+            } 
+            
             int type = 1;
             switch (SaveSystem.LoadPlayerData().lastSelectedDungeon)
             {

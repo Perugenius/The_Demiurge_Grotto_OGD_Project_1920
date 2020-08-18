@@ -50,6 +50,7 @@ namespace Mechanics.Camera
             else
             {
                 if(Vector2.Distance(_playerRoomPosition,Tr.position)<0.5) return;
+                Debug.Log("Target RoomPosition = " + _playerRoomPosition);
                 SetFixedDistanceAcceleratedDecelerated(_playerRoomPosition, initSpeed, acceleration);
             }
         }
@@ -60,7 +61,7 @@ namespace Mechanics.Camera
             if(_isInTransition)
             {
                 if(Vector2.Distance(_playerTransitionPosition,Tr.position)<0.5) return;
-                if(Vector2.Distance(player.transform.position,_playerTransitionPosition) > 7) return;
+                if(Vector2.Distance(player.transform.position + new Vector3(0,0,-10),_playerTransitionPosition) > 7) return;
                 //if(MoveFixedDistanceAcceleratedDecelerated) return;
                 SetFixedDistanceAcceleratedDecelerated(_playerTransitionPosition, initSpeed, acceleration);
             }
