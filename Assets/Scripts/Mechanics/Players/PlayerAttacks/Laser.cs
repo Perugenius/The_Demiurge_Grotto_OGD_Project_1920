@@ -33,7 +33,7 @@ namespace Mechanics.Players.PlayerAttacks
                     Vector2 pos = transform.position;
                     Vector2 oldPos = new Vector2(pos.x, pos.y);
                     transform.position = pos + Time.deltaTime * _speed * _direction;
-                    _traveledDistance += Vector2.Distance(pos, oldPos);
+                    _traveledDistance += Vector2.Distance(transform.position, oldPos);
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace Mechanics.Players.PlayerAttacks
         {
             if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
             {
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             }
         }
 
