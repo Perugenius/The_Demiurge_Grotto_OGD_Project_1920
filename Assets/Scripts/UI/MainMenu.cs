@@ -83,10 +83,10 @@ public class MainMenu : MonoBehaviour
 
         LoadPerks();
 
-        /*PlayerData playerData = SaveSystem.LoadPlayerData();
-        if(playerData.unlockedCharacters.Contains("Vodoo")) playerData.unlockedCharacters.Remove("Vodoo");
-        playerData.unlockedCharacters.Add("Voodoo");
-        SaveSystem.SavePlayerData(playerData);*/
+        PlayerData playerData = SaveSystem.LoadPlayerData();
+        playerData.gems = 1200;
+        playerData.teammateLetters = 40;
+        SaveSystem.SavePlayerData(playerData);
     }
 
     // Update is called once per frame
