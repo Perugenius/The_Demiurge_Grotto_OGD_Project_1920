@@ -316,7 +316,9 @@ namespace Core
                     if (suitable && !room.GetEffectiveEntranceSides().Contains(entranceSide)) suitable = false;
                     
                     //The room has not been used more times than "maxNumOfUsages" (flexible constraint)
-                    if (suitable && room.GetNumberOfUsages() > _maxNumOfUsages + flexibleNumOfUsages) suitable = false;
+                    if (suitable && room.GetNumberOfUsages() >= _maxNumOfUsages + flexibleNumOfUsages) suitable = false;
+                    
+                    //Debug.Log(room.name + " " + _frontier[0].Position + " NumOfUsages: " + room.GetNumberOfUsages() + " flexibility: " + flexibleNumOfUsages);
                     
                     //Check that by instantiating the next room we don't increase the frontier too much; if the frontier
                     //is bigger than the number of remaining rooms to build we cannot complete the dungeon respecting

@@ -18,7 +18,11 @@ namespace Mechanics.Camera
         public void PlayerInRoom(Vector3 roomPosition, GameObject player)
         {
             if(player != cameraPlayer) return;
-            _playerRoomPosition = new Vector3(roomPosition.x, roomPosition.y, -10f);
+            Vector3 playerPosition = player.transform.position;
+            if(Vector3.Distance(playerPosition,roomPosition) < Vector3.Distance(playerPosition,_playerRoomPosition - new Vector3(0,0,-10f)))
+            {
+                _playerRoomPosition = new Vector3(roomPosition.x, roomPosition.y, -10f);
+            }
             UpdateCameraPosition();
         }
 
@@ -44,7 +48,6 @@ namespace Mechanics.Camera
             if(_isInTransition)
             {
                 if(Vector2.Distance(_playerTransitionPosition,Tr.position)<0.5) return;
-                //if(MoveFixedDistanceAcceleratedDecelerated) return;
                 SetFixedDistanceAcceleratedDecelerated(_playerTransitionPosition, initSpeed, acceleration);
             }
             else
@@ -62,7 +65,6 @@ namespace Mechanics.Camera
             {
                 if(Vector2.Distance(_playerTransitionPosition,Tr.position)<0.5) return;
                 if(Vector2.Distance(player.transform.position + new Vector3(0,0,-10),_playerTransitionPosition) > 7) return;
-                //if(MoveFixedDistanceAcceleratedDecelerated) return;
                 SetFixedDistanceAcceleratedDecelerated(_playerTransitionPosition, initSpeed, acceleration);
             }
             else
@@ -74,7 +76,7 @@ namespace Mechanics.Camera
         
         public Orientation PlayerTransitionOrientation => _playerTransitionOrientation;
 
-        //Deprecated methods
+        //Deprecated functions
         private IEnumerator CheckIfRightMovement()
         {
             for (int i = 0; i < 3; i++)

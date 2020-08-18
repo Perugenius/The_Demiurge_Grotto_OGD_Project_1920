@@ -54,16 +54,15 @@ namespace Mechanics.Camera
     
         private void OnTriggerStay2D(Collider2D other)
         {
-            /*bool isHorizontalCameraMovement = _currentCameraMovementDirection == Vector2.right ||
+            bool isHorizontalCameraMovement = _currentCameraMovementDirection == Vector2.right ||
                                               _currentCameraMovementDirection == Vector2.left;
             if (_mainCameraFocusOnPlayer != null &&
                 Vector2.Distance(_mainCamera.transform.position, _tr.position + new Vector3(0,0,-10)) >
-                (isHorizontalCameraMovement ? _roomWidth / 2 : _roomHeight / 2) & !_triggerStayCameraEvent)
+                (isHorizontalCameraMovement ? _roomWidth / 2f : _roomHeight / 2f) & !_triggerStayCameraEvent)
             {
                 _triggerStayCameraEvent = true;
                 _mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
-            }*/
-            //_mainCameraFocusOnPlayer.PlayerInRoom(_tr.position,other.gameObject);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

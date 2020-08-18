@@ -165,7 +165,7 @@ namespace Mechanics
                 Tr.position = Tr.position + Time.deltaTime * _fixedSpeed * _fixedDirectionVector3;
                 _fixedDistance = _fixedDistance - Time.deltaTime * _fixedSpeed;
                 if(_fixedDistance > _totalDistance/2f) _fixedSpeed = _fixedSpeed + Time.deltaTime * _fixedAcceleration;
-                else _fixedSpeed = _fixedSpeed - Time.deltaTime * _fixedAcceleration;
+                else _fixedSpeed = (_fixedSpeed>0.1f) ?_fixedSpeed - Time.deltaTime * _fixedAcceleration : 0.1f;
                 if(_fixedDistance <= 0) MoveFixedDistanceAcceleratedDecelerated = false;
             }
 

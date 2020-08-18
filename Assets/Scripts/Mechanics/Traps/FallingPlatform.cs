@@ -88,7 +88,7 @@ public class FallingPlatform : Movable
     public void Fall()
     {
         var maxDistance = (limitFallDistance) ? fallDistance : MaxRayCastDistance;
-        var layerMasks = new List<LayerMask>{LayerMask.GetMask("Obstacle"), LayerMask.GetMask("EnemyPhysic")};
+        var layerMasks = new List<LayerMask>{LayerMask.GetMask("Obstacle"), LayerMask.GetMask("EnemyPhysic"),LayerMask.GetMask("PlayerPhysic")};
 
         var hitDistances = new List<float> {maxDistance};
 
