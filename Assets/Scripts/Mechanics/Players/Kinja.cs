@@ -18,12 +18,12 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            if (_isMine || localTesting)
+            if (IsMine || localTesting)
             {
-                _maxJumpsNumber = PlayerData.secondarySkillLevel[characterName] +1;
+                _maxJumpsNumber = PlayerData.secondarySkillLevel[CharacterName] +1;
                 _attackSpawner = transform.Find("AttackPoint").transform;
-                _projectileNumber = PlayerData.projectileNumber[characterName];
-                _projectileSpeed = PlayerData.projectileSpeed[characterName];
+                _projectileNumber = PlayerData.projectileNumber[CharacterName];
+                _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
             }
         }
 

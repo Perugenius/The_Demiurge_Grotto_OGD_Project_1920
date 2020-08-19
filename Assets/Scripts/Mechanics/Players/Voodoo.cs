@@ -22,7 +22,7 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            if (_isMine)
+            if (IsMine)
             {
                 
                 _damageCollider = transform.Find("DamageCollider").gameObject;
@@ -36,7 +36,7 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected override void Update()
         {
-            if (_isMine || localTesting)
+            if (IsMine || localTesting)
             {
                 base.Update();
                 IEnumerator coroutine;
@@ -66,7 +66,7 @@ namespace Mechanics.Players
 
         protected override void FixedUpdate()
         {
-            if (_isMine)
+            if (IsMine)
             {
                 if (!_isDashing)
                     base.FixedUpdate();

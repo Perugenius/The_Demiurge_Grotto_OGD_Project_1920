@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Players.PlayerAttacks
@@ -30,8 +31,7 @@ namespace Mechanics.Players.PlayerAttacks
 
         private void OnTriggerEnter2D(Collider2D other)
         { 
-            Debug.Log(other.gameObject.name);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
 
         public void SetDamage(float damage)

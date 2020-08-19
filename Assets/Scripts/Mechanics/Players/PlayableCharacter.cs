@@ -26,49 +26,56 @@ namespace Mechanics.Players
         protected int CurrentConsecutiveJump = 0;
         protected Vector2 FaceDirection;
         protected int CollectedGems;
-        protected string characterName;
+        protected string CharacterName;
 
         protected GameObject Hitbox;
         protected bool IsTakingDamage;
         protected SpriteRenderer SpriteRenderer;
+        protected PhotonView PhotonView;
 
-        protected bool IsAnchored;
-        protected PhotonView AnchoredPlayer;
+        /*protected bool IsAnchored;
+        protected PhotonView AnchoredPlayer;*/
 
         protected IEnumerator FadingOut = null;
+        protected bool Poisoned;
 
-        protected bool _isMine;
+        protected bool IsDying;
+        protected bool IsMine;
         protected PlayerData PlayerData;
+
+        protected IEnumerator PoisoningCoroutine;
+
+        protected Vector2 CheckPoint;
 
         
         
         // Start is called before the first frame update
         protected virtual void Start()
         {
+            SpriteRenderer = GetComponent<SpriteRenderer>();
+            Hitbox = transform.Find("PlayerHitbox").gameObject;
+            Animator = GetComponent<Animator>();
+            this.PhotonView = PhotonView.Get(this);
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 PlayerData = SaveSystem.LoadPlayerData();
-                _isMine = true;
-                characterName = statistics.characterName;
-                CurrentSpeed = PlayerData.speed[characterName];
-                CurrentHealth = PlayerData.maxHealth[characterName];
-                CurrentAttack = PlayerData.attack[characterName];
-                JumpHeight = PlayerData.jumpHeight[characterName];
-
-                SpriteRenderer = GetComponent<SpriteRenderer>();
-                Hitbox = transform.Find("PlayerHitbox").gameObject;
-                Animator = GetComponent<Animator>();
+                IsMine = true;
+                CharacterName = statistics.characterName;
+                CurrentSpeed = PlayerData.speed[CharacterName];
+                CurrentHealth = PlayerData.maxHealth[CharacterName];
+                CurrentAttack = PlayerData.attack[CharacterName];
+                JumpHeight = PlayerData.jumpHeight[CharacterName];
             }
             else
             {
-                _isMine = false;
+                IsMine = false;
             }
         }
 
         // Update is called once per frame
         protected virtual void Update()
         {
-            if (_isMine || localTesting)
+            if (IsMine || localTesting)
             {
                 Speed = Input.GetAxisRaw("Horizontal");
                 if (Input.GetButtonDown("Jump") && !IsJumping)
@@ -78,6 +85,14 @@ namespace Mechanics.Players
                 }
                 
                 Animate();
+                if (Poisoned)
+                {
+                    StartPoisoningDamage();
+                }
+                else if (PoisoningCoroutine != null)
+                {
+                    StopCoroutine(PoisoningCoroutine);
+                }
             }
         }
 
@@ -106,18 +121,18 @@ namespace Mechanics.Players
 
         protected override void FixedUpdate()
         {
-            if (_isMine || localTesting)
+            if (IsMine || localTesting)
             {
                 base.FixedUpdate();
                 Vector2 direction;
                 if (Speed != 0)
                 {
                     direction = Vector2.right;
-                    MoveDynamic(direction, CurrentSpeed * Speed);
+                    MoveDynamic(direction, CurrentSpeed * Speed);/*
                     if (AnchoredPlayer)
                     {
-                        /*AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);*/
-                    }
+                        AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);
+                    }*/
                 } /*
             else if (Speed < 0)
             {
@@ -134,6 +149,35 @@ namespace Mechanics.Players
                 }
 
                 CheckJumpPhase();
+            }
+        }
+
+        protected void StartPoisoningDamage()
+        {
+            if (PoisoningCoroutine != null)
+            {
+                PoisoningCoroutine = PoisoningDamage();
+                StartCoroutine(PoisoningCoroutine);
+            }
+        }
+
+        protected IEnumerator PoisoningDamage()
+        {
+            while (Poisoned)
+            {
+                CurrentHealth -= 1;
+                if (CurrentHealth <= 0)
+                {
+                    break;
+                }
+                this.SpriteRenderer.color = Color.green;
+                yield return  new WaitForSeconds(0.2f);
+                this.SpriteRenderer.color = Color.white;
+                yield return new WaitForSeconds(1.8f);
+            }
+            if (CurrentHealth <= 0)
+            {
+                Die();
             }
         }
 
@@ -167,24 +211,35 @@ namespace Mechanics.Players
 
         public void TakeDamage(Collider2D other)
         {
-            CurrentHealth -= 1;
-            if (CurrentHealth <= 0)
+            if (IsMine && !IsDying)
             {
-                Die();
-            }
-            else
-            {
-                IsTakingDamage = true;
-                
-                if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+                CurrentHealth -= 1;
+                if (CurrentHealth <= 0)
                 {
-
+                    Die();
                 }
                 else
                 {
-                    StartCoroutine(nameof(DamageEffect));
+                    IsTakingDamage = true;
+
+                    if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+                    {
+
+                    }
+                    else
+                    {
+                        StartCoroutine(nameof(DamageEffect));
+                        this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);
+                    }
                 }
             }
+        }
+
+        [PunRPC]
+        public void TakeRemoteDamage()
+        {
+            IsTakingDamage = true;
+            StartCoroutine(nameof(DamageEffect));
         }
 
         public IEnumerator DamageEffect()
@@ -215,6 +270,7 @@ namespace Mechanics.Players
                 if (FadingOut != null)
                 {
                     StopCoroutine(FadingOut);
+                    IsDying = false;
                     SpriteRenderer.color = Color.white;
                     CurrentHealth = 2;
                     FadingOut = null;
@@ -223,7 +279,7 @@ namespace Mechanics.Players
             }
         }
 
-        private void OnCollisionExit(Collision other)
+        /*private void OnCollisionExit(Collision other)
         {
             if (other.collider.gameObject.CompareTag("Player"))
             {
@@ -232,7 +288,7 @@ namespace Mechanics.Players
                     AnchoredPlayer = null;
                 }
             }
-        }
+        }*/
 
         public void CollectGems(int gems)
         {
@@ -241,7 +297,17 @@ namespace Mechanics.Players
 
         protected override void Die()
         {
+            IsDying = true;
             Hitbox.SetActive(false);
+            FadingOut = BecomingGhost();
+            StartCoroutine(FadingOut);
+            this.PhotonView.RPC(nameof(RemoteDie),RpcTarget.Others);
+        }
+
+        [PunRPC]
+        public void RemoteDie()
+        {
+            IsDying = true;
             FadingOut = BecomingGhost();
             StartCoroutine(FadingOut);
         }
@@ -268,6 +334,18 @@ namespace Mechanics.Players
         {
             get => FaceDirection;
             set => FaceDirection = value;
+        }
+
+        public Vector2 CheckPoint1
+        {
+            get => CheckPoint;
+            set => CheckPoint = value;
+        }
+
+        public bool Poisoned1
+        {
+            get => Poisoned;
+            set => Poisoned = value;
         }
     }
 }

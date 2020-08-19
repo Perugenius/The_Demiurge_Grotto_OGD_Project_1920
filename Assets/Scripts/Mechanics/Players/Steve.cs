@@ -29,11 +29,11 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            if (_isMine)
+            if (IsMine)
             {
-                _range = PlayerData.attackRange[characterName];
-                _fireRate = PlayerData.attackRate[characterName];
-                _projectileSpeed = PlayerData.projectileSpeed[characterName];
+                _range = PlayerData.attackRange[CharacterName];
+                _fireRate = PlayerData.attackRate[CharacterName];
+                _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
                 _spawnPosition = transform.Find("LaserSpawner");
             }
             

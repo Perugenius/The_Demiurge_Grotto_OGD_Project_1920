@@ -28,7 +28,7 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            if (_isMine)
+            if (IsMine)
             {
                 _pillowSpawners = new List<GameObject>();
                 foreach (Transform child in transform)
@@ -46,8 +46,8 @@ namespace Mechanics.Players
                 {
                     _pillowSpawners[i].SetActive(false);
                 }
-                _attackDuration = PlayerData.attackDuration[characterName];
-                _projectileSpeed = PlayerData.projectileSpeed[characterName];
+                _attackDuration = PlayerData.attackDuration[CharacterName];
+                _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
             }
         }
 
