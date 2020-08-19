@@ -32,6 +32,12 @@ namespace Mechanics
             }
         }
 
+        public float CurrentHealth1
+        {
+            get => CurrentHealth;
+            set => CurrentHealth = value;
+        }
+        
         protected abstract void Die();
         protected abstract void Attack();
 
