@@ -58,7 +58,7 @@ namespace Mechanics.Players
             SpriteRenderer = GetComponent<SpriteRenderer>();
             Hitbox = transform.Find("PlayerHitbox").gameObject;
             Animator = GetComponent<Animator>();
-            this.PhotonView = PhotonView.Get(this);
+            this.PhotonView = gameObject.GetPhotonView();
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 PlayerData = SaveSystem.LoadPlayerData();
