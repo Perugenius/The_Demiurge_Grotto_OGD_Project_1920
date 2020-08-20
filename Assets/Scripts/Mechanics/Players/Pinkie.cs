@@ -22,6 +22,7 @@ namespace Mechanics.Players
         private List<GameObject> _pillowSpawners;
         private float _attackDuration;
         private float _projectileSpeed;
+        private float _secondarySkillDuration;
         
         
         // Start is called before the first frame update
@@ -40,8 +41,9 @@ namespace Mechanics.Players
                 }
                 _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
                 _hitBox = transform.Find("PlayerHitbox").gameObject;
-                _timeLapse = statistics.attackRate;
-                _maxPillowNumber = statistics.projectileNumber;
+                _timeLapse = 2;
+                _maxPillowNumber = PlayerData.projectileNumber[CharacterName];
+                _secondarySkillDuration = PlayerData.secondarySkillLevel[CharacterName];
                 for (int i = 3; i>=_maxPillowNumber; i--)
                 {
                     _pillowSpawners[i].SetActive(false);
@@ -108,7 +110,7 @@ namespace Mechanics.Players
 
         private IEnumerator InvincibilityTime()
         {
-            yield return new WaitForSeconds(statistics.secondarySkillDuration);
+            yield return new WaitForSeconds(_secondarySkillDuration);
             for (int i = 0; i < 4; i++)
             {
                 SpriteRenderer.color = new Color(255,255,255, 0.8f);
