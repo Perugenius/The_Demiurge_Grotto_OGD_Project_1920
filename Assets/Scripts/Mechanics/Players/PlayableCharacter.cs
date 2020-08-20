@@ -3,6 +3,7 @@ using System.Collections;
 using Core.SaveLoadData;
 using Photon.Pun;
 using Scriptable_Objects;
+using UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
@@ -27,6 +28,9 @@ namespace Mechanics.Players
         protected Vector2 FaceDirection;
         protected int CollectedGems;
         protected string CharacterName;
+        protected int MaxHealth;
+
+        protected HealthBar HealthBar;
 
         protected GameObject Hitbox;
         protected bool IsTakingDamage;
@@ -42,7 +46,6 @@ namespace Mechanics.Players
         protected bool IsDying;
         protected bool IsMine;
         protected PlayerData PlayerData;
-
         protected IEnumerator PoisoningCoroutine;
 
         protected Vector2 CheckPoint;
@@ -62,9 +65,11 @@ namespace Mechanics.Players
                 IsMine = true;
                 CharacterName = statistics.characterName;
                 CurrentSpeed = PlayerData.speed[CharacterName];
-                CurrentHealth = PlayerData.maxHealth[CharacterName];
+                MaxHealth = PlayerData.maxHealth[CharacterName];
+                CurrentHealth = MaxHealth;
                 CurrentAttack = PlayerData.attack[CharacterName];
                 JumpHeight = PlayerData.jumpHeight[CharacterName];
+                HealthBar.InitializeHealthBar();
             }
             else
             {
@@ -166,6 +171,7 @@ namespace Mechanics.Players
             while (Poisoned)
             {
                 CurrentHealth -= 1;
+                HealthBar.LoseHearth();
                 if (CurrentHealth <= 0)
                 {
                     break;
@@ -214,6 +220,7 @@ namespace Mechanics.Players
             if (IsMine && !IsDying)
             {
                 CurrentHealth -= 1;
+                HealthBar.LoseHearth();
                 if (CurrentHealth <= 0)
                 {
                     Die();
@@ -222,9 +229,9 @@ namespace Mechanics.Players
                 {
                     IsTakingDamage = true;
 
-                    if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+                    if ((LayerMask.GetMask("DamageTrap") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
                     {
-
+                        //TODO
                     }
                     else
                     {
@@ -273,6 +280,7 @@ namespace Mechanics.Players
                     IsDying = false;
                     SpriteRenderer.color = Color.white;
                     CurrentHealth = 2;
+                    HealthBar.RefillHearth(2);
                     FadingOut = null;
                     Hitbox.SetActive(true);
                 }
@@ -324,6 +332,19 @@ namespace Mechanics.Players
             }
         }
 
+        public void RefillHealth(int life = 1)
+        {
+            if (CurrentHealth + life > MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+            }
+            else
+            {
+                CurrentHealth += life;
+            }
+            HealthBar.RefillHearth(life);
+        }
+        
         [PunRPC]
         public void MoveWithFriend(Vector2 direction, float speed)
         {
@@ -346,6 +367,12 @@ namespace Mechanics.Players
         {
             get => Poisoned;
             set => Poisoned = value;
+        }
+
+        public HealthBar HealthBar1
+        {
+            get => HealthBar;
+            set => HealthBar = value;
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using Core.SaveLoadData;
 using Mechanics.Camera;
+using Mechanics.Players;
 using Model;
 using Photon.Pun;
+using UI;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
@@ -82,6 +84,9 @@ namespace Core
             PlayerData playerData = SaveSystem.LoadPlayerData();
             GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players",playerData.currentCharacter), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
             playerCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
+            HealthBar healthBar = playerCamera.transform.Find("Canvas").Find("Health").GetComponent<HealthBar>();
+            healthBar.Character = player.GetComponent<PlayableCharacter>();
+            player.GetComponent<PlayableCharacter>().HealthBar1 = healthBar;
             loading.SetActive(false);
         }
 

@@ -19,15 +19,9 @@ namespace UI
         // Start is called before the first frame update
         void Start()
         {
-            _maxHealth = (int)_character.CurrentHealth1;
-            _currentHealth = _maxHealth;
-            for (int i = 0; i < hearths.Count; i++)
+            foreach (var hearth in hearths)
             {
-                hearths[i].GetComponent<SpriteRenderer>().sprite = fullHearth;
-                if (i >= _maxHealth)
-                {
-                    hearths[i].SetActive(false);
-                }
+                hearth.SetActive(false);
             }
         }
 
@@ -61,6 +55,20 @@ namespace UI
         {
             get => _character;
             set => _character = value;
+        }
+
+        public void InitializeHealthBar()
+        {
+            _maxHealth = (int)_character.CurrentHealth1;
+            _currentHealth = _maxHealth;
+            for (int i = 0; i < hearths.Count; i++)
+            {
+                hearths[i].GetComponent<SpriteRenderer>().sprite = fullHearth;
+                if (i < _maxHealth)
+                {
+                    hearths[i].SetActive(true);
+                }
+            }
         }
     }
 }
