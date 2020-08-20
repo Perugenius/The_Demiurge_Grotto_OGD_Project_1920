@@ -34,8 +34,8 @@ namespace Mechanics.Players
 
         protected GameObject Hitbox;
         protected bool IsTakingDamage;
-        protected SpriteRenderer SpriteRenderer;
-        protected PhotonView PhotonView;
+        protected SpriteRenderer SpriteRenderer;/*
+        protected PhotonView PhotonView;*/
 
         /*protected bool IsAnchored;
         protected PhotonView AnchoredPlayer;*/
@@ -57,8 +57,8 @@ namespace Mechanics.Players
         {
             SpriteRenderer = GetComponent<SpriteRenderer>();
             Hitbox = transform.Find("PlayerHitbox").gameObject;
-            Animator = GetComponent<Animator>();
-            this.PhotonView = gameObject.GetPhotonView();
+            Animator = GetComponent<Animator>();/*
+            this.PhotonView = gameObject.GetPhotonView();*/
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 PlayerData = SaveSystem.LoadPlayerData();
@@ -235,8 +235,8 @@ namespace Mechanics.Players
                     }
                     else
                     {
-                        StartCoroutine(nameof(DamageEffect));
-                        this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);
+                        StartCoroutine(nameof(DamageEffect));/*
+                        this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);*/
                     }
                 }
             }
@@ -308,8 +308,8 @@ namespace Mechanics.Players
             IsDying = true;
             Hitbox.SetActive(false);
             FadingOut = BecomingGhost();
-            StartCoroutine(FadingOut);
-            this.PhotonView.RPC(nameof(RemoteDie),RpcTarget.Others);
+            StartCoroutine(FadingOut);/*
+            this.PhotonView.RPC(nameof(RemoteDie),RpcTarget.Others);*/
         }
 
         [PunRPC]
