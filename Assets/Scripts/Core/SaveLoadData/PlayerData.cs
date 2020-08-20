@@ -17,6 +17,7 @@ namespace Core.SaveLoadData
         public Dictionary<string, int> speed;
         public Dictionary<string, float> projectileSpeed;
         public Dictionary<string, float> attackDuration;
+        public Dictionary<string, int> reanimationLife;
         public int gems;
         public int teammateLetters;
         public int eldaanLetters;
@@ -43,6 +44,7 @@ namespace Core.SaveLoadData
             projectileSpeed = new Dictionary<string, float>();
             attackRange = new Dictionary<string, float>();
             attackDuration = new Dictionary<string, float>();
+            reanimationLife = new Dictionary<string, int>();
             
             
             gems = 0;
@@ -59,6 +61,7 @@ namespace Core.SaveLoadData
                 attack.Add(character,1);
                 jumpHeight.Add(character, 62);
                 speed.Add(character, 15);
+                reanimationLife.Add(character, 2);
                 if (character.Contains("Pinkie") || character.Contains("Kinja") || character.Contains("Steve"))
                 {
                     secondarySkillLevel.Add(character, 1);
@@ -83,6 +86,10 @@ namespace Core.SaveLoadData
                         attackRange.Add(character, 7);
                         projectileSpeed.Add(character, 10);
                     }
+                }
+                else if (character.Contains("Voodoo"))
+                {
+                    attackRate.Add(character,0.5f);
                 }
             }
         }

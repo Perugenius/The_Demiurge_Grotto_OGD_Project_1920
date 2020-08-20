@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
 
@@ -27,7 +28,8 @@ namespace Mechanics.Collectibles
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
-            //TODO call player
+            PlayableCharacter playableCharacter = other.gameObject.GetComponent<PlayableCharacter>();
+            playableCharacter.RefillHealth(value);
             _animator.SetBool(IsCollected, true);
             StartCoroutine(WaitBeforeDestroy());
         }

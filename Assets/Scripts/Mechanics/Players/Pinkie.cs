@@ -17,12 +17,12 @@ namespace Mechanics.Players
         private bool _canDisappear = true;
         private float _invincibilityDuration;
         private float _timeLapse;
-        private GameObject _hitBox;
 
         private List<GameObject> _pillowSpawners;
         private float _attackDuration;
         private float _projectileSpeed;
         private float _secondarySkillDuration;
+        private IEnumerator _invincibilityCoroutine;
         
         
         // Start is called before the first frame update
@@ -40,7 +40,6 @@ namespace Mechanics.Players
                     }
                 }
                 _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
-                _hitBox = transform.Find("PlayerHitbox").gameObject;
                 _timeLapse = 2;
                 _maxPillowNumber = PlayerData.projectileNumber[CharacterName];
                 _secondarySkillDuration = PlayerData.secondarySkillLevel[CharacterName];
@@ -59,8 +58,9 @@ namespace Mechanics.Players
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 base.Update();
-                if (Input.GetButtonDown("Attack") && _canSummonPillow)
+                if (Input.GetButtonDown("Attack") && _canSummonPillow && CanAttack)
                 {
+                    CanAttack = false;
                     Attack();
                 }
 
@@ -74,6 +74,13 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
+            if (_invincibilityCoroutine != null)
+            {
+                StopCoroutine(_invincibilityCoroutine);
+                SpriteRenderer.color = new Color(255,255,255,1);
+                Hitbox.SetActive(true);
+                StartCoroutine(nameof(TimeLapse));
+            }
             foreach (var elem in _pillowSpawners)
             {
                 if (elem.activeSelf)
@@ -96,18 +103,31 @@ namespace Mechanics.Players
 
         public void SetCanSummonPillow(bool canSummon)
         {
-            
             _canSummonPillow = canSummon;
+            StartCoroutine(nameof(AttackTimeLapse));
         }
 
         private void UseSecondary()
         {
-            _canDisappear = false;
-            SpriteRenderer.color = new Color(255,255,255,0.5f);
-            _hitBox.SetActive(false);
-            StartCoroutine(nameof(InvincibilityTime));
+            if (!IsDying)
+            {
+                _canDisappear = false;
+                SpriteRenderer.color = new Color(255, 255, 255, 0.5f);
+                Hitbox.SetActive(false);
+                _invincibilityCoroutine = InvincibilityTime();
+                PhotonView.RPC(nameof(PinkieRemoteSecondarySkill), RpcTarget.Others, _secondarySkillDuration);
+                StartCoroutine(_invincibilityCoroutine);
+            }
         }
 
+        [PunRPC]
+        public void PinkieRemoteSecondarySkill(float duration)
+        {
+            _secondarySkillDuration = duration;
+            _invincibilityCoroutine = InvincibilityTime();
+            StartCoroutine(_invincibilityCoroutine);
+        }
+        
         private IEnumerator InvincibilityTime()
         {
             yield return new WaitForSeconds(_secondarySkillDuration);
@@ -119,7 +139,7 @@ namespace Mechanics.Players
                 yield return new WaitForSeconds(0.25f);
             }
             SpriteRenderer.color = new Color(255,255,255,1);
-            _hitBox.SetActive(true);
+            Hitbox.SetActive(true);
             StartCoroutine(nameof(TimeLapse));
 
         }
@@ -129,5 +149,6 @@ namespace Mechanics.Players
             yield return  new WaitForSeconds(_timeLapse);
             _canDisappear = true;
         }
+        
     }
 }

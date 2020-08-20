@@ -393,16 +393,35 @@ public class MainMenu : MonoBehaviour
                 playerData.attack[characterName] += 0.5f;
                 SaveSystem.SavePlayerData(playerData);
             };
-            
-            
-            
+
             perks.Add(healthPerk);
             perks.Add(attackPerk);
-
-            if (character.Contains("Pinkie") || character.Contains("Kinja") || character.Contains("Steve"))
+            
+            Perk attackRate = new Perk("Rate of fire", character);
+            Dictionary<int, int> attackRateCost = new Dictionary<int, int>
             {
-                Perk attackRate = new Perk("Rate of fire", character);
-                Dictionary<int, int> attackRateCost = new Dictionary<int, int>
+                {1, 200},
+                {2, 300},
+                {3, 500},
+                {4, 600},
+                {5, 800}
+            };
+
+            attackRate.levelCost = attackRateCost;
+            attackRate.description = "Increase " + character + " rate of fire";
+            attackRate.runPerk = (s, level) =>
+            {
+                PlayerData playerData = SaveSystem.LoadPlayerData();
+                playerData.attackRate[s] -= 0.3f;
+                SaveSystem.SavePlayerData(playerData);
+            };
+
+            if (character.Contains("Voodoo"))
+            {
+                perks.Add(attackRate);
+                
+                Perk reanimationLifePerk = new Perk("Reanimation Life", character);
+                Dictionary<int, int> reanimationLifeCost = new Dictionary<int, int>
                 {
                     {1, 200},
                     {2, 300},
@@ -410,16 +429,19 @@ public class MainMenu : MonoBehaviour
                     {4, 600},
                     {5, 800}
                 };
-
-                attackRate.levelCost = attackRateCost;
-                attackRate.description = "Increase " + character + " rate of fire";
-                attackRate.runPerk = (s, level) =>
+                reanimationLifePerk.levelCost = reanimationLifeCost;
+                reanimationLifePerk.description = "Increase reanimation life";
+                reanimationLifePerk.runPerk = (s, level) =>
                 {
                     PlayerData playerData = SaveSystem.LoadPlayerData();
-                    playerData.attackRate[s] -= 0.3f;
+                    playerData.reanimationLife[s] += 1;
                     SaveSystem.SavePlayerData(playerData);
                 };
-                perks.Add(attackRate);
+                perks.Add(reanimationLifePerk);
+            }
+
+            else
+            {
 
                 Perk secondarySkillPerk = new Perk("Skill level",character);
                 Dictionary<int, int> secondarySkillCost = new Dictionary<int, int>
@@ -439,14 +461,7 @@ public class MainMenu : MonoBehaviour
                 if (character.Contains("Pinkie") || character.Contains("Kinja"))
                 {
                     Perk numberOfProjectiles = new Perk("Number of Projectile", character);
-                    Dictionary<int, int> numberOfProjectileCost = new Dictionary<int, int>
-                    {
-                        {1, 200},
-                        {2, 300},
-                        {3, 600},
-                        {4, 800},
-                    };
-                    numberOfProjectiles.levelCost = numberOfProjectileCost;
+                    Dictionary<int, int> numberOfProjectileCost;
                     numberOfProjectiles.description = "Increase " + character + " number of projectiles";
                     numberOfProjectiles.runPerk = (characterName, level) =>
                     {
@@ -456,6 +471,13 @@ public class MainMenu : MonoBehaviour
                     };
                     if (character.Contains("Pinkie"))
                     {
+                        numberOfProjectileCost = new Dictionary<int, int>
+                        {
+                            {1, 300},
+                            {2, 600},
+                            {3, 900}
+                        };
+                        
                         secondarySkillPerk.description = "Increase invulnerability duration";
                         
                         Perk attackDurationPerk = new Perk("Attack duration",character);
@@ -471,21 +493,33 @@ public class MainMenu : MonoBehaviour
                         attackDurationPerk.runPerk = (s, level) =>
                         {
                             PlayerData playerData = SaveSystem.LoadPlayerData();
-                            playerData.attackDuration[s] += 0.35f;
+                            playerData.attackDuration[s] += 0.4f;
                             SaveSystem.SavePlayerData(playerData);
                         };
                         perks.Add(attackDurationPerk);
                     }
 
-                    if (character.Contains("Kinja"))
+                    else
                     {
-                        secondarySkillPerk.description = "Raise maximum number of consecutive jump";
+                        
+                        numberOfProjectileCost = new Dictionary<int, int>
+                        {
+                            {1, 200},
+                            {2, 300},
+                            {3, 600},
+                            {4, 800},
+                        };
+                        secondarySkillPerk.description = "Raise number of consecutive jumps";
+                        perks.Add(attackRate);
                     }
+                    
+                    numberOfProjectiles.levelCost = numberOfProjectileCost;
                     perks.Add(numberOfProjectiles);
                 }
 
                 if (character.Contains("Steve"))
                 {
+                    perks.Add(attackRate);
                     secondarySkillPerk.description = "Raise the friction on the wall";
                     
                     Perk attackRange = new Perk("Attack Range", character);
@@ -511,6 +545,5 @@ public class MainMenu : MonoBehaviour
             
         }
         
-        //TODO add other perks
     }
 }

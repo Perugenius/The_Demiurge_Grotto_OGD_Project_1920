@@ -21,6 +21,7 @@ namespace Mechanics.Players
         protected static readonly int FaceDirectionAnimator = Animator.StringToHash("FaceDirection");
         protected static readonly int IsJumpingAnim = Animator.StringToHash("IsJumping");
         protected static readonly int IsDescending = Animator.StringToHash("IsDescending");
+        protected float AttackRate;
         protected float Speed;
         protected float JumpHeight;
         protected int MaxConsecutiveJump = 1;
@@ -29,6 +30,8 @@ namespace Mechanics.Players
         protected int CollectedGems;
         protected string CharacterName;
         protected int MaxHealth;
+        protected bool CanAttack;
+        protected int ReanimationHealth;
 
         protected HealthBar HealthBar;
 
@@ -36,9 +39,6 @@ namespace Mechanics.Players
         protected bool IsTakingDamage;
         protected SpriteRenderer SpriteRenderer;
         protected PhotonView PhotonView;
-
-        /*protected bool IsAnchored;
-        protected PhotonView AnchoredPlayer;*/
 
         protected IEnumerator FadingOut = null;
         protected bool Poisoned;
@@ -64,8 +64,10 @@ namespace Mechanics.Players
                 PlayerData = SaveSystem.LoadPlayerData();
                 IsMine = true;
                 CharacterName = statistics.characterName;
+                ReanimationHealth = PlayerData.reanimationLife[CharacterName];
                 CurrentSpeed = PlayerData.speed[CharacterName];
                 MaxHealth = PlayerData.maxHealth[CharacterName];
+                AttackRate = PlayerData.attackRate[CharacterName];
                 CurrentHealth = MaxHealth;
                 CurrentAttack = PlayerData.attack[CharacterName];
                 JumpHeight = PlayerData.jumpHeight[CharacterName];
@@ -133,21 +135,8 @@ namespace Mechanics.Players
                 if (Speed != 0)
                 {
                     direction = Vector2.right;
-                    MoveDynamic(direction, CurrentSpeed * Speed);/*
-                    if (AnchoredPlayer)
-                    {
-                        AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed);
-                    }*/
-                } /*
-            else if (Speed < 0)
-            {
-                direction = Vector2.left;
-                MoveDynamic(direction,CurrentSpeed*Speed*-1);
-                if (AnchoredPlayer)
-                {
-                    AnchoredPlayer.RPC("MoveWithFriend",RpcTarget.All, direction,CurrentSpeed*Speed*-1);
+                    MoveDynamic(direction, CurrentSpeed * Speed);
                 }
-            }*/
                 else
                 {
                     HorizontalDeceleration();
@@ -268,35 +257,19 @@ namespace Mechanics.Players
         {
             if (other.collider.gameObject.CompareTag("Player"))
             {
-                /*RaycastHit2D hit2D = Physics2D.BoxCast(new Vector2(Tr.position.x, Tr.position.y + 1.3f),
-                    new Vector2(0.5f, 0.5f), 0, Vector2.up, LayerMask.GetMask("PlayerPhysic"));
-                if (hit2D)
-                {
-                    AnchoredPlayer = hit2D.collider.gameObject.GetPhotonView();
-                }*/
                 if (FadingOut != null)
                 {
                     StopCoroutine(FadingOut);
                     IsDying = false;
                     SpriteRenderer.color = Color.white;
-                    CurrentHealth = 2;
-                    HealthBar.RefillHearth(2);
+                    CurrentHealth = ReanimationHealth < MaxHealth ? ReanimationHealth : MaxHealth;
+                    HealthBar.RefillHearth((int)CurrentHealth);
                     FadingOut = null;
                     Hitbox.SetActive(true);
+                    CanAttack = true;
                 }
             }
         }
-
-        /*private void OnCollisionExit(Collision other)
-        {
-            if (other.collider.gameObject.CompareTag("Player"))
-            {
-                if (AnchoredPlayer != null)
-                {
-                    AnchoredPlayer = null;
-                }
-            }
-        }*/
 
         public void CollectGems(int gems)
         {
@@ -305,6 +278,7 @@ namespace Mechanics.Players
 
         protected override void Die()
         {
+            CanAttack = false;
             IsDying = true;
             Hitbox.SetActive(false);
             FadingOut = BecomingGhost();
@@ -323,8 +297,8 @@ namespace Mechanics.Players
         protected IEnumerator BecomingGhost()
         {
             SpriteRenderer.color = Color.black;
-            float i = 0.9f;
-            while (i > 0.1f)
+            float i = 1f;
+            while (i > 0.05f)
             {
                 SpriteRenderer.color = new Color(0,0,0,i);
                 yield return  new WaitForSeconds(0.75f);
@@ -343,6 +317,12 @@ namespace Mechanics.Players
                 CurrentHealth += life;
             }
             HealthBar.RefillHearth(life);
+        }
+
+        protected IEnumerator AttackTimeLapse()
+        {
+            yield return new WaitForSeconds(AttackRate);
+            CanAttack = true;
         }
         
         [PunRPC]

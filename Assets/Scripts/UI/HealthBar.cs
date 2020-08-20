@@ -37,7 +37,6 @@ namespace UI
             {
                 if(_currentHealth <=0) break;
                 hearths[_currentHealth - 1].GetComponent<SpriteRenderer>().sprite = emptyHearth;
-                hearths[_currentHealth - 1].GetComponent<SpriteRenderer>().color = Color.red;
                 _currentHealth--;
             }
         }
@@ -47,9 +46,9 @@ namespace UI
             for (int i = 0; i < num; i++)
             {
                 if(_currentHealth > _maxHealth) break;
-                hearths[_currentHealth - 1].GetComponent<SpriteRenderer>().sprite = fullHearth;
-                hearths[_currentHealth - 1].GetComponent<SpriteRenderer>().color = Color.white;
                 _currentHealth++;
+                hearths[_currentHealth - 1].GetComponent<SpriteRenderer>().sprite = fullHearth;
+                
             }
         }
 
