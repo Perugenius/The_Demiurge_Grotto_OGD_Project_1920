@@ -220,7 +220,7 @@ namespace Mechanics.Players
 
                     if ((LayerMask.GetMask("DamageTrap") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
                     {
-                        //TODO
+                        transform.position = CheckPoint;
                     }
                     else
                     {

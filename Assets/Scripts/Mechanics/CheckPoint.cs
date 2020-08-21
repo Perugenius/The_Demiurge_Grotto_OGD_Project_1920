@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Mechanics.Players;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics
@@ -17,13 +18,12 @@ namespace Mechanics
             PhotonView playerPhotonView = other.gameObject.GetComponent<PhotonView>();
             if(playerPhotonView!=null && !playerPhotonView.IsMine) return;
         
-            //TODO
-            /*Player player = other.gameObject.GetComponent<Player>()*/;
-            /*if (player != null)
-        {
-            player.CheckPoint(_tr.position);
-            gameObject.SetActive(false);
-        }*/
+            PlayableCharacter player = other.gameObject.GetComponent<PlayableCharacter>();
+            if (player != null)
+            {
+                player.CheckPoint1 = _tr.position;
+                gameObject.SetActive(false);
+            }
         }
     }
 }
