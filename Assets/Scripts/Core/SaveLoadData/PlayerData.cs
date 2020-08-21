@@ -69,7 +69,7 @@ namespace Core.SaveLoadData
                     {
                         attackRate.Add(character,1f);
                         projectileNumber.Add(character, 1);
-                        projectileSpeed.Add(character,18);
+                        projectileSpeed.Add(character,16);
                     }
 
                     if (character.Contains("Pinkie"))

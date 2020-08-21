@@ -21,6 +21,8 @@ namespace Core
         [SerializeField] private GameObject victoryScreen;
         [SerializeField] private GameObject messageBox;
         [SerializeField] private bool singlePlayerMode;
+        [SerializeField] private GameObject gemsHUD;
+        [SerializeField] private GameObject lettersHUD;
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private CollectiblesManager _collectiblesManager;
@@ -87,6 +89,8 @@ namespace Core
             HealthBar healthBar = playerCamera.transform.Find("Canvas").Find("Health").GetComponent<HealthBar>();
             healthBar.Character = player.GetComponent<PlayableCharacter>();
             player.GetComponent<PlayableCharacter>().HealthBar1 = healthBar;
+            gemsHUD.SetActive(true);
+            lettersHUD.SetActive(true);
             loading.SetActive(false);
         }
 

@@ -42,7 +42,7 @@ namespace Mechanics.Players
                 _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
                 _timeLapse = 2;
                 _maxPillowNumber = PlayerData.projectileNumber[CharacterName];
-                _secondarySkillDuration = PlayerData.secondarySkillLevel[CharacterName];
+                _secondarySkillDuration = PlayerData.secondarySkillLevel[CharacterName]/2 +1;
                 for (int i = 3; i>=_maxPillowNumber; i--)
                 {
                     _pillowSpawners[i].SetActive(false);

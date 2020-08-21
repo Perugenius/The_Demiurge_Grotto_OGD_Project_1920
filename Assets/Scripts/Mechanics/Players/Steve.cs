@@ -15,9 +15,9 @@ namespace Mechanics.Players
         private static readonly int WallSideAnimator = Animator.StringToHash("WallSide");
         private bool _isOnWall = false;
         private WallSide _wallSide;
+        private PhysicsMaterial2D _colliderMaterial;
 
         private float _fireRate = 2;
-        private bool _canAttack = true;
         private float _range = 3;
         private float _projectileSpeed = 10;
         
@@ -35,6 +35,8 @@ namespace Mechanics.Players
                 _fireRate = PlayerData.attackRate[CharacterName];
                 _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
                 _spawnPosition = transform.Find("LaserSpawner");
+                _colliderMaterial = gameObject.GetComponent<EdgeCollider2D>().sharedMaterial;
+                _colliderMaterial.friction = (PlayerData.secondarySkillLevel[CharacterName] - 1) * 0.2f + 0.7f;
             }
             
         }
@@ -71,7 +73,7 @@ namespace Mechanics.Players
                 }
 
                 Animate();
-                if (Input.GetButtonDown("Attack") && _canAttack)
+                if (Input.GetButtonDown("Attack") && CanAttack)
                 {
                     Attack();
                 }
@@ -82,7 +84,7 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
-            _canAttack = false;
+            CanAttack = false;
             GameObject laser =
                 PhotonNetwork.Instantiate(Path.Combine("Players", "Laser"), _spawnPosition.position, Quaternion.identity);
             Laser laserScript = laser.GetComponent<Laser>();
@@ -90,7 +92,7 @@ namespace Mechanics.Players
             laserScript.Direction = FaceDirection;
             laserScript.Range = _range;
             laserScript.Speed = _projectileSpeed;
-            StartCoroutine(nameof(AttackRecharge));
+            StartCoroutine(nameof(AttackTimeLapse));
         }
 
         protected override void Animate()
@@ -115,12 +117,7 @@ namespace Mechanics.Players
                 Animator.SetBool(IsOnWallAnimator, false);
             }
         }
-
-        private IEnumerator AttackRecharge()
-        {
-            yield return new WaitForSeconds(_fireRate);
-            _canAttack = true;
-        }
+        
 
         public bool IsOnWall
         {

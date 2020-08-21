@@ -30,7 +30,7 @@ namespace Mechanics.Players
         protected int CollectedGems;
         protected string CharacterName;
         protected int MaxHealth;
-        protected bool CanAttack;
+        protected bool CanAttack = true;
         protected int ReanimationHealth;
 
         protected HealthBar HealthBar;

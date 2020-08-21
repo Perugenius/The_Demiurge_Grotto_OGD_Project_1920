@@ -30,6 +30,7 @@ namespace Mechanics.Collectibles
             //collect for others players
             GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
             
+            
             //collect for local player
             Collect();
         }

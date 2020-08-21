@@ -460,7 +460,7 @@ public class MainMenu : MonoBehaviour
 
                 if (character.Contains("Pinkie") || character.Contains("Kinja"))
                 {
-                    Perk numberOfProjectiles = new Perk("Number of Projectile", character);
+                    Perk numberOfProjectiles = new Perk("Projectiles number", character);
                     Dictionary<int, int> numberOfProjectileCost;
                     numberOfProjectiles.description = "Increase " + character + " number of projectiles";
                     numberOfProjectiles.runPerk = (characterName, level) =>

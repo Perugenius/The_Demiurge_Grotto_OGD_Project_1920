@@ -34,14 +34,15 @@ namespace Mechanics.Players
             {
                 if (Input.GetButtonDown("Jump") && _jumpsNumber < _maxJumpsNumber && IsJumping)
                 {
-                    Jump(45);
+                    Jump(50);
                     _jumpsNumber++;
                     Animator.SetBool(IsJumpingAnim, true);
                     Animator.SetTrigger(DoubleJump);
                 }
 
-                if (Input.GetButtonDown("Attack") && IsJumping)
+                if (Input.GetButtonDown("Attack") && IsJumping && CanAttack)
                 {
+                    CanAttack = false;
                     Attack();
                 }
 
@@ -94,6 +95,7 @@ namespace Mechanics.Players
                 }
                 shurikenScript.SetSpeed(direction * _projectileSpeed);
             }
+            StartCoroutine(AttackTimeLapse());
         }
     }
 }
