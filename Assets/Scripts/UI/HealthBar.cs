@@ -45,7 +45,7 @@ namespace UI
         {
             for (int i = 0; i < num; i++)
             {
-                if(_currentHealth > _maxHealth) break;
+                if(_currentHealth >= _maxHealth) break;
                 _currentHealth++;
                 hearths[_currentHealth - 1].GetComponent<SpriteRenderer>().sprite = fullHearth;
                 

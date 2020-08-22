@@ -305,15 +305,19 @@ namespace Mechanics.Players
 
         public void RefillHealth(int life = 1)
         {
-            if (CurrentHealth + life > MaxHealth)
+            if (!IsDying)
             {
-                CurrentHealth = MaxHealth;
+                if (CurrentHealth + life > MaxHealth)
+                {
+                    CurrentHealth = MaxHealth;
+                }
+                else
+                {
+                    CurrentHealth += life;
+                }
+
+                HealthBar.RefillHearth(life);
             }
-            else
-            {
-                CurrentHealth += life;
-            }
-            HealthBar.RefillHearth(life);
         }
 
         protected IEnumerator AttackTimeLapse()
