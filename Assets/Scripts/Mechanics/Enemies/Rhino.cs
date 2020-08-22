@@ -52,7 +52,7 @@ namespace Mechanics.Enemies
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected override void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
@@ -62,11 +62,7 @@ namespace Mechanics.Enemies
                 JumpLateral(knockbackHeight, Vector2.Reflect(_direction, Vector2.right)*knockbackThrust);
                 StartCoroutine (nameof(Cooldown));
             }
-
-            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
-            {
-                if(!Hit && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("Damage", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
-            }
+            base.OnTriggerEnter2D(other);
         }
         
         private IEnumerator Cooldown(){

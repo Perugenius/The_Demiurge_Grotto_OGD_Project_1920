@@ -55,7 +55,7 @@ namespace Mechanics.Players
                     coroutine = null;
                 }
 
-                if (Input.GetButtonDown("Attack") && !_isDashing && !IsJumping && !CanAttack)
+                if (Input.GetButtonDown("Attack") && !_isDashing && !IsJumping && CanAttack)
                 {
                     CanAttack = false;
                     Attack();
@@ -124,6 +124,11 @@ namespace Mechanics.Players
             Rb.velocity = new Vector2(Rb.velocity.x,0);
             StartCoroutine(AttackTimeLapse());
         }
-        
+
+        public bool IsDashing
+        {
+            get => _isDashing;
+            set => _isDashing = value;
+        }
     }
 }

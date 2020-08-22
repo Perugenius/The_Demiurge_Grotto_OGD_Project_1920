@@ -222,11 +222,8 @@ namespace Mechanics.Players
                     {
                         transform.position = CheckPoint;
                     }
-                    else
-                    {
-                        StartCoroutine(nameof(DamageEffect));
-                        this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);
-                    }
+                    StartCoroutine(nameof(DamageEffect));
+                    this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);
                 }
             }
         }
@@ -353,6 +350,12 @@ namespace Mechanics.Players
         {
             get => HealthBar;
             set => HealthBar = value;
+        }
+
+        public string CharacterName1
+        {
+            get => CharacterName;
+            set => CharacterName = value;
         }
     }
 }

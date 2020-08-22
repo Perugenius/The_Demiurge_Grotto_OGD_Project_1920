@@ -44,14 +44,6 @@ namespace Mechanics.Enemies
                 Tr.localScale = newScale;
             }
         }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
-            {
-                if(!_withdrawn && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("DamageSnail", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
-            }
-        }
 
         private void Withdraw()
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
 
@@ -24,12 +25,19 @@ namespace Mechanics.Traps
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            //TODO check if player has the right skill to break the box
             //PhotonView photonView = PhotonView.Get(this);
             if (other.gameObject.GetPhotonView().IsMine)
             {
-                GetComponent<PhotonView>().RPC("DestroyChest", RpcTarget.Others, "1");
-                DestroyChest("1");
+                PlayableCharacter playableCharacter= other.gameObject.GetComponent<PlayableCharacter>();
+                if (playableCharacter != null && playableCharacter is Voodoo voodoo)
+                {
+                    if (voodoo.IsDashing)
+                    {
+
+                        GetComponent<PhotonView>().RPC("DestroyChest", RpcTarget.Others, "1");
+                        DestroyChest("1");
+                    }
+                }
             }
         }
     

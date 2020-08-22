@@ -75,12 +75,6 @@ namespace Mechanics.Enemies
             _particleReady = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
-            {
-                if(!Hit && other.gameObject.GetComponent<PhotonView>().IsMine) GetComponent<PhotonView>().RPC("Damage", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
-            }
-        }
+        
     }
 }

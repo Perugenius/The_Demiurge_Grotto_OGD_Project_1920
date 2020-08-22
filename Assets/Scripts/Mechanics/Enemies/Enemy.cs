@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace Mechanics.Enemies
         }
         
         [PunRPC]
-        protected void Damage(float damage)
+        public void Damage(float damage)
         {
             Animator.SetTrigger("Hit");
             Hit = true;
@@ -55,6 +56,18 @@ namespace Mechanics.Enemies
                 yield return null;
             }
             PhotonNetwork.Destroy(gameObject);
+        }
+
+        protected virtual void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            {
+                PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
+                if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
+                if (!Hit && photonView.IsMine)
+                    GetComponent<PhotonView>().RPC("Damage", RpcTarget.All,
+                        other.GetComponent<IDamageInflictor>().GetDamage());
+            }
         }
     }
 }
