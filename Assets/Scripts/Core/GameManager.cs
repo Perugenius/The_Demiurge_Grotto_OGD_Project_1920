@@ -23,6 +23,7 @@ namespace Core
         [SerializeField] private bool singlePlayerMode;
         [SerializeField] private GameObject gemsHUD;
         [SerializeField] private GameObject lettersHUD;
+        [SerializeField] private GameObject attackBar;
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private CollectiblesManager _collectiblesManager;
@@ -87,8 +88,10 @@ namespace Core
             GameObject player = PhotonNetwork.Instantiate(Path.Combine("Players",playerData.currentCharacter), new Vector3((PhotonNetwork.IsMasterClient)?-7f:-10f, 5f, 0f), Quaternion.identity);
             playerCamera.GetComponent<CameraFocusOnPlayer>().cameraPlayer = player;
             HealthBar healthBar = playerCamera.transform.Find("Canvas").Find("Health").GetComponent<HealthBar>();
-            healthBar.Character = player.GetComponent<PlayableCharacter>();
-            player.GetComponent<PlayableCharacter>().HealthBar1 = healthBar;
+            PlayableCharacter playerScript = player.GetComponent<PlayableCharacter>();
+            healthBar.Character = playerScript;
+            playerScript.HealthBar1 = healthBar;
+            playerScript.AttackBar1 = attackBar.GetComponent<Bar>();
             gemsHUD.SetActive(true);
             lettersHUD.SetActive(true);
             loading.SetActive(false);

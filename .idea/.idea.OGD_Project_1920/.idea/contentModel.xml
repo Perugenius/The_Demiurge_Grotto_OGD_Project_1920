@@ -471,6 +471,7 @@
           </e>
           <e p="UI" t="Include">
             <e p="BaloonBackground.cs" t="Include" />
+            <e p="Bar.cs" t="Include" />
             <e p="ButtonHighlightText.cs" t="Include" />
             <e p="DungeonMap.cs" t="Include" />
             <e p="HealthBar.cs" t="Include" />

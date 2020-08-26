@@ -34,6 +34,7 @@ namespace Mechanics.Players
         protected int ReanimationHealth;
 
         protected HealthBar HealthBar;
+        protected Bar AttackBar;
 
         protected GameObject Hitbox;
         protected bool IsTakingDamage;
@@ -72,6 +73,7 @@ namespace Mechanics.Players
                 CurrentAttack = PlayerData.attack[CharacterName];
                 JumpHeight = PlayerData.jumpHeight[CharacterName];
                 HealthBar.InitializeHealthBar();
+                AttackBar.SetDuration(AttackRate);
             }
             else
             {
@@ -322,6 +324,7 @@ namespace Mechanics.Players
 
         protected IEnumerator AttackTimeLapse()
         {
+            AttackBar.ActualSize = 0;
             yield return new WaitForSeconds(AttackRate);
             CanAttack = true;
         }
@@ -360,6 +363,12 @@ namespace Mechanics.Players
         {
             get => CharacterName;
             set => CharacterName = value;
+        }
+
+        public Bar AttackBar1
+        {
+            get => AttackBar;
+            set => AttackBar = value;
         }
     }
 }
