@@ -35,6 +35,7 @@ namespace Core.SaveLoadData
             string saveEvent = EventsCollector.Instance.GetEvent("saveData");
             if (saveEvent != null)
             {
+                Debug.Log("Trigger event from saveSystem");
                 EventsCollector.Instance.TriggerEvent("saveData");
             }
         }

@@ -10,6 +10,7 @@ namespace Mechanics.Collectibles
         public int value = 1;
         [SerializeField] private Animator _animator;
         private static readonly int IsCollected = Animator.StringToHash("isCollected");
+        private bool _isCollected = false;
 
         // Start is called before the first frame update
         void Start()
@@ -29,9 +30,13 @@ namespace Mechanics.Collectibles
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
             PlayableCharacter playableCharacter = other.gameObject.GetComponent<PlayableCharacter>();
-            playableCharacter.RefillHealth(value);
-            _animator.SetBool(IsCollected, true);
-            StartCoroutine(WaitBeforeDestroy());
+            if(playableCharacter!=null && !_isCollected)
+            {
+                _isCollected = true;
+                playableCharacter.RefillHealth(value);
+                _animator.SetBool(IsCollected, true);
+                StartCoroutine(WaitBeforeDestroy());
+            }
         }
 
         private IEnumerator WaitBeforeDestroy()

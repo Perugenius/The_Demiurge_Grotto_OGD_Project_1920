@@ -231,11 +231,11 @@ RectTransform:
   m_Children:
   - {fileID: 2049734659}
   - {fileID: 1191053970}
-  - {fileID: 869155834}
   - {fileID: 4939493802050686913}
   - {fileID: 368409073}
   - {fileID: 246112640}
   - {fileID: 1649381673}
+  - {fileID: 869155834}
   m_Father: {fileID: 1822118009}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -408,7 +408,7 @@ RectTransform:
   - {fileID: 124370830}
   - {fileID: 244611825}
   m_Father: {fileID: 138206316}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -568,7 +568,7 @@ RectTransform:
   - {fileID: 624931925}
   - {fileID: 2111970735}
   m_Father: {fileID: 138206316}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -743,7 +743,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 75296079
   m_SortingLayer: 8
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 7456fb8526663744a97c0284b497685f, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -903,7 +903,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 75296079
   m_SortingLayer: 8
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 7456fb8526663744a97c0284b497685f, type: 3}
   m_Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
   m_FlipX: 0
@@ -1078,7 +1078,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 75296079
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &624931924
 GameObject:
@@ -1420,7 +1420,7 @@ RectTransform:
   - {fileID: 2118941615}
   - {fileID: 1778646857}
   m_Father: {fileID: 138206316}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2083,10 +2083,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6580162352133311845, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580162352133311845, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 75296079
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580162352133311845, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6697006307606986531, guid: 9ee6c02c1b8dba74f855226fe9078678,
         type: 3}
       propertyPath: m_Name
       value: SkyBackground (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697006307606986531, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7139537468326208525, guid: 9ee6c02c1b8dba74f855226fe9078678,
         type: 3}
@@ -2133,7 +2153,7 @@ RectTransform:
   - {fileID: 949469984}
   - {fileID: 976128290}
   m_Father: {fileID: 138206316}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2214,7 +2234,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 75296079
   m_SortingLayer: 8
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7456fb8526663744a97c0284b497685f, type: 3}
   m_Color: {r: 1, g: 0.7676236, b: 0.4575472, a: 1}
   m_FlipX: 0
@@ -2463,10 +2483,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6580162352133311845, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580162352133311845, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 75296079
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580162352133311845, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6697006307606986531, guid: 9ee6c02c1b8dba74f855226fe9078678,
         type: 3}
       propertyPath: m_Name
       value: SkyBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697006307606986531, guid: 9ee6c02c1b8dba74f855226fe9078678,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7139537468326208525, guid: 9ee6c02c1b8dba74f855226fe9078678,
         type: 3}
@@ -2855,9 +2895,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: 75296079
+  m_SortingLayer: 8
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 533f847a0c8a8bb488adeb23dec8f897, type: 3}
   m_Color: {r: 0.68253165, g: 0.45109472, b: 0.8773585, a: 1}
   m_FlipX: 0
@@ -3280,6 +3320,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: backgroundCustom (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1333193746244934899, guid: ef109908df19c184caf39a26b22e4d57,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef109908df19c184caf39a26b22e4d57, type: 3}
 --- !u!224 &2118941615 stripped
@@ -3344,7 +3389,7 @@ PrefabInstance:
     - target: {fileID: 3654185401813036942, guid: 16869d3949b2edb418da879437ddb973,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3654185401813036942, guid: 16869d3949b2edb418da879437ddb973,
         type: 3}
@@ -3410,6 +3455,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185401916189990, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402051094467, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402131442283, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402207226057, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402332461780, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402603708445, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402794547384, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185402836318378, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654185403112759973, guid: 16869d3949b2edb418da879437ddb973,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310693179902510583, guid: 16869d3949b2edb418da879437ddb973,
         type: 3}
