@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -63,7 +64,8 @@ namespace Mechanics.Traps
             
             if (player != null && player.GetComponent<Rigidbody2D>()!=null)
             {
-                //TODO poison player
+                PlayableCharacter playableCharacter = player.GetComponent<PlayableCharacter>();
+                if (playableCharacter != null) playableCharacter.Poisoned1 = true;
                 _playerInside = true;
                 player.GetComponent<Rigidbody2D>().gravityScale =
                     player.GetComponent<Rigidbody2D>().gravityScale / gravityReduceFactor;
@@ -75,7 +77,8 @@ namespace Mechanics.Traps
             GameObject player = other.gameObject;
             if (player != null && player.GetComponent<Rigidbody2D>()!=null)
             {
-                //TODO poison player
+                PlayableCharacter playableCharacter = player.GetComponent<PlayableCharacter>();
+                if (playableCharacter != null) playableCharacter.Poisoned1 = false;
                 _playerInside = false;
                 player.GetComponent<Rigidbody2D>().gravityScale =
                     player.GetComponent<Rigidbody2D>().gravityScale * gravityReduceFactor;

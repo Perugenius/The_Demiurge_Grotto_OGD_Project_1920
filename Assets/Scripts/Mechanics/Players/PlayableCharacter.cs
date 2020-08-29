@@ -150,7 +150,7 @@ namespace Mechanics.Players
 
         protected void StartPoisoningDamage()
         {
-            if (PoisoningCoroutine != null)
+            if (PoisoningCoroutine == null)
             {
                 PoisoningCoroutine = PoisoningDamage();
                 StartCoroutine(PoisoningCoroutine);

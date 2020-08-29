@@ -27,6 +27,7 @@ namespace Core
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private CollectiblesManager _collectiblesManager;
+        private bool _tmp;
 
         void Awake()
         {
@@ -73,7 +74,7 @@ namespace Core
                     break;
             }
 
-            GetComponent<DungeonBuilder>().BuildDungeon(type,playersSkills,15,2);
+            //GetComponent<DungeonBuilder>().BuildDungeon(type,playersSkills,15,2);
         }
 
         public void OnJoinScene()
@@ -108,8 +109,9 @@ namespace Core
             }*/
 
             if(!PhotonNetwork.IsMasterClient) return;
-            if (_dungeonBuilder.dungeonReady)
+            if (_dungeonBuilder.dungeonReady || !_tmp)
             {
+                _tmp = true;
                 _dungeonBuilder.dungeonReady = false;
                 GetComponent<PhotonView>().RPC("InstantiatePlayer", RpcTarget.All);
             }
