@@ -36,8 +36,13 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         Debug.Log("Failed to create room... Trying again");
         CreateRoom();    //Retrying to create the room with a new random name
     }
-    
-    
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        PhotonNetwork.LoadLevel(4);
+    }
+
 
     void Start()
     {

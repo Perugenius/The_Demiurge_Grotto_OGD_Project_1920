@@ -122,8 +122,8 @@ namespace Core
             _collectiblesManager.SaveCollectibles();
             
             //TODO log victory message
-            
-            //TODO leave photon room
+
+            PhotonNetwork.LeaveRoom();
         }
 
         public void ShowVictoryScreen()
