@@ -176,6 +176,7 @@ namespace Mechanics.Players
             {
                 Die();
             }
+            PoisoningCoroutine = null;
         }
 
         protected void CheckJumpPhase()
