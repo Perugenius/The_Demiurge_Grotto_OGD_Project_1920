@@ -22,7 +22,8 @@ namespace Mechanics
             if (player != null)
             {
                 player.CheckPoint1 = _tr.position;
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);  //Checkpoints need always to be active, otherwise during backtracking a
+                                                //player could respawn several rooms far from the point were he is dead.  
             }
         }
     }
