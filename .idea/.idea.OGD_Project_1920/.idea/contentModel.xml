@@ -473,6 +473,7 @@
             <e p="BaloonBackground.cs" t="Include" />
             <e p="Bar.cs" t="Include" />
             <e p="ButtonHighlightText.cs" t="Include" />
+            <e p="CommandsUI.cs" t="Include" />
             <e p="DungeonMap.cs" t="Include" />
             <e p="HealthBar.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />
