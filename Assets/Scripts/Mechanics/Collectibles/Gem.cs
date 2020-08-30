@@ -14,6 +14,8 @@ namespace Mechanics.Collectibles
         private CollectiblesManager _collectiblesManager;
         private bool _isCollected = false;
         private SpriteRenderer _spriteRenderer;
+        private bool _responseDelivered = false;
+        private int _timeout = 30;
 
         // Start is called before the first frame update
         void Start()
@@ -28,17 +30,44 @@ namespace Mechanics.Collectibles
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
             
-            if(_isCollected) return;
-            _isCollected = true;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if(_isCollected) return;
+                _isCollected = true;
 
-            //collect for others players
-            GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
+                //collect for others players
+                GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
             
-            
-            //collect for local player
-            Collect();
+                //collect for local player
+                Collect();
+            }
+            else
+            {
+                GetComponent<PhotonView>().RPC("AlreadyCollected", RpcTarget.MasterClient);
+                StartCoroutine(WaitAnswer());
+            }
         }
         
+        private IEnumerator WaitAnswer()
+        {
+            if (!_responseDelivered && _timeout>0)
+            {
+                _timeout--;
+                yield return new WaitForSeconds(1f);
+            }
+
+            if (!_isCollected && _timeout>0)
+            {
+                _isCollected = true;
+
+                //collect for others players
+                GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
+            
+                //collect for local player
+                Collect();
+            }
+        }
+
         private IEnumerator WaitBeforeLogQuantity()
         {
             yield return new WaitForSeconds(0.5f);
@@ -77,6 +106,27 @@ namespace Mechanics.Collectibles
             transform.localScale = new Vector3(1,1,1);
             _animator.SetBool(IsCollected, true);
             StartCoroutine(WaitBeforeLogQuantity());
+        }
+        
+        [PunRPC]
+        public void AlreadyCollected()
+        {
+            GetComponent<PhotonView>()
+                .RPC(_isCollected ? "AlreadyCollectedTrueResponse" : "AlreadyCollectedFalseResponse", RpcTarget.Others);
+        }
+
+        [PunRPC]
+        public void AlreadyCollectedTrueResponse()
+        {
+            _responseDelivered = true;
+            _isCollected = true;
+        }
+
+        [PunRPC]
+        public void AlreadyCollectedFalseResponse()
+        {
+            _responseDelivered = true;
+            _isCollected = false;
         }
     }
 }
