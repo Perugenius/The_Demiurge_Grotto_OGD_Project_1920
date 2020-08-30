@@ -34,8 +34,8 @@ namespace Core
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
-            Debug.Log("Player " + otherPlayer + "disconnected :(");
-            PhotonNetwork.LeaveRoom();
+            Debug.Log("Player " + otherPlayer.ActorNumber + "disconnected :(");
+            GameManager.Instance.ShowDisconnectionScreen();
         }
     }
 }
