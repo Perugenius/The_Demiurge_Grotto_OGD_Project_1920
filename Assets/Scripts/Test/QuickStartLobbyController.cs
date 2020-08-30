@@ -43,6 +43,18 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(4);
     }
 
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        PhotonNetwork.LeaveRoom();
+    }
+
 
     void Start()
     {
