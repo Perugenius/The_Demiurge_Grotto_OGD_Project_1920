@@ -71,6 +71,7 @@ namespace Mechanics.Collectibles
         [PunRPC]
         public void Collect()
         {
+            _isCollected = true;
             Debug.Log("Gem " + value + " collected");
             _collectiblesManager.CollectGem(value);
             transform.localScale = new Vector3(1,1,1);
