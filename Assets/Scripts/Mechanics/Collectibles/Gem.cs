@@ -15,7 +15,7 @@ namespace Mechanics.Collectibles
         private bool _isCollected = false;
         private SpriteRenderer _spriteRenderer;
         private bool _responseDelivered = false;
-        private int _timeout = 30;
+        private int _timeout = 100;
 
         // Start is called before the first frame update
         void Start()
@@ -53,7 +53,7 @@ namespace Mechanics.Collectibles
             if (!_responseDelivered && _timeout>0)
             {
                 _timeout--;
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.1f);
             }
 
             if (!_isCollected && _timeout>0)
