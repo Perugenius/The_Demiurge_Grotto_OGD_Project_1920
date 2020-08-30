@@ -1900,7 +1900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &923261186
 Transform:
   m_ObjectHideFlags: 0
@@ -4285,6 +4285,8 @@ MonoBehaviour:
   playerCamera: {fileID: 1822118010}
   loading: {fileID: 923261185}
   victoryScreen: {fileID: 2049734658}
+  gameOverScreen: {fileID: 0}
+  disconnectionScreen: {fileID: 0}
   messageBox: {fileID: 1191053969}
   singlePlayerMode: 0
   gemsHUD: {fileID: 368409072}

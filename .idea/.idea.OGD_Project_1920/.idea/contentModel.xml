@@ -372,6 +372,7 @@
             <e p="GameManager.cs" t="Include" />
             <e p="GameManagerTesting.cs" t="Include" />
             <e p="NetworkController.cs" t="Include" />
+            <e p="NetworkManager.cs" t="Include" />
             <e p="ObjectPool.cs" t="Include" />
             <e p="ObjectPoolingManager.cs" t="Include" />
             <e p="SaveLoadData" t="Include">

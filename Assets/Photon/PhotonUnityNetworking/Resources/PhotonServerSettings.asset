@@ -34,9 +34,6 @@ MonoBehaviour:
   - BuildDungeon
   - ClickRpc
   - Collect
-  - Damage
-  - DamagePig
-  - DamageSnail
   - DestroyChest
   - DestroyRpc
   - DestroySpaceship
@@ -44,11 +41,14 @@ MonoBehaviour:
   - Fire
   - InstantiatePlayer
   - MoveWithFriend
-  - PinkieRemoteSecondarySkill
-  - RemoteDie
   - RespawnSpaceship
   - StartFalling
+  - Damage
+  - DamagePig
+  - DamageSnail
+  - RemoteDie
   - TakeRemoteDamage
+  - PinkieRemoteSecondarySkill
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
