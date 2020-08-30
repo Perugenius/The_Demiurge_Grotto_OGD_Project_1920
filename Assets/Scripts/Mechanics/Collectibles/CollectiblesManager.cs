@@ -46,6 +46,7 @@ public class CollectiblesManager : MonoBehaviour
         playerData.gems += _gems;
         playerData.teammateLetters += _teammateLetters;
         playerData.eldaanLetters += _eldaanLetters;
+        playerData.returningFromDungeon = true;
         SaveSystem.SavePlayerData(playerData);
     }
 }

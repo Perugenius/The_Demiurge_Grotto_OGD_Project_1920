@@ -32,12 +32,8 @@ namespace Core.SaveLoadData
             stream.Close();
             
             //trigger save event
-            string saveEvent = EventsCollector.Instance.GetEvent("saveData");
-            if (saveEvent != null)
-            {
-                Debug.Log("Trigger event from saveSystem");
-                EventsCollector.Instance.TriggerEvent("saveData");
-            }
+            Debug.Log("Trigger event from saveSystem");
+            EventsCollector.Instance.TriggerEvent("saveData");
         }
 
         public static PlayerData LoadPlayerData()

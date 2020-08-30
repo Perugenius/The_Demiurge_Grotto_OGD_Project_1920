@@ -27,7 +27,6 @@ namespace Core
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private CollectiblesManager _collectiblesManager;
-        private bool _tmp;
 
         void Awake()
         {
@@ -74,7 +73,7 @@ namespace Core
                     break;
             }
 
-            //GetComponent<DungeonBuilder>().BuildDungeon(type,playersSkills,15,2);
+            GetComponent<DungeonBuilder>().BuildDungeon(type,playersSkills,15,2);
         }
 
         public void OnJoinScene()
@@ -100,18 +99,9 @@ namespace Core
 
         void Update()
         {
-            /*//DebugMessageBox
-            if(Input.GetKeyDown("m"))
-            {
-                Debug.Log(messageBox.name);
-                messageBox.SetActive(true);
-                messageBox.GetComponent<MessageBox>().ShowMessage("Sample message to test message box. The book is on the table. The table is under the book. Today is sunny.");
-            }*/
-
             if(!PhotonNetwork.IsMasterClient) return;
-            if (_dungeonBuilder.dungeonReady || !_tmp)
+            if (_dungeonBuilder.dungeonReady)
             {
-                _tmp = true;
                 _dungeonBuilder.dungeonReady = false;
                 GetComponent<PhotonView>().RPC("InstantiatePlayer", RpcTarget.All);
             }
@@ -120,9 +110,6 @@ namespace Core
         private void ExitDungeon()
         {
             _collectiblesManager.SaveCollectibles();
-            
-            //TODO log victory message
-
             PhotonNetwork.LeaveRoom();
         }
 
