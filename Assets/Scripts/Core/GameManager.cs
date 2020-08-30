@@ -19,6 +19,8 @@ namespace Core
         [FormerlySerializedAs("camera")] [SerializeField] private GameObject playerCamera;
         [SerializeField] private GameObject loading;
         [SerializeField] private GameObject victoryScreen;
+        [SerializeField] private GameObject gameOverScreen;
+        [SerializeField] private GameObject disconnectionScreen;
         [SerializeField] private GameObject messageBox;
         [SerializeField] private bool singlePlayerMode;
         [SerializeField] private GameObject gemsHUD;
@@ -107,22 +109,34 @@ namespace Core
             }
         }
 
-        private void ExitDungeon()
+        private void ExitDungeon(bool isGameOver)
         {
-            _collectiblesManager.SaveCollectibles();
+            if(!isGameOver) _collectiblesManager.SaveCollectibles();
             PhotonNetwork.LeaveRoom();
         }
 
         public void ShowVictoryScreen()
         {
             victoryScreen.SetActive(true);
-            StartCoroutine(WaitBeforeExit());
+            StartCoroutine(WaitBeforeExit(false));
         }
 
-        private IEnumerator WaitBeforeExit()
+        public void ShowGameOverScreen()
+        {
+            gameOverScreen.SetActive(true);
+            StartCoroutine(WaitBeforeExit(true));
+        }
+        
+        public void ShowDisconnectionScreen()
+        {
+            disconnectionScreen.SetActive(true);
+            StartCoroutine(WaitBeforeExit(true));
+        }
+
+        private IEnumerator WaitBeforeExit(bool isGameOver)
         {
             yield return new WaitForSeconds(5);
-            ExitDungeon();
+            ExitDungeon(isGameOver);
         }
 
         public void ShowMessage(string message)
