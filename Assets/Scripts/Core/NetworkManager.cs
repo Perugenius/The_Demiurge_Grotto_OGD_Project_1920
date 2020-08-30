@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine;
 
 namespace Core
 {
@@ -26,12 +27,14 @@ namespace Core
         public override void OnDisconnected(DisconnectCause cause)
         {
             base.OnDisconnected(cause);
+            Debug.Log("Disconnection cause: " + cause);
             PhotonNetwork.LeaveRoom();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
+            Debug.Log("Player " + otherPlayer + "disconnected :(");
             PhotonNetwork.LeaveRoom();
         }
     }
