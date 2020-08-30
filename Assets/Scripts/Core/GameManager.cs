@@ -114,7 +114,7 @@ namespace Core
             if(!isGameOver) _collectiblesManager.SaveCollectibles();
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.LeaveRoom();
+            //PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
         }
 
