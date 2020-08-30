@@ -52,8 +52,8 @@ namespace Mechanics.Collectibles
         {
             if (!_responseDelivered && _timeout>0)
             {
-                _timeout--;
-                yield return new WaitForSeconds(0.1f);
+                _timeout--; 
+                yield return new WaitForEndOfFrame();
             }
 
             if (!_isCollected && _timeout>0)

@@ -18,7 +18,7 @@ namespace Mechanics.Collectibles
         private CollectiblesManager _collectiblesManager;
         private bool _isCollected = false;
         private bool _responseDelivered = false;
-        private int _timeout = 30;
+        private int _timeout = 100;
 
         private void Start()
         {
@@ -54,7 +54,7 @@ namespace Mechanics.Collectibles
             if (!_responseDelivered && _timeout>0)
             {
                 _timeout--;
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForEndOfFrame();
             }
 
             if (!_isCollected && _timeout>0)
