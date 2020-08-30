@@ -113,6 +113,7 @@ namespace Core
         {
             if(!isGameOver) _collectiblesManager.SaveCollectibles();
             PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
         }
 
         public void ShowVictoryScreen()
