@@ -49,6 +49,9 @@ MonoBehaviour:
   - RemoteDie
   - TakeRemoteDamage
   - PinkieRemoteSecondarySkill
+  - AlreadyCollected
+  - AlreadyCollectedTrueResponse
+  - AlreadyCollectedFalseResponse
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

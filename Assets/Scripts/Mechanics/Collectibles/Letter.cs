@@ -31,8 +31,8 @@ namespace Mechanics.Collectibles
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
 
-            /*if (PhotonNetwork.IsMasterClient)
-            {*/
+            if (PhotonNetwork.IsMasterClient)
+            {
                 if(_isCollected) return;
                 _isCollected = true;
 
@@ -41,15 +41,15 @@ namespace Mechanics.Collectibles
             
                 //collect for local player
                 Collect();
-            /*}
+            }
             else
             {
                 GetComponent<PhotonView>().RPC("AlreadyCollected", RpcTarget.MasterClient);
                 StartCoroutine(WaitAnswer());
-            }*/
+            }
         }
 
-        /*private IEnumerator WaitAnswer()
+        private IEnumerator WaitAnswer()
         {
             if (!_responseDelivered && _timeout>0)
             {
@@ -67,7 +67,7 @@ namespace Mechanics.Collectibles
                 //collect for local player
                 Collect();
             }
-        }*/
+        }
 
         [PunRPC]
         private void Collect()
@@ -91,7 +91,7 @@ namespace Mechanics.Collectibles
             }
         }
 
-        /*[PunRPC]
+        [PunRPC]
         public void AlreadyCollected()
         {
             GetComponent<PhotonView>()
@@ -110,7 +110,7 @@ namespace Mechanics.Collectibles
         {
             _responseDelivered = true;
             _isCollected = false;
-        }*/
+        }
 
         private IEnumerator WaitBeforeDestroy()
         {
