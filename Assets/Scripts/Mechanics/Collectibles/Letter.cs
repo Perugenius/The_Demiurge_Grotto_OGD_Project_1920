@@ -17,6 +17,8 @@ namespace Mechanics.Collectibles
         private static readonly int IsCollected = Animator.StringToHash("isCollected");
         private CollectiblesManager _collectiblesManager;
         private bool _isCollected = false;
+        private bool _responseDelivered = false;
+        private int _timeout = 30;
 
         private void Start()
         {
@@ -28,20 +30,49 @@ namespace Mechanics.Collectibles
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
-            
-            if(_isCollected) return;
-            _isCollected = true;
 
-            //collect for others players
-            GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
+            /*if (PhotonNetwork.IsMasterClient)
+            {*/
+                if(_isCollected) return;
+                _isCollected = true;
+
+                //collect for others players
+                GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
             
-            //collect for local player
-            Collect();
+                //collect for local player
+                Collect();
+            /*}
+            else
+            {
+                GetComponent<PhotonView>().RPC("AlreadyCollected", RpcTarget.MasterClient);
+                StartCoroutine(WaitAnswer());
+            }*/
         }
+
+        /*private IEnumerator WaitAnswer()
+        {
+            if (!_responseDelivered && _timeout>0)
+            {
+                _timeout--;
+                yield return new WaitForSeconds(1f);
+            }
+
+            if (!_isCollected && _timeout>0)
+            {
+                _isCollected = true;
+
+                //collect for others players
+                GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
+            
+                //collect for local player
+                Collect();
+            }
+        }*/
 
         [PunRPC]
         private void Collect()
         {
+            _isCollected = true;
             if (type == LetterType.Teammate)
             {
                 _collectiblesManager.CollectTeammateLetter();
@@ -59,6 +90,27 @@ namespace Mechanics.Collectibles
                 GameManager.Instance.ShowVictoryScreen();
             }
         }
+
+        /*[PunRPC]
+        public void AlreadyCollected()
+        {
+            GetComponent<PhotonView>()
+                .RPC(_isCollected ? "AlreadyCollectedTrueResponse" : "AlreadyCollectedFalseResponse", RpcTarget.Others);
+        }
+
+        [PunRPC]
+        public void AlreadyCollectedTrueResponse()
+        {
+            _responseDelivered = true;
+            _isCollected = true;
+        }
+
+        [PunRPC]
+        public void AlreadyCollectedFalseResponse()
+        {
+            _responseDelivered = true;
+            _isCollected = false;
+        }*/
 
         private IEnumerator WaitBeforeDestroy()
         {

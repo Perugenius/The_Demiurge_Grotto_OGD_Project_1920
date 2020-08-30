@@ -53,7 +53,7 @@ namespace Mechanics.Camera
             else
             {
                 if(Vector2.Distance(_playerRoomPosition,Tr.position)<0.5) return;
-                Debug.Log("Target RoomPosition = " + _playerRoomPosition);
+                //Debug.Log("Target RoomPosition = " + _playerRoomPosition);
                 SetFixedDistanceAcceleratedDecelerated(_playerRoomPosition, initSpeed, acceleration);
             }
         }

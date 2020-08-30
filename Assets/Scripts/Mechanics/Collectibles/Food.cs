@@ -68,7 +68,7 @@ namespace Mechanics.Collectibles
                 _text.gameObject.transform.localScale -= new Vector3(0.001f,0.001f,0.001f);
                 yield return new  WaitForEndOfFrame();
             }
-            Destroy(gameObject.transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }
