@@ -37,24 +37,6 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         CreateRoom();    //Retrying to create the room with a new random name
     }
 
-    public override void OnLeftRoom()
-    {
-        base.OnLeftRoom();
-        PhotonNetwork.LoadLevel(4);
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        base.OnDisconnected(cause);
-        PhotonNetwork.LeaveRoom();
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        base.OnPlayerLeftRoom(otherPlayer);
-        PhotonNetwork.LeaveRoom();
-    }
-
 
     void Start()
     {
