@@ -14,11 +14,11 @@ namespace Core
     public class EventsCollector
     {
         private static EventsCollector _instance=null;
-        private Dictionary<string,Cback> _events;
+        private Dictionary<string,List<Cback>> _events;
 
         protected EventsCollector()
         {
-            _events = new Dictionary<string, Cback>();
+            _events = new Dictionary<string, List<Cback>>();
         }
     
         public static EventsCollector Instance
@@ -32,17 +32,22 @@ namespace Core
 
         public void CreateEvent(string eventName, Cback cback)
         {
-            _events.Add(eventName,cback);
+            if(_events.Keys.Contains(eventName)) _events[eventName].Add(cback);
+            else _events.Add(eventName,new List<Cback>{cback});
         }
 
-        public string GetEvent(string eventName)
+        public string GetEventCbacks(string eventName)
         {
             return _events.Keys.Contains(eventName) ? eventName : null;
         }
 
         public void TriggerEvent(string name)
         {
-            _events[name]();
+            if(!_events.Keys.Contains(name)) return;
+            foreach (var cback in _events[name])
+            {
+                cback();
+            }
         }
     }
 }

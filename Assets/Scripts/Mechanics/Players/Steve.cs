@@ -78,6 +78,15 @@ namespace Mechanics.Players
                     Attack();
                 }
                 
+                if (Poisoned && !IsDying && !IsTakingDamage)
+                {
+                    StartPoisoningDamage();
+                }
+                /*else if (PoisoningCoroutine != null)
+                {
+                    StopCoroutine(PoisoningCoroutine);
+                    PoisoningCoroutine = null;
+                }*/
             }
         }
         

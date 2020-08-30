@@ -94,14 +94,14 @@ namespace Mechanics.Players
                 }
                 
                 Animate();
-                if (Poisoned)
+                if (Poisoned && !IsDying && !IsTakingDamage)
                 {
                     StartPoisoningDamage();
                 }
-                else if (PoisoningCoroutine != null)
+                /*else if (PoisoningCoroutine != null)
                 {
                     StopCoroutine(PoisoningCoroutine);
-                }
+                }*/
             }
         }
 
@@ -159,6 +159,7 @@ namespace Mechanics.Players
 
         protected IEnumerator PoisoningDamage()
         {
+            /*yield return new WaitForSeconds(1f);*/
             while (Poisoned)
             {
                 CurrentHealth -= 1;
@@ -170,13 +171,13 @@ namespace Mechanics.Players
                 this.SpriteRenderer.color = Color.green;
                 yield return  new WaitForSeconds(0.2f);
                 this.SpriteRenderer.color = Color.white;
-                yield return new WaitForSeconds(1.8f);
+                yield return new WaitForSeconds(4.3f);
             }
+            PoisoningCoroutine = null;
             if (CurrentHealth <= 0)
             {
                 Die();
             }
-            PoisoningCoroutine = null;
         }
 
         protected void CheckJumpPhase()
@@ -298,11 +299,11 @@ namespace Mechanics.Players
         {
             SpriteRenderer.color = Color.black;
             float i = 1f;
-            while (i > 0.05f)
+            while (i > 0.06f)
             {
                 SpriteRenderer.color = new Color(0,0,0,i);
-                yield return  new WaitForSeconds(0.75f);
-                i -= 0.05f;
+                yield return  new WaitForSeconds(0.5f);
+                i -= 0.02f;
             }
         }
 

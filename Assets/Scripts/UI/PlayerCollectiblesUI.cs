@@ -18,7 +18,7 @@ namespace UI
 
         private void Awake()
         {
-            if(EventsCollector.Instance.GetEvent("saveData")==null) EventsCollector.Instance.CreateEvent("saveData",UpdateCollectiblesLabels);
+            EventsCollector.Instance.CreateEvent("saveData",UpdateCollectiblesLabels);
         }
 
         // Start is called before the first frame update

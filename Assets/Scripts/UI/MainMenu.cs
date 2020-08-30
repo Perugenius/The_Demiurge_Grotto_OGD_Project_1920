@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
@@ -7,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public delegate void PerkCback(string character, int level); // callback for executing perks;
 
@@ -58,6 +60,7 @@ public class MainMenu : MonoBehaviour
 
     private List<string> charactersNames;
     private EventSystem _eventSystem;
+    private bool _returnFromDungeon;
 
     // Start is called before the first frame update
     void Start()
@@ -86,20 +89,38 @@ public class MainMenu : MonoBehaviour
         PlayerData playerData = SaveSystem.LoadPlayerData();
         playerData.gems = 1200;
         playerData.teammateLetters = 40;
+        
+        try
+        {
+            _returnFromDungeon = playerData.returningFromDungeon;
+            playerData.returningFromDungeon = false;
+        }
+        catch (NullReferenceException e)
+        {
+            _returnFromDungeon = false;
+        }
+        
         SaveSystem.SavePlayerData(playerData);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_titleMenu.isFocused() && Input.anyKey) ShowHome();
+        //enter to main menu
+        if (_titleMenu.isFocused() && (Input.anyKey || _returnFromDungeon)) ShowHome();
 
-        if (Input.GetKeyDown("l")) //Debug values on console
+        //Debug values on console
+        if (Input.GetKeyDown("l")) 
         {
             PlayerData playerData = SaveSystem.LoadPlayerData();
             Debug.Log(playerData.currentCharacter + " maxHealth = " + playerData.maxHealth[playerData.currentCharacter]);
             Debug.Log(playerData.currentCharacter + " attack = " +  playerData.attack[playerData.currentCharacter]);
         }
+        
+        //Close menu with "B" from joystick
+        if(_charactersMenu.isFocused() && !_charactersMenu.DuringTransition && Input.GetKeyDown(KeyCode.Joystick1Button1)) ShowHome();
+        if(_dungeonMenu.isFocused() && !_dungeonMenu.DuringTransition && Input.GetKeyDown(KeyCode.Joystick1Button1)) ShowHome();
+        if(_perksMenu.isFocused() && !_perksMenu.DuringTransition && Input.GetKeyDown(KeyCode.Joystick1Button1)) ShowHome();
     }
 
     public void ShowHome()

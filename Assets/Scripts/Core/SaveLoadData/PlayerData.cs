@@ -26,6 +26,7 @@ namespace Core.SaveLoadData
         public string lastSelectedDungeon;
         public List<string> unlockedDungeons;
         public Dictionary<string,Dictionary<string,int>> perks;    //<characterName,<perkName, perkLevel>>
+        public bool returningFromDungeon;
 
         public PlayerData(string firstUnlockedCharacter, List<string> charactersNames)
         {
@@ -45,8 +46,8 @@ namespace Core.SaveLoadData
             attackRange = new Dictionary<string, float>();
             attackDuration = new Dictionary<string, float>();
             reanimationLife = new Dictionary<string, int>();
-            
-            
+            returningFromDungeon = false;
+
             gems = 0;
             teammateLetters = 0;
             eldaanLetters = 0;

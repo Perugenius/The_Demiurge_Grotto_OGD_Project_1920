@@ -55,9 +55,9 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected override void Update()
         {
-            if (gameObject.GetPhotonView().IsMine || localTesting)
+            base.Update();
+            if (IsMine || localTesting)
             {
-                base.Update();
                 if (Input.GetButtonDown("Attack") && _canSummonPillow && CanAttack)
                 {
                     CanAttack = false;
