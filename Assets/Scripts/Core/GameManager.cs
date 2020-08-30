@@ -123,12 +123,14 @@ namespace Core
 
         public void ShowGameOverScreen()
         {
+            if(victoryScreen.activeSelf) return;
             gameOverScreen.SetActive(true);
             StartCoroutine(WaitBeforeExit(true));
         }
         
         public void ShowDisconnectionScreen()
         {
+            if(victoryScreen.activeSelf) return;
             disconnectionScreen.SetActive(true);
             StartCoroutine(WaitBeforeExit(true));
         }
