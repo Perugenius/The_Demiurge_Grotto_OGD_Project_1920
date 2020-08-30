@@ -28,7 +28,8 @@ namespace Core
         {
             base.OnDisconnected(cause);
             Debug.Log("Disconnection cause: " + cause);
-            PhotonNetwork.LeaveRoom();
+            GameManager.Instance.ShowDisconnectionScreen();
+            //PhotonNetwork.LeaveRoom();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
