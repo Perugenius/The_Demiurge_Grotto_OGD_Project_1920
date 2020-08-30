@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Core
 {
@@ -21,7 +22,7 @@ namespace Core
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
-            PhotonNetwork.LoadLevel(4);
+            SceneManager.LoadScene("MainMenu");
         }
 
         public override void OnDisconnected(DisconnectCause cause)

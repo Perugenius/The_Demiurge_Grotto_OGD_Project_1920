@@ -112,6 +112,7 @@ namespace Core
         private void ExitDungeon(bool isGameOver)
         {
             if(!isGameOver) _collectiblesManager.SaveCollectibles();
+            PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
         }
