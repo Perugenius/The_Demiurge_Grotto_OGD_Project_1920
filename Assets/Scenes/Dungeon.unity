@@ -4242,8 +4242,8 @@ MonoBehaviour:
   playerCamera: {fileID: 1822118010}
   loading: {fileID: 923261185}
   victoryScreen: {fileID: 2049734658}
-  gameOverScreen: {fileID: 0}
-  disconnectionScreen: {fileID: 0}
+  gameOverScreen: {fileID: 1915276528}
+  disconnectionScreen: {fileID: 1810506403}
   messageBox: {fileID: 1191053969}
   singlePlayerMode: 0
   gemsHUD: {fileID: 368409072}
