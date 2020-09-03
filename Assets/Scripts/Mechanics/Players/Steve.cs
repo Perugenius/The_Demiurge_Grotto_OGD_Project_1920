@@ -46,47 +46,60 @@ namespace Mechanics.Players
         {
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
-                Speed = Input.GetAxisRaw("Horizontal"); 
-                if (_isOnWall)
+                if (CanMove)
                 {
-                    if (Input.GetButtonDown("Jump"))
+                    Speed = Input.GetAxisRaw("Horizontal");
+                    if (_isOnWall)
                     {
-                        Rb.velocity = new Vector2(Rb.velocity.x,0);
-                        if (_wallSide == WallSide.RightWall)
+                        if (Input.GetButtonDown("Jump"))
                         {
-                            Rb.AddForce(new Vector2(-62,62),ForceMode2D.Impulse);
+                            Rb.velocity = new Vector2(Rb.velocity.x, 0);
+                            if (_wallSide == WallSide.RightWall)
+                            {
+                                Rb.AddForce(new Vector2(-62, 62), ForceMode2D.Impulse);
+                            }
+                            else
+                            {
+                                Rb.AddForce(new Vector2(62, 62), ForceMode2D.Impulse);
+                            }
+                            Animator.SetBool(IsJumpingAnim, true);
                         }
-                        else
-                        {
-                            Rb.AddForce(new Vector2(62,62),ForceMode2D.Impulse);
-                        }
-                        Animator.SetBool(IsJumpingAnim, true);
                     }
-                }
-                else
-                { 
-                    if (Input.GetButtonDown("Jump") && !IsJumping)
+                    else
                     {
-                        Jump(62);
-                        Animator.SetBool(IsJumpingAnim, true);
-                    }
-                }
+                        /*if (Input.GetButtonDown("Jump") && !IsJumping)
+                        {
+                            Jump(62);
+                            Animator.SetBool(IsJumpingAnim, true);
+                        }*/
+                        if (Input.GetButtonDown("Jump") && !IsJumping)
+                        {
+                            JumpingController = true;
+                            Rb.velocity = new Vector2(Rb.velocity.x,15);
+                            Animator.SetBool(IsJumpingAnim, true);
+                        }
 
-                Animate();
-                if (Input.GetButtonDown("Attack") && CanAttack)
-                {
-                    Attack();
+                        if (Input.GetButton("Jump") && JumpingController)
+                        {
+                            ModulateJump();
+                        }
+                        if (Input.GetButtonUp("Jump"))
+                        {
+                            JumpingController = false;
+                            CurrentJumpTime = 0;
+                        }
+                    }
+                    Animate();
+                    if (Input.GetButtonDown("Attack") && CanAttack)
+                    {
+                        Attack();
+                    }
+
+                    if (Poisoned && !IsDying && !IsTakingDamage)
+                    {
+                        StartPoisoningDamage();
+                    }
                 }
-                
-                if (Poisoned && !IsDying && !IsTakingDamage)
-                {
-                    StartPoisoningDamage();
-                }
-                /*else if (PoisoningCoroutine != null)
-                {
-                    StopCoroutine(PoisoningCoroutine);
-                    PoisoningCoroutine = null;
-                }*/
             }
         }
         

@@ -35,6 +35,9 @@ namespace Mechanics.Players
         protected bool CanAttack = true;
         protected int ReanimationHealth;
         protected bool CanMove = true;
+        protected bool JumpingController;
+        protected float MaxJumpTime;
+        protected float CurrentJumpTime;
 
         protected HealthBar HealthBar;
         protected Bar AttackBar;
@@ -77,6 +80,8 @@ namespace Mechanics.Players
                 JumpHeight = PlayerData.jumpHeight[CharacterName];
                 HealthBar.InitializeHealthBar();
                 AttackBar.SetDuration(AttackRate);
+                MaxJumpTime = 0.35f;
+                CurrentJumpTime = 0;
             }
             else
             {
@@ -94,8 +99,19 @@ namespace Mechanics.Players
                     Speed = Input.GetAxisRaw("Horizontal");
                     if (Input.GetButtonDown("Jump") && !IsJumping)
                     {
-                        Jump(JumpHeight);
+                        JumpingController = true;
+                        Rb.velocity = new Vector2(Rb.velocity.x,15);
                         Animator.SetBool(IsJumpingAnim, true);
+                    }
+
+                    if (Input.GetButton("Jump") && JumpingController)
+                    {
+                        ModulateJump();
+                    }
+                    if (Input.GetButtonUp("Jump"))
+                    {
+                        JumpingController = false;
+                        CurrentJumpTime = 0;
                     }
 
                     Animate();
@@ -103,16 +119,41 @@ namespace Mechanics.Players
                     {
                         StartPoisoningDamage();
                     }
-
-                    /*else if (PoisoningCoroutine != null)
-                    {
-                        StopCoroutine(PoisoningCoroutine);
-                    }*/
                 }
                 else
                 {
                     Speed = 0;
                 }
+            }
+        }
+
+        protected void ModulateJump()
+        {
+            float horizontalRbVelocity = Rb.velocity.x;
+            if (CurrentJumpTime < MaxJumpTime/4)
+            {
+                Rb.velocity = new Vector2(horizontalRbVelocity,12.5f);
+                CurrentJumpTime += Time.deltaTime;
+            }
+            else if (CurrentJumpTime < MaxJumpTime / 2)
+            {
+                Rb.velocity = new Vector2(horizontalRbVelocity,10.5f);
+                CurrentJumpTime += Time.deltaTime;
+            }
+            else if (CurrentJumpTime < MaxJumpTime *3/ 4)
+            {
+                Rb.velocity = new Vector2(horizontalRbVelocity,8);
+                CurrentJumpTime += Time.deltaTime;
+            }
+            else if (CurrentJumpTime < MaxJumpTime )
+            {
+                Rb.velocity = new Vector2(horizontalRbVelocity,6);
+                CurrentJumpTime += Time.deltaTime;
+            }
+            else
+            {
+                JumpingController = false;
+                CurrentJumpTime = 0;
             }
         }
 
@@ -144,11 +185,10 @@ namespace Mechanics.Players
             if (IsMine || localTesting)
             {
                 base.FixedUpdate();
-                Vector2 direction;
+                //Rb.velocity = new Vector2(Speed * CurrentSpeed, Rb.velocity.y);
                 if (Speed != 0)
                 {
-                    direction = Vector2.right;
-                    MoveDynamic(direction, CurrentSpeed * Speed);
+                    MoveDynamic(Vector2.right, CurrentSpeed * Speed);
                 }
                 else
                 {

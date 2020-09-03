@@ -14,7 +14,7 @@ namespace Core.SaveLoadData
         public Dictionary<string, float> attackRate;
         public Dictionary<string, int> projectileNumber;
         public Dictionary<string, int> jumpHeight;
-        public Dictionary<string, int> speed;
+        public Dictionary<string, float> speed;
         public Dictionary<string, float> projectileSpeed;
         public Dictionary<string, float> attackDuration;
         public Dictionary<string, int> reanimationLife;
@@ -38,7 +38,7 @@ namespace Core.SaveLoadData
             maxHealth = new Dictionary<string, int>();
             attack = new Dictionary<string, float>();
             jumpHeight = new Dictionary<string, int>();
-            speed = new Dictionary<string, int>();
+            speed = new Dictionary<string, float>();
             secondarySkillLevel = new Dictionary<string, int>();
             attackRate = new Dictionary<string, float>();
             projectileNumber = new Dictionary<string, int>();
@@ -61,7 +61,7 @@ namespace Core.SaveLoadData
                 maxHealth.Add(character,5);
                 attack.Add(character,1);
                 jumpHeight.Add(character, 62);
-                speed.Add(character, 15);
+                speed.Add(character, 14);
                 reanimationLife.Add(character, 2);
                 if (character.Contains("Pinkie") || character.Contains("Kinja") || character.Contains("Steve"))
                 {
