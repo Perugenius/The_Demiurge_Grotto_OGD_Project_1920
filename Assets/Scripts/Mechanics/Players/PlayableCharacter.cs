@@ -21,6 +21,8 @@ namespace Mechanics.Players
         protected static readonly int FaceDirectionAnimator = Animator.StringToHash("FaceDirection");
         protected static readonly int IsJumpingAnim = Animator.StringToHash("IsJumping");
         protected static readonly int IsDescending = Animator.StringToHash("IsDescending");
+        protected static readonly int Appear = UnityEngine.Animator.StringToHash("Appear");
+        protected static readonly int Disappear = UnityEngine.Animator.StringToHash("Disappear");
         protected float AttackRate;
         protected float Speed;
         protected float JumpHeight;
@@ -32,6 +34,7 @@ namespace Mechanics.Players
         protected int MaxHealth;
         protected bool CanAttack = true;
         protected int ReanimationHealth;
+        protected bool CanMove = true;
 
         protected HealthBar HealthBar;
         protected Bar AttackBar;
@@ -84,24 +87,32 @@ namespace Mechanics.Players
         // Update is called once per frame
         protected virtual void Update()
         {
-            if (IsMine || localTesting)
+            if ((IsMine || localTesting))
             {
-                Speed = Input.GetAxisRaw("Horizontal");
-                if (Input.GetButtonDown("Jump") && !IsJumping)
+                if (CanMove)
                 {
-                    Jump(JumpHeight);
-                    Animator.SetBool(IsJumpingAnim, true);
+                    Speed = Input.GetAxisRaw("Horizontal");
+                    if (Input.GetButtonDown("Jump") && !IsJumping)
+                    {
+                        Jump(JumpHeight);
+                        Animator.SetBool(IsJumpingAnim, true);
+                    }
+
+                    Animate();
+                    if (Poisoned && !IsDying && !IsTakingDamage)
+                    {
+                        StartPoisoningDamage();
+                    }
+
+                    /*else if (PoisoningCoroutine != null)
+                    {
+                        StopCoroutine(PoisoningCoroutine);
+                    }*/
                 }
-                
-                Animate();
-                if (Poisoned && !IsDying && !IsTakingDamage)
+                else
                 {
-                    StartPoisoningDamage();
+                    Speed = 0;
                 }
-                /*else if (PoisoningCoroutine != null)
-                {
-                    StopCoroutine(PoisoningCoroutine);
-                }*/
             }
         }
 
@@ -224,7 +235,7 @@ namespace Mechanics.Players
 
                     if ((LayerMask.GetMask("DamageTrap") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
                     {
-                        transform.position = CheckPoint;
+                        StartCoroutine(nameof(DisappearAnimation));
                     }
                     StartCoroutine(nameof(DamageEffect));
                     this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);
@@ -252,6 +263,17 @@ namespace Mechanics.Players
             }
             SpriteRenderer.color = Color.white;
             IsTakingDamage = false;
+        }
+
+        protected IEnumerator DisappearAnimation()
+        {
+            CanMove = false;
+            Animator.SetTrigger(Disappear);
+            yield return new WaitForSeconds(1);
+            transform.position = CheckPoint;
+            Animator.SetTrigger(Appear);
+            yield return  new WaitForSeconds(1);
+            CanMove = true;
         }
         
         private void OnCollisionEnter2D(Collision2D other)
