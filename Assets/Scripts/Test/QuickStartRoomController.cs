@@ -14,7 +14,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
     
     public override void OnDisable()
     {
-        PhotonNetwork.AddCallbackTarget(this);
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
 
     public override void OnJoinedRoom()
