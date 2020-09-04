@@ -89,6 +89,7 @@ public class MainMenu : MonoBehaviour
         PlayerData playerData = SaveSystem.LoadPlayerData();
         playerData.gems = 1200;
         playerData.teammateLetters = 40;
+        playerData.eldaanLetters = 10;
         
         try
         {
