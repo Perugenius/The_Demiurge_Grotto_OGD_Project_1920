@@ -20,7 +20,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         "Steve"
     };
 
-    private List<string> _charactersRemaining;
+    private List<string> _charactersRemaining = new List<string>();
     
     void Start()
     {
