@@ -54,6 +54,7 @@ namespace Mechanics.Enemies
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
+            base.OnTriggerEnter2D(other);
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
                 _run = false;
@@ -62,7 +63,6 @@ namespace Mechanics.Enemies
                 JumpLateral(knockbackHeight, Vector2.Reflect(_direction, Vector2.right)*knockbackThrust);
                 StartCoroutine (nameof(Cooldown));
             }
-            base.OnTriggerEnter2D(other);
         }
         
         private IEnumerator Cooldown(){
