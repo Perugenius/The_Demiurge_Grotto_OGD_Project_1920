@@ -7,6 +7,7 @@ TagManager:
   - Terrain
   - JumpChecker
   - ProjectileSpawner
+  - FanAir
   layers:
   - Default
   - TransparentFX

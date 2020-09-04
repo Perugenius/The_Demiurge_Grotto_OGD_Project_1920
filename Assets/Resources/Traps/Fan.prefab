@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6145226389705320431}
   m_Layer: 15
   m_Name: Fan
-  m_TagString: Untagged
+  m_TagString: FanAir
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
