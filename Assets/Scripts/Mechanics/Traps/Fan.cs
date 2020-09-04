@@ -106,7 +106,7 @@ public class Fan : MonoBehaviour
         }*/
     
         // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(_enabled)_particleCount++;
         _count++;
