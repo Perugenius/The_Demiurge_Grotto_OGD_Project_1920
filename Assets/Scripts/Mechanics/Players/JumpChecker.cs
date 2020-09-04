@@ -17,7 +17,7 @@ namespace Mechanics.Players
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && other.gameObject.)
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir"))
             {
                 if (_script.GetIsJumping()){ _script.SetIsJumping(false);}
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
@@ -27,7 +27,7 @@ namespace Mechanics.Players
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera")  && other.gameObject.layer != LayerMask.NameToLayer("TriggerArea"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir"))
             {
                 if (_script.GetIsJumping()) _script.SetIsJumping(false);
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
@@ -37,7 +37,7 @@ namespace Mechanics.Players
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir"))
             {
                 _script.SetIsJumping(true);
                 if (_script is Kinja kinja) kinja.SetJumpsNumber(1);
