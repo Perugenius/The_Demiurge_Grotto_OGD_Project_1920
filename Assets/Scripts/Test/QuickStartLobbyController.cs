@@ -38,7 +38,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
         //Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen},{_characterName, _characterName}};
         //PhotonNetwork.JoinRandomRoom(roomProperties,(byte)roomSize);    //Tries to join a random room
-        string sqlLobbyFilter = "dungeon = '" + _dungeonChosen + "' AND character NOT LIKE" + _characterName + "'";
+        string sqlLobbyFilter = "dungeon = '" + _dungeonChosen + "' AND character !='" + _characterName + "'";
         PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, sqlLobby, sqlLobbyFilter);
         Debug.Log("Starting...");
     }
