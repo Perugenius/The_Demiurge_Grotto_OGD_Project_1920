@@ -90,6 +90,7 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             Hit = true;
+            damagePlayer.enabled = false;
             if (damage < lifePoints)
             {
                 Anger();
@@ -103,6 +104,7 @@ namespace Mechanics.Enemies
         {
             Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
+            damagePlayer.enabled = true;
             Hit = false;
         }
 
@@ -117,6 +119,18 @@ namespace Mechanics.Enemies
                 yield return null;
             }
             Destroy(gameObject);
+        }
+        
+        protected override void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            {
+                PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
+                if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
+                if (!Hit && photonView.IsMine)
+                    GetComponent<PhotonView>().RPC("DamagePig", RpcTarget.All,
+                        other.GetComponent<IDamageInflictor>().GetDamage());
+            }
         }
     }
 }

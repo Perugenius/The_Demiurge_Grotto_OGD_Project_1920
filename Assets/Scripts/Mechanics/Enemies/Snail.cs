@@ -56,6 +56,7 @@ namespace Mechanics.Enemies
         private IEnumerator Waiting(){
             yield return new WaitForSeconds (3);
             _withdrawn = false;
+            damagePlayer.enabled = true;
             Animator.SetBool("Withdraw",false);
         }
         
@@ -64,6 +65,7 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             //_hit = true;
+            damagePlayer.enabled = false;
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
@@ -89,6 +91,18 @@ namespace Mechanics.Enemies
                 yield return null;
             }
             Destroy(gameObject);
+        }
+        
+        protected override void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            {
+                PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
+                if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
+                if (!Hit && photonView.IsMine)
+                    GetComponent<PhotonView>().RPC("DamageSnail", RpcTarget.All,
+                        other.GetComponent<IDamageInflictor>().GetDamage());
+            }
         }
     }
 }
