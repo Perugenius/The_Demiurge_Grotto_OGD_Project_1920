@@ -50,7 +50,7 @@ public class MainMenu : MonoBehaviour
     private Menu _charactersMenu;
     private Menu _creditsMenu;
 
-    public const int dungeon2LettersThreshold = 10;
+    public const int dungeon2LettersThreshold = 1; //just for the prototype 
     public const int dungeon3LettersThreshold = 20;
     public const int dungeon4LettersThreshold = 30;
 
