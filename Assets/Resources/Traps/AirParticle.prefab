@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5784012622867833470}
   - component: {fileID: 3763281843389176615}
   - component: {fileID: -8307014994069669293}
-  m_Layer: 19
+  m_Layer: 8
   m_Name: AirParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,4 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal: {x: 0, y: 0, z: 0}
   intensity: 14
-  period: 1.2
+  period: 1
