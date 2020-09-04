@@ -31,7 +31,7 @@ namespace Mechanics.Enemies
         {
             if(!Physics2D.OverlapPoint(Tr.position + new Vector3(0, -1.1f, 0), LayerMask.GetMask("Obstacle"))) return;    //if falling, it does nothing
             base.FixedUpdate();
-            if ((_following || _run) && Mathf.Abs(_player.position.x - Tr.position.x) > 10f)
+            if ((_following || _run) && Mathf.Abs(_player.position.x - Tr.position.x) > 15f)
             {
                 _following = false;
                 if(_run)
