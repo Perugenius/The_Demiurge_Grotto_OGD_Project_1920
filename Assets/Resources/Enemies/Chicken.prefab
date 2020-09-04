@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5083bfed1c652e448ddf76d90e43204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifePoints: 0
+  lifePoints: 2
   speed: 17
   initialDirection: 0
   tempSpeed: 23

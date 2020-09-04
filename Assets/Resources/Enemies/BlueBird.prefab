@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998a9d9fc75a0824b8a20b2586cb757d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifePoints: 0
+  lifePoints: 2
   speed: 5
   initialDirection: 0
 --- !u!114 &2550335310348660565
