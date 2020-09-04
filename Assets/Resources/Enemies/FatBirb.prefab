@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feaa15df59aaeab4b9e1aa4f20812a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifePoints: 0
   acceleration: 10
   amplitude: 1.5
 --- !u!50 &3848243419285655979
