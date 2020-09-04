@@ -118,13 +118,13 @@ public class Fan : MonoBehaviour
 
         if(alwaysOn) return;
 
-        if (_enabled && _count / 60f >= onTime)
+        if (_enabled && _count >= onTime * 60)
         {
             _count = 0;
             if(PhotonNetwork.IsMasterClient) _photonView.RPC("EnableFan", RpcTarget.All,false);
         }
         
-        if (!_enabled && _count / 60f >= offTime)
+        if (!_enabled && _count >= offTime * 60)
         {
             _count = 0;
             if(PhotonNetwork.IsMasterClient) _photonView.RPC("EnableFan", RpcTarget.All,true);
