@@ -36,7 +36,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        Hashtable roomProperties = new Hashtable {{"grotto", _dungeonChosen},{"grotto", _characterName}};
+        Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen},{_characterName, _characterName}};
         PhotonNetwork.JoinRandomRoom(roomProperties,(byte)roomSize);    //Tries to join a random room
         Debug.Log("Starting...");
     }
@@ -51,7 +51,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     {
         Debug.Log("Creating room...");
         int randomNumber = Random.Range(0, 1000);    //Random name for the room
-        Hashtable roomProperties = new Hashtable {{"grotto", _dungeonChosen}, {"grotto", _charactersRemaining[0]}, {"grotto", _charactersRemaining[1]}, {"grotto", _charactersRemaining[2]}};
+        Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen}, {_charactersRemaining[0], _charactersRemaining[0]}, {_charactersRemaining[1], _charactersRemaining[1]}, {_charactersRemaining[2], _charactersRemaining[2]}};
         RoomOptions roomOps = new RoomOptions(){IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize, CustomRoomProperties = roomProperties};
         PhotonNetwork.CreateRoom("Room" + randomNumber, roomOps);    //Attempt to create a new room
         Debug.Log("Attempting to create room " + randomNumber);
