@@ -50,7 +50,7 @@ MonoBehaviour:
   offTime: 3
   startEnabled: 0
   alwaysOn: 1
-  intensity: 1
+  intensity: 2
   particleFrequency: 6
   particle: {fileID: 8263192111558631737, guid: 9cde17b320909a9439a2bbf107d60fa9,
     type: 3}
