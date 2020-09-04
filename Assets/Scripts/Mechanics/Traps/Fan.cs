@@ -78,8 +78,8 @@ public class Fan : MonoBehaviour
         private void CreateParticle(Vector3 position)
         {
             GameObject instantiatedParticle = Instantiate(particle, position, Quaternion.identity);
-            instantiatedParticle.GetComponent<Rigidbody2D>().mass = 6f/5f*intensity;
-            instantiatedParticle.GetComponent<AirParticle>().Intensity = 14 / 2.5f * intensity;
+            instantiatedParticle.GetComponent<Rigidbody2D>().mass = 0.8f*intensity;
+            instantiatedParticle.GetComponent<AirParticle>().Intensity = 10 / 2.5f * intensity;
             StartCoroutine(WaitBeforeDeletingParticle(instantiatedParticle));
         }
 
