@@ -130,6 +130,7 @@ namespace Mechanics.Players
         
         private IEnumerator InvincibilityTime()
         {
+            SpriteRenderer.color = new Color(255, 255, 255, 0.5f);
             yield return new WaitForSeconds(_secondarySkillDuration);
             for (int i = 0; i < 4; i++)
             {

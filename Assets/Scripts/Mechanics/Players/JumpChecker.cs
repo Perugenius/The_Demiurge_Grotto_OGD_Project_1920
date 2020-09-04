@@ -17,7 +17,7 @@ namespace Mechanics.Players
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && other.gameObject.layer != LayerMask.NameToLayer("TriggerArea"))
             {
                 if (_script.GetIsJumping()){ _script.SetIsJumping(false);}
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
@@ -27,7 +27,7 @@ namespace Mechanics.Players
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera")  && other.gameObject.layer != LayerMask.NameToLayer("TriggerArea"))
             {
                 if (_script.GetIsJumping()) _script.SetIsJumping(false);
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
@@ -37,8 +37,12 @@ namespace Mechanics.Players
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            _script.SetIsJumping(true);
-            if(_script is Kinja kinja) kinja.SetJumpsNumber(1);
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") &&
+                other.gameObject.layer != LayerMask.NameToLayer("TriggerArea"))
+            {
+                _script.SetIsJumping(true);
+                if (_script is Kinja kinja) kinja.SetJumpsNumber(1);
+            }
         }
     }
 }

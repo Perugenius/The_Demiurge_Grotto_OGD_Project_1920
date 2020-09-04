@@ -215,11 +215,12 @@ namespace Mechanics.Players
             {
                 CurrentHealth -= 1;
                 HealthBar.LoseHearth();
+                PhotonView.RPC(nameof(RemotePoisoningEffect),RpcTarget.Others);
+                this.SpriteRenderer.color = Color.green;
                 if (CurrentHealth <= 0)
                 {
                     break;
                 }
-                this.SpriteRenderer.color = Color.green;
                 yield return  new WaitForSeconds(0.2f);
                 this.SpriteRenderer.color = Color.white;
                 yield return new WaitForSeconds(4.3f);
@@ -229,6 +230,20 @@ namespace Mechanics.Players
             {
                 Die();
             }
+        }
+
+        [PunRPC]
+        protected void RemotePoisoningEffect()
+        {
+            IEnumerator enumerator = ChangeSpriteColor(Color.green, 0.2f);
+            StartCoroutine(enumerator);
+        }
+
+        protected IEnumerator ChangeSpriteColor(Color color, float time)
+        {
+            SpriteRenderer.color = color;
+            yield return new WaitForSeconds(time);
+            SpriteRenderer.color = Color.white;
         }
 
         protected void CheckJumpPhase()
