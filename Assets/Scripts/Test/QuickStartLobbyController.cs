@@ -28,7 +28,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         _dungeonChosen = SaveSystem.LoadPlayerData().lastSelectedDungeon;
         foreach (string character in _characters)
         {
-            if(character!= _characterName) _charactersRemaining.Add(_characterName);
+            if(character!= _characterName) _charactersRemaining.Add(character);
         }
         
     }
