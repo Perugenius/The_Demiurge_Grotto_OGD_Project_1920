@@ -11294,6 +11294,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6119507526901392859, guid: 58004b5fe8c533040b5cda3465ef5a00,
+        type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6119507526901392859, guid: 58004b5fe8c533040b5cda3465ef5a00,
+        type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6752555504886324839, guid: 58004b5fe8c533040b5cda3465ef5a00,
         type: 3}
       propertyPath: m_Name
