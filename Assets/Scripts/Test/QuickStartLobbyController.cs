@@ -19,6 +19,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         "Kinja",
         "Steve"
     };
+    private TypedLobby sqlLobby = new TypedLobby("customSqlLobby", LobbyType.SqlLobby);
 
     private List<string> _charactersRemaining = new List<string>();
     
@@ -28,16 +29,17 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         _dungeonChosen = SaveSystem.LoadPlayerData().lastSelectedDungeon;
         foreach (string character in _characters)
         {
-            if(character!= _characterName) _charactersRemaining.Add(character);
+            if(character != _characterName){ _charactersRemaining.Add(character);}
         }
-        
     }
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen},{_characterName, _characterName}};
-        PhotonNetwork.JoinRandomRoom(roomProperties,(byte)roomSize);    //Tries to join a random room
+        //Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen},{_characterName, _characterName}};
+        //PhotonNetwork.JoinRandomRoom(roomProperties,(byte)roomSize);    //Tries to join a random room
+        string sqlLobbyFilter = "dungeon = '" + _dungeonChosen + "' AND character NOT LIKE" + _characterName + "'";
+        PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, sqlLobby, sqlLobbyFilter);
         Debug.Log("Starting...");
     }
 
@@ -51,9 +53,10 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     {
         Debug.Log("Creating room...");
         int randomNumber = Random.Range(0, 1000);    //Random name for the room
-        Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen}, {_charactersRemaining[0], _charactersRemaining[0]}, {_charactersRemaining[1], _charactersRemaining[1]}, {_charactersRemaining[2], _charactersRemaining[2]}};
+        Hashtable roomProperties = new Hashtable {{"dungeon", _dungeonChosen}, {"character", _characterName}};
         RoomOptions roomOps = new RoomOptions(){IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize, CustomRoomProperties = roomProperties};
-        PhotonNetwork.CreateRoom("Room" + randomNumber, roomOps);    //Attempt to create a new room
+        roomOps.CustomRoomPropertiesForLobby = new []{"dungeon", "character"};
+        PhotonNetwork.CreateRoom("Room" + randomNumber, roomOps, sqlLobby);   //Attempt to create a new room
         Debug.Log("Attempting to create room " + randomNumber);
     }
 
