@@ -71,7 +71,7 @@ namespace Mechanics.Enemies
         }
         
         private IEnumerator Cooldown(){
-            yield return new WaitForSeconds (.3f);
+            yield return new WaitForSeconds (.2f);
             _particleReady = true;
         }
 
