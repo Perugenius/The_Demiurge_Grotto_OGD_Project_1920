@@ -2,6 +2,7 @@
  * @Author: Elio Salvini
  */
 
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -36,15 +37,17 @@ namespace Core
         public GameObject PrefabRoom;
         public List<string> Blacklist;
         public List<FrontierPointData> RoomFrontier;
+        public RoomSides EntranceSide;
         public int NumOfChildren;
 
-        public RoomNode(RoomNode parent, GameObject roomInstance, GameObject prefabRoom)
+        public RoomNode(RoomNode parent, GameObject roomInstance, GameObject prefabRoom, RoomSides entranceSide)
         {
             Parent = parent;
             RoomInstance = roomInstance;
             PrefabRoom = prefabRoom;
             Blacklist = new List<string>();
             RoomFrontier = new List<FrontierPointData>();
+            EntranceSide = entranceSide;
             NumOfChildren = -1;
         }
     }
@@ -55,9 +58,16 @@ namespace Core
     public class DungeonBuilder : MonoBehaviour
     {
         /// <summary>
-        /// True if dungeon has been builded
+        /// True if dungeon has been built
         /// </summary>
-        public bool dungeonReady = false;
+        private bool _dungeonReady = false;
+
+        public bool DungeonReady => _dungeonReady;
+
+        /// <summary>
+        /// true to enable debug mode
+        /// </summary>
+        [SerializeField] private bool debugMode = false;
         
         /// <summary>
         /// List of all existing rooms to build a dungeon
@@ -93,6 +103,14 @@ namespace Core
         /// <param name="maxNumOfUsages"> max number of time that a single prefab room can appear in the dungeon
         ///                               (flexible constraint) </param> 
         public void BuildDungeon(int type, List<DungeonRoom.PlatformingSkills> requiredSkills, int numOfRooms, int maxNumOfUsages) {
+
+            if (debugMode)
+            {
+                StartCoroutine(DebugMode(type,requiredSkills,numOfRooms,maxNumOfUsages));
+                return;
+            }
+
+            _dungeonReady = false;
             _roomsPositions = new List<Vector3>();
             _frontier = new List<FrontierPointData>();
             _numOfRooms = numOfRooms;
@@ -106,7 +124,7 @@ namespace Core
             GameObject firstRoom = SelectFirstRoom();
             GameObject firstRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(firstRoom, type), Vector3.zero, Quaternion.identity);
             _roomInstancesList.Add(firstRoomInstance);
-            RoomNode root = new RoomNode(null,firstRoomInstance, firstRoom);
+            RoomNode root = new RoomNode(null,firstRoomInstance, firstRoom, RoomSides.None);
             _roomsScriptsList[_roomsSpecificTypeList.IndexOf(firstRoom)].AddUsage();
             _roomsPositions.Add(Vector3.zero);
             _currentNumberOfRooms++;
@@ -116,14 +134,15 @@ namespace Core
             
             for (int i = 0; i < numOfRooms - 2; i++)
             {
-                GameObject room = SelectRoom(_frontier[0].EntranceSide, parent);
+                RoomSides entranceSide = _frontier[0].EntranceSide;
+                GameObject room = SelectRoom(entranceSide, parent);
 
                 if (room != null)
                 {
                     _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
                     GameObject roomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
                     _roomInstancesList.Add(roomInstance);
-                    RoomNode child = new RoomNode(parent,roomInstance, room);
+                    RoomNode child = new RoomNode(parent,roomInstance, room, entranceSide);
                     parent = child;
                     _roomsPositions.Add(_frontier[0].Position);
                     _currentNumberOfRooms++;
@@ -142,7 +161,7 @@ namespace Core
                 else //Last room placed removed for tree backtracking
                 {
                     parent = parent.Parent;
-                    i--;
+                    i-=2;
                 }
             }
 
@@ -150,7 +169,81 @@ namespace Core
             GameObject lastRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
             _roomInstancesList.Add(lastRoomInstance);
             
-            dungeonReady = true;
+            _dungeonReady = true;
+        }
+
+        /// <summary>
+        /// Used to build a dungeon step by step (pressing "space" will active next step)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="requiredSkills"></param>
+        /// <param name="numOfRooms"></param>
+        /// <param name="maxNumOfUsages"></param>
+        /// <returns></returns>
+        private IEnumerator DebugMode(int type, List<DungeonRoom.PlatformingSkills> requiredSkills, int numOfRooms, int maxNumOfUsages)
+        {
+            _dungeonReady = false;
+            _roomsPositions = new List<Vector3>();
+            _frontier = new List<FrontierPointData>();
+            _numOfRooms = numOfRooms;
+            _maxNumOfUsages = maxNumOfUsages;
+            _roomInstancesList = new List<GameObject>();
+            
+            //Init all needed lists of rooms
+            InitLists(type, requiredSkills);
+
+            //Initialization: instantiation of first room 
+            GameObject firstRoom = SelectFirstRoom();
+            GameObject firstRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(firstRoom, type), Vector3.zero, Quaternion.identity);
+            _roomInstancesList.Add(firstRoomInstance);
+            RoomNode root = new RoomNode(null,firstRoomInstance, firstRoom, RoomSides.None);
+            _roomsScriptsList[_roomsSpecificTypeList.IndexOf(firstRoom)].AddUsage();
+            _roomsPositions.Add(Vector3.zero);
+            _currentNumberOfRooms++;
+            UpdateFrontier(firstRoom, Vector3.zero, RoomSides.None, root);
+
+            RoomNode parent = root;
+            
+            for (int i = 0; i < numOfRooms - 2; i++)
+            {
+                yield return new WaitForSeconds(0.2f);
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+                RoomSides entranceSide = _frontier[0].EntranceSide;
+                GameObject room = SelectRoom(entranceSide, parent);
+
+                if (room != null)
+                {
+                    _roomsScriptsList[_roomsSpecificTypeList.IndexOf(room)].AddUsage();
+                    GameObject roomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(room, type), _frontier[0].Position, Quaternion.identity);
+                    _roomInstancesList.Add(roomInstance);
+                    RoomNode child = new RoomNode(parent,roomInstance, room, entranceSide);
+                    parent = child;
+                    _roomsPositions.Add(_frontier[0].Position);
+                    _currentNumberOfRooms++;
+                    UpdateFrontier(room, _frontier[0].Position, _frontier[0].EntranceSide,child);
+                    _frontier.RemoveAt(0);
+                    _currentDifficulty = Mathf.RoundToInt((i+2f) / numOfRooms * 5f);
+                    roomInstance.GetComponent<DungeonRoom>().SetDifficulty(_currentDifficulty);
+                    
+                    /*Debug.Log("RoomNode: " + child.RoomInstance.name);
+                    Debug.Log("RoomNode parent: " + child.Parent.RoomInstance.name);
+                    Debug.Log("Frontier top: " +_frontier[0].Position.ToString());
+                    Debug.Log("Frontier length = " + _frontier.Count);
+                    Debug.Log("current room difficulty: " + _currentDifficulty);*/
+                    
+                }
+                else //Last room placed removed for tree backtracking
+                {
+                    parent = parent.Parent;
+                    i-=2;
+                }
+            }
+
+            GameObject lastRoom = SelectLastRoom(_frontier[0].EntranceSide);
+            GameObject lastRoomInstance = PhotonNetwork.Instantiate(GetGameObjectPath(lastRoom, type), _frontier[0].Position, Quaternion.identity);
+            _roomInstancesList.Add(lastRoomInstance);
+            
+            _dungeonReady = true;
         }
 
         private void InitLists(int type, List<DungeonRoom.PlatformingSkills> skills)
@@ -272,7 +365,7 @@ namespace Core
         private GameObject SelectRoom(RoomSides entranceSide, RoomNode parent)
         {
             //all remaining rooms to build must be leaf rooms
-            if(!_leafRoomNeeded) _leafRoomNeeded = _frontier.Count >= (_numOfRooms - _currentNumberOfRooms);
+            _leafRoomNeeded = _frontier.Count >= (_numOfRooms - _currentNumberOfRooms);
             
             /*Debug.Log("LeafRoomNeeded = " + _leafRoomNeeded);*/
 
@@ -437,10 +530,20 @@ namespace Core
             Destroy(node.RoomInstance);
             node.Parent.Blacklist.Add(node.PrefabRoom.name);
             _currentNumberOfRooms--;
+            Vector3 deletingRoomPosition = node.RoomInstance.transform.position;
             _roomsPositions.RemoveAt(_roomsPositions.Count-1);
             foreach (var point in node.RoomFrontier)
             {
                 _frontier.Remove(point);
+            }
+            _frontier.Insert(0,new FrontierPointData(deletingRoomPosition,node.EntranceSide));
+        }
+
+        public void DestroyDungeon()
+        {
+            foreach (var room in _roomInstancesList)
+            {
+                Destroy(room);
             }
         }
 

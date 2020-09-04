@@ -4226,7 +4226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34e9e5f0238e9a4ea0b053ed4a5fc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonReady: 0
+  debugMode: 0
 --- !u!114 &2067118849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4245,7 +4245,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 1915276528}
   disconnectionScreen: {fileID: 1810506403}
   messageBox: {fileID: 1191053969}
-  singlePlayerMode: 0
+  singlePlayerMode: 1
   gemsHUD: {fileID: 368409072}
   lettersHUD: {fileID: 246112639}
   attackBar: {fileID: 949469983}

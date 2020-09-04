@@ -29,6 +29,9 @@ namespace Core
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private CollectiblesManager _collectiblesManager;
+        private bool _playerInstantiated;
+        private int _maxBuildTentatives = 2;
+
 
         void Awake()
         {
@@ -60,8 +63,8 @@ namespace Core
                     case "Pinkie": playersSkills.Add(DungeonRoom.PlatformingSkills.Intangibility); break;
                     case "Steve": playersSkills.Add(DungeonRoom.PlatformingSkills.WallJump); break;
                 }
-            } 
-            
+            }
+
             int type = 1;
             switch (SaveSystem.LoadPlayerData().lastSelectedDungeon)
             {
@@ -75,7 +78,28 @@ namespace Core
                     break;
             }
 
-            GetComponent<DungeonBuilder>().BuildDungeon(type,playersSkills,15,2);
+            Debug.Log(_maxBuildTentatives);
+            
+            try
+            {
+                _dungeonBuilder.BuildDungeon(type,playersSkills,15,2);
+            }
+            catch (Exception e)
+            {
+                if (e is ArgumentOutOfRangeException || e is NullReferenceException)
+                {
+                    Debug.LogError("Error during dungeon creation");
+                    if(_maxBuildTentatives <= 0)
+                    {
+                        ExitDungeon(false);
+                        return;
+                    }
+                    _maxBuildTentatives--;
+                    _dungeonBuilder.DestroyDungeon();
+                    BuildDungeon(secondCharacter);
+                }
+                throw;
+            }
         }
 
         public void OnJoinScene()
@@ -102,10 +126,10 @@ namespace Core
         void Update()
         {
             if(!PhotonNetwork.IsMasterClient) return;
-            if (_dungeonBuilder.dungeonReady)
+            if (_dungeonBuilder.DungeonReady && _playerInstantiated == false)
             {
-                _dungeonBuilder.dungeonReady = false;
                 GetComponent<PhotonView>().RPC("InstantiatePlayer", RpcTarget.All);
+                _playerInstantiated = true;
             }
         }
 

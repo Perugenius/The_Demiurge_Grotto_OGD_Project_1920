@@ -39,7 +39,7 @@ public class DungeonMap : MonoBehaviour
         if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1)) && _menu.isFocused() && !_menu.DuringTransition) _menu.Focus(false);
         if((Input.GetKeyDown("m") || Input.GetKeyDown(KeyCode.Joystick1Button6)) && _menu.isFocused() && !_menu.DuringTransition) _menu.Focus(false);
 
-        if (!_mapIsCentered && _dungeonBuilder.dungeonReady) CenterMap();
+        if (!_mapIsCentered && _dungeonBuilder.DungeonReady) CenterMap();
     }
 
     private void CenterMap()
