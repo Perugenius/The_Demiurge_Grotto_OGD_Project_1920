@@ -211,7 +211,7 @@ MonoBehaviour:
   damagePlayer: {fileID: 8414922730007643150}
   speed: 10
   initialDirection: 0
-  tempSpeed: 20
+  tempSpeed: 15
 --- !u!114 &3134253479016704734
 MonoBehaviour:
   m_ObjectHideFlags: 0

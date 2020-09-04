@@ -95,7 +95,7 @@ namespace Mechanics.Enemies
         
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer") && !_withdrawn)
             {
                 PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
                 if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
