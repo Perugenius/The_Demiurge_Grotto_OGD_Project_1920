@@ -23,6 +23,8 @@ namespace Mechanics.Players
         private float _projectileSpeed;
         private float _secondarySkillDuration;
         private IEnumerator _invincibilityCoroutine;
+
+        public GameObject pillowPrefab;
         
         
         // Start is called before the first frame update
@@ -86,8 +88,17 @@ namespace Mechanics.Players
                 if (elem.activeSelf)
                 {
                     _canSummonPillow = false;
-                    GameObject pillow = PhotonNetwork.Instantiate(Path.Combine("Players", "Pillow"),
-                        elem.transform.position, Quaternion.identity);
+                    GameObject pillow;
+                    if (!localTesting)
+                    {
+                        pillow = PhotonNetwork.Instantiate(Path.Combine("Players", "Pillow"),
+                            elem.transform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        pillow = GameObject.Instantiate(pillowPrefab,
+                            elem.transform.position, Quaternion.identity);
+                    }
                     pillow.transform.SetParent(gameObject.transform);
                     Pillow pillowScript = pillow.GetComponent<Pillow>();
                     pillowScript.SetPlayerPosition(transform);
