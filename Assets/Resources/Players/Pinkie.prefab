@@ -369,10 +369,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: IsDescending
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Appear
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Disappear
   m_SynchronizeLayers:
   - SynchronizeType: 0
@@ -391,6 +391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statistics: {fileID: 11400000, guid: ebd1085ee634e7046bc66b27212ca37b, type: 2}
   localTesting: 0
+  pillowPrefab: {fileID: 8490094600946327093, guid: 8f9cfd9b1204bfa4a8adf5bb79c69624,
+    type: 3}
 --- !u!114 &-2444878396413433925
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ namespace Mechanics.Players
         private float _fireRate = 2;
         private float _range = 3;
         private float _projectileSpeed = 10;
+
+        public GameObject laserPrefab;
         
         
         
@@ -107,8 +109,18 @@ namespace Mechanics.Players
         protected override void Attack()
         {
             CanAttack = false;
-            GameObject laser =
-                PhotonNetwork.Instantiate(Path.Combine("Players", "Laser"), _spawnPosition.position, Quaternion.identity);
+            GameObject laser;
+            if (!localTesting)
+            {
+                laser =
+                    PhotonNetwork.Instantiate(Path.Combine("Players", "Laser"), _spawnPosition.position,
+                        Quaternion.identity);
+            }
+            else
+            {
+                laser = GameObject.Instantiate(laserPrefab, _spawnPosition.position, Quaternion.identity);
+            }
+
             Laser laserScript = laser.GetComponent<Laser>();
             laserScript.Damage = CurrentAttack;
             laserScript.Direction = FaceDirection;
