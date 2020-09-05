@@ -310,6 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statistics: {fileID: 11400000, guid: 89772b404e99a6c4eb241ab72781bda1, type: 2}
   localTesting: 0
+  shurikenPrefab: {fileID: 5993339500119300286, guid: 95daef9f8b1c6d74a9ad4977ccf9169e,
+    type: 3}
 --- !u!95 &5333398801255214137
 Animator:
   serializedVersion: 3

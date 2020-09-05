@@ -13,6 +13,8 @@ namespace Mechanics.Players
         private Transform _attackSpawner;
         private int _projectileNumber;
         private float _projectileSpeed;
+
+        public GameObject shurikenPrefab;
         
         // Start is called before the first frame update
         protected override void Start()
@@ -60,8 +62,18 @@ namespace Mechanics.Players
             for (int i = 1; i <= _projectileNumber; i++)
             {
                 Animator.SetTrigger(DoubleJump);
-                GameObject shuriken = PhotonNetwork.Instantiate(Path.Combine("Players", "Shuriken"),
-                    _attackSpawner.position, Quaternion.identity);
+                GameObject shuriken;
+                if (!localTesting)
+                {
+                    shuriken = PhotonNetwork.Instantiate(Path.Combine("Players", "Shuriken"),
+                        _attackSpawner.position, Quaternion.identity);
+                }
+                else
+                {
+                    shuriken = GameObject.Instantiate(shurikenPrefab,
+                        _attackSpawner.position, Quaternion.identity);
+                }
+
                 Shuriken shurikenScript = shuriken.GetComponent<Shuriken>();
                 shurikenScript.SetDamage(CurrentAttack);
                 Vector2 direction = Vector2.down;

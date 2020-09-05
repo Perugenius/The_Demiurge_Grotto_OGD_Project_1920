@@ -29,7 +29,7 @@ namespace Mechanics.Players
         protected override void Start()
         {
             base.Start();
-            if (IsMine)
+            if (IsMine || localTesting)
             {
                 _pillowSpawners = new List<GameObject>();
                 foreach (Transform child in transform)

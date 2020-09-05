@@ -67,7 +67,7 @@ namespace Mechanics.Players
 
         protected override void FixedUpdate()
         {
-            if (IsMine)
+            if (IsMine || localTesting)
             {
                 if (!_isDashing)
                     base.FixedUpdate();
