@@ -11723,6 +11723,11 @@ PrefabInstance:
       propertyPath: _distance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8847410253298055020, guid: ec1f3b2b00dcc9143be87798d6148377,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec1f3b2b00dcc9143be87798d6148377, type: 3}
 --- !u!4 &5898960167394275443 stripped
