@@ -8,7 +8,7 @@ namespace Mechanics.Players
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && steveScript.GetIsJumping())
             {
                 steveScript.IsOnWall = true;
                 steveScript.WallSide = WallSide.LeftWall;
@@ -17,7 +17,7 @@ namespace Mechanics.Players
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && steveScript.GetIsJumping())
             {
                 steveScript.IsOnWall = true;
                 steveScript.WallSide = WallSide.LeftWall;
@@ -26,7 +26,7 @@ namespace Mechanics.Players
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
                 steveScript.IsOnWall = false;
                 steveScript.SetIsJumping(true);

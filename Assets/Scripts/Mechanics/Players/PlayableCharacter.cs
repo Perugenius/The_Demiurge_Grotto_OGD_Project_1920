@@ -39,6 +39,7 @@ namespace Mechanics.Players
         protected bool JumpingController;
         protected float MaxJumpTime;
         protected float CurrentJumpTime;
+        protected GameObject Shadow;
 
         protected HealthBar HealthBar;
         protected Bar AttackBar;
@@ -68,6 +69,8 @@ namespace Mechanics.Players
             Hitbox = transform.Find("PlayerHitbox").gameObject;
             Animator = GetComponent<Animator>();
             this.PhotonView = PhotonView.Get(this);
+            Shadow = transform.Find("Shadow").gameObject;
+            Shadow.SetActive(false);
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 PlayerData = SaveSystem.LoadPlayerData();
@@ -431,6 +434,12 @@ namespace Mechanics.Players
                 HealthBar.RefillHearth(life);
             }
         }
+
+        public void SetShadowActive(bool condition)
+        {
+            Shadow.SetActive(condition);
+        }
+        
 
         public void KillPlayer()
         {
