@@ -290,6 +290,7 @@ namespace Mechanics.Players
 
                     if ((LayerMask.GetMask("DamageTrap") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
                     {
+                        PhotonView.RPC(nameof(RemoteDisappearAnimation),RpcTarget.Others);
                         StartCoroutine(nameof(DisappearAnimation));
                     }
                     StartCoroutine(nameof(DamageEffect));
@@ -325,10 +326,19 @@ namespace Mechanics.Players
             CanMove = false;
             Animator.SetTrigger(Disappear);
             yield return new WaitForSeconds(1);
-            transform.position = CheckPoint;
+            if (IsMine)
+            {
+                transform.position = CheckPoint;
+            }
             Animator.SetTrigger(Appear);
             yield return  new WaitForSeconds(1);
             CanMove = true;
+        }
+
+        [PunRPC]
+        protected void RemoteDisappearAnimation()
+        {
+            StartCoroutine(nameof(DisappearAnimation));
         }
         
         private void OnCollisionEnter2D(Collision2D other)

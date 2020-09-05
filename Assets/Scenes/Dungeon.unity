@@ -1826,6 +1826,8 @@ MonoBehaviour:
   iconsDistance: 3.625
   activeColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0.5882353}
   inactiveColor: {r: 0, g: 0, b: 0, a: 0.5882353}
+  offlineMode: 0
+  offlineRoomList: []
 --- !u!114 &869155836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4245,7 +4247,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 1915276528}
   disconnectionScreen: {fileID: 1810506403}
   messageBox: {fileID: 1191053969}
-  singlePlayerMode: 1
+  singlePlayerMode: 0
   gemsHUD: {fileID: 368409072}
   lettersHUD: {fileID: 246112639}
   attackBar: {fileID: 949469983}

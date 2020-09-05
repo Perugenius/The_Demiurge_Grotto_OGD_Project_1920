@@ -365,10 +365,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: DoubleJump
   - Type: 9
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: Appear
   - Type: 9
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: Disappear
   m_SynchronizeLayers:
   - SynchronizeType: 0
