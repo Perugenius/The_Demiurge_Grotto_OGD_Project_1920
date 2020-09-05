@@ -19,6 +19,7 @@ namespace Mechanics.Collectibles
         private bool _isCollected = false;
         private bool _responseDelivered = false;
         private int _timeout = 100;
+        [SerializeField] private bool offlineMode = false;
 
         private void Start()
         {
@@ -27,6 +28,12 @@ namespace Mechanics.Collectibles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (offlineMode)
+            {
+                Collect();
+                return;
+            }
+            
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;

@@ -14,6 +14,7 @@ namespace Mechanics.Collectibles
         private static readonly int IsCollected = Animator.StringToHash("isCollected");
         private bool _isCollected = false;
         private SpriteRenderer _spriteRenderer;
+        [SerializeField] private bool offlineMode = false;
 
         // Start is called before the first frame update
         void Start()
@@ -29,10 +30,21 @@ namespace Mechanics.Collectibles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (offlineMode)
+            {
+                Collect(other);
+                return;
+            }
+            
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
-            PlayableCharacter playableCharacter = other.gameObject.GetComponent<PlayableCharacter>();
+            Collect(other);
+        }
+
+        private void Collect(Collider2D playerCollider)
+        {
+            PlayableCharacter playableCharacter = playerCollider.gameObject.GetComponent<PlayableCharacter>();
             if(playableCharacter!=null && !_isCollected)
             {
                 _isCollected = true;

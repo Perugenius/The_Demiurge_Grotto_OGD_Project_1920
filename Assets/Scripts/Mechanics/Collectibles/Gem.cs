@@ -10,6 +10,7 @@ namespace Mechanics.Collectibles
         public int value = 1;
         [SerializeField] private Animator _animator;
         [SerializeField] private Text _text;
+        [SerializeField] private bool offlineMode = false;
         private static readonly int IsCollected = Animator.StringToHash("isCollected");
         private CollectiblesManager _collectiblesManager;
         private bool _isCollected = false;
@@ -26,6 +27,13 @@ namespace Mechanics.Collectibles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            //used in offline tutorial
+            if(offlineMode)
+            {
+                Collect();
+                return;
+            }
+            
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;

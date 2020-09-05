@@ -12,6 +12,8 @@ public class DungeonMap : MonoBehaviour
     [SerializeField] private float iconsDistance = 2f;
     [SerializeField] private Color activeColor;
     [SerializeField] private Color inactiveColor;
+    [SerializeField] private bool offlineMode = false;
+    [SerializeField] private List<GameObject> offlineRoomList;
     private Dictionary<GameObject, GameObject> _roomIcons;
     private GameObject _activeRoom;
     private DungeonBuilder _dungeonBuilder;
@@ -29,7 +31,8 @@ public class DungeonMap : MonoBehaviour
     {
         _roomIcons = new Dictionary<GameObject, GameObject>();
         _menu = gameObject.GetComponent<Menu>();
-        _dungeonBuilder = GameObject.Find("GameManager").GetComponent<DungeonBuilder>();
+        if(!offlineMode) _dungeonBuilder = GameObject.Find("GameManager").GetComponent<DungeonBuilder>();
+        if(offlineMode) CenterMap();
     }
 
     // Update is called once per frame
@@ -39,12 +42,12 @@ public class DungeonMap : MonoBehaviour
         if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1)) && _menu.isFocused() && !_menu.DuringTransition) _menu.Focus(false);
         if((Input.GetKeyDown("m") || Input.GetKeyDown(KeyCode.Joystick1Button6)) && _menu.isFocused() && !_menu.DuringTransition) _menu.Focus(false);
 
-        if (!_mapIsCentered && _dungeonBuilder.DungeonReady) CenterMap();
+        if (!_mapIsCentered && !offlineMode && _dungeonBuilder.DungeonReady) CenterMap();
     }
 
     private void CenterMap()
     {
-        _roomsList = _dungeonBuilder.RoomInstancesList;
+        _roomsList = (offlineMode)? offlineRoomList:_dungeonBuilder.RoomInstancesList;
         _mapIsCentered = true;
         Vector3 firstRoomPosition = _roomsList[0].transform.position;
         float xUpperBound = firstRoomPosition.x, yUpperBound = firstRoomPosition.y, xLowerBound = firstRoomPosition.x, yLowerBound = firstRoomPosition.y;

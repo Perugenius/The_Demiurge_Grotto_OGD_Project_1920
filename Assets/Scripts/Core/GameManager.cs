@@ -131,6 +131,9 @@ namespace Core
                 GetComponent<PhotonView>().RPC("InstantiatePlayer", RpcTarget.All);
                 _playerInstantiated = true;
             }
+            
+            //debug
+            if(Input.GetKeyDown(KeyCode.Escape)) ExitDungeon(false);
         }
 
         private void ExitDungeon(bool isGameOver)
