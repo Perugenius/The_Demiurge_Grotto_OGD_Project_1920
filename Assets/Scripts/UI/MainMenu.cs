@@ -54,7 +54,7 @@ public class MainMenu : MonoBehaviour
     public const int dungeon3LettersThreshold = 20;
     public const int dungeon4LettersThreshold = 30;
 
-    private const int characterPrice = 10;
+    private const int characterPrice = 1; //just for the prototype
 
     private List<Perk> perks;
 
@@ -159,6 +159,14 @@ public class MainMenu : MonoBehaviour
         PlayerData playerData = SaveSystem.LoadPlayerData();
         
         TryUnlockDungeon(playerData);
+
+        if (playerData.lastSelectedDungeon == "Tutorial")
+        {
+            GameObject button = _dungeonMenu.gameObject.transform.Find("Tutorial").gameObject;
+            var colors = button.GetComponent<Button> ().colors;
+            colors.normalColor = selectedColor;
+            button.GetComponent<Button> ().colors = colors;
+        }
         
         foreach (var dungeon in playerData.unlockedDungeons)
         {
@@ -200,6 +208,14 @@ public class MainMenu : MonoBehaviour
             colors.normalColor = selectedColor;
             button.GetComponent<Button> ().colors = colors;
         }
+
+        if (dungeon != "Tutorial")
+        {
+            GameObject dunButton = _dungeonMenu.gameObject.transform.Find("Tutorial").gameObject;
+            var colors = dunButton.GetComponent<Button> ().colors;
+            colors.normalColor = normalColor;
+            dunButton.GetComponent<Button> ().colors = colors;
+        } 
         
         foreach (var dun in playerData.unlockedDungeons)
         {
@@ -212,7 +228,7 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
-    
+
     public void ShowPerksMenu()
     {
         if(UITransition()) return;
@@ -365,7 +381,8 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("NetworkSetup");
+        if (SaveSystem.LoadPlayerData().lastSelectedDungeon == "Tutorial") SceneManager.LoadScene("Tutorial");
+        else SceneManager.LoadScene("NetworkSetup");
     }
 
     public void QuitGame()

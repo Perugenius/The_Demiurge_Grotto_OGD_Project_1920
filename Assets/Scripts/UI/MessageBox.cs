@@ -23,24 +23,29 @@ public class MessageBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_menu.isFocused() && Input.anyKey && !_menu.DuringTransition && _closable) StartCoroutine(CloseMessage());
+        if (_menu.isFocused() && Input.anyKey && !_menu.DuringTransition && _closable) _menu.Focus(false);
     }
 
     private IEnumerator CloseMessage()
     {
         _menu.Focus(false);
-        yield return new WaitForSeconds(2f);
-        if (_que.Count > 0)
+        while (_menu.DuringTransition)
         {
-            string message = _que[0];
-            _que.Remove(message);
-            ShowMessage(message);
+            yield return new WaitForEndOfFrame();
         }
+        string message = _que[0];
+        _que.Remove(message);
+        ShowMessage(message);
     }
 
     public void ShowMessage(string message)
     {
-        if(_menu.isFocused()) _que.Add(message);
+        Debug.Log("Show message");
+        if (_menu.isFocused())
+        {
+            _que.Add(message);
+            StartCoroutine(CloseMessage());
+        }
         else
         {
             _messageText.text = message;

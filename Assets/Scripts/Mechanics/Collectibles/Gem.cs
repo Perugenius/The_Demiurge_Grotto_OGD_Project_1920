@@ -30,6 +30,8 @@ namespace Mechanics.Collectibles
             //used in offline tutorial
             if(offlineMode)
             {
+                if(_isCollected) return;
+                _isCollected = true;
                 Collect();
                 return;
             }

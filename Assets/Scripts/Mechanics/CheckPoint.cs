@@ -6,6 +6,7 @@ namespace Mechanics
 {
     public class CheckPoint : MonoBehaviour
     {
+        [SerializeField] private bool offlineMode = false;
         private Transform _tr;
 
         private void Start()
@@ -15,9 +16,12 @@ namespace Mechanics
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            PhotonView playerPhotonView = other.gameObject.GetComponent<PhotonView>();
-            if(playerPhotonView!=null && !playerPhotonView.IsMine) return;
-        
+            if (!offlineMode)
+            {
+                PhotonView playerPhotonView = other.gameObject.GetComponent<PhotonView>();
+                if(playerPhotonView!=null && !playerPhotonView.IsMine) return;
+            }
+
             PlayableCharacter player = other.gameObject.GetComponent<PlayableCharacter>();
             if (player != null)
             {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.SaveLoadData;
 using Mechanics.Camera;
+using Mechanics.Collectibles;
 using Mechanics.Players;
 using Model;
 using Photon.Pun;

@@ -30,6 +30,8 @@ namespace Mechanics.Collectibles
         {
             if (offlineMode)
             {
+                if(_isCollected) return;
+                _isCollected = true;
                 Collect();
                 return;
             }
@@ -94,7 +96,8 @@ namespace Mechanics.Collectibles
                 transform.localScale = new Vector3(1,1,1);
                 _animator.SetBool(IsCollected, true);
                 StartCoroutine(WaitBeforeDestroy());
-                GameManager.Instance.ShowVictoryScreen();
+                if(offlineMode) GameObject.Find("TutorialManager").GetComponent<TutorialManager>().ShowVictoryScreen();
+                else GameManager.Instance.ShowVictoryScreen();
             }
         }
 
