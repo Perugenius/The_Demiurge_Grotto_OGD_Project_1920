@@ -24,7 +24,7 @@ namespace Mechanics.Enemies
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
-                PhotonNetwork.Destroy(gameObject);
+                if(PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
             }
         }
     }

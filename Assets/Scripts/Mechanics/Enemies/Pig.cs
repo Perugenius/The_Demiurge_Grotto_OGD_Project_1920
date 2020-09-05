@@ -111,14 +111,14 @@ namespace Mechanics.Enemies
         private IEnumerator DiePig(){
             Rb.velocity = Vector2.zero;
             GetComponent<Collider2D>().enabled = false;
-            for (float ft = 1f; ft >= 0; ft -= 0.01f) 
+            for (float ft = 1f; ft >= 0; ft -= 0.03f) 
             {
                 Color c = GetComponent<Renderer>().material.color;
                 c.a = ft;
                 GetComponent<Renderer>().material.color = c;
                 yield return null;
             }
-            Destroy(gameObject);
+            if(PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
         }
         
         protected override void OnTriggerEnter2D(Collider2D other)
