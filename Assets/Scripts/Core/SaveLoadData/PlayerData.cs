@@ -32,8 +32,8 @@ namespace Core.SaveLoadData
         {
             currentCharacter = firstUnlockedCharacter;
             unlockedCharacters = new List<string> {firstUnlockedCharacter};
-            lastSelectedDungeon = "RunupHills";
-            unlockedDungeons = new List<string>{lastSelectedDungeon};
+            lastSelectedDungeon = "Tutorial";
+            unlockedDungeons = new List<string>{"RunupHills"};
             perks = new Dictionary<string, Dictionary<string, int>>();
             maxHealth = new Dictionary<string, int>();
             attack = new Dictionary<string, float>();
