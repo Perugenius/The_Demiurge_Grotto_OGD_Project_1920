@@ -468,10 +468,10 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: WallSide
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Appear
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Disappear
   m_SynchronizeLayers:
   - SynchronizeType: 0
@@ -490,6 +490,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statistics: {fileID: 11400000, guid: 43eb9c94fd0b1ac40a1199706fc3f585, type: 2}
   localTesting: 0
+  laserPrefab: {fileID: 7768534562038646886, guid: d0b11a97f5c7d5740a69dd4cf598e85f,
+    type: 3}
 --- !u!68 &8245245405666972943
 EdgeCollider2D:
   m_ObjectHideFlags: 0
