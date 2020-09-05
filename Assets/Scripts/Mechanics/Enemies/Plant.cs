@@ -41,8 +41,8 @@ namespace Mechanics.Enemies
         // Update is called once per frame
         void FixedUpdate()
         {
-            RaycastHit2D left = Physics2D.Raycast(_tr.position, Vector2.left, 20, LayerMask.GetMask("PlayerPhysic","Obstacle"));
-            RaycastHit2D right = Physics2D.Raycast(_tr.position, Vector2.right, 20, LayerMask.GetMask("PlayerPhysic","Obstacle"));
+            RaycastHit2D left = Physics2D.Raycast(_tr.position, Vector2.left, 55, LayerMask.GetMask("PlayerPhysic","Obstacle"));
+            RaycastHit2D right = Physics2D.Raycast(_tr.position, Vector2.right, 55, LayerMask.GetMask("PlayerPhysic","Obstacle"));
             if (left.collider && left.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") && !_shooting && !_waiting && !_ending)
             {
                 _tr.Rotate(0f,Vector3.Angle(_direction,Vector2.left),0f);
