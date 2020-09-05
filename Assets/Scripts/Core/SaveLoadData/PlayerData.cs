@@ -59,7 +59,6 @@ namespace Core.SaveLoadData
                 
                 //TODO update this value if needed @Ice    
                 maxHealth.Add(character,5);
-                attack.Add(character,1);
                 jumpHeight.Add(character, 62);
                 speed.Add(character, 14);
                 reanimationLife.Add(character, 2);
@@ -68,6 +67,7 @@ namespace Core.SaveLoadData
                     secondarySkillLevel.Add(character, 1);
                     if (character.Contains("Kinja"))
                     {
+                        attack.Add(character,1);
                         attackRate.Add(character,1f);
                         projectileNumber.Add(character, 1);
                         projectileSpeed.Add(character,16);
@@ -75,6 +75,7 @@ namespace Core.SaveLoadData
 
                     if (character.Contains("Pinkie"))
                     {
+                        attack.Add(character,1);
                         attackRate.Add(character, 1.5f);
                         projectileNumber.Add(character,1);
                         projectileSpeed.Add(character,200);
@@ -83,6 +84,7 @@ namespace Core.SaveLoadData
 
                     if (character.Contains("Steve"))
                     {
+                        attack.Add(character,1.5f);
                         attackRate.Add(character,2);
                         attackRange.Add(character, 7);
                         projectileSpeed.Add(character, 10);
@@ -90,6 +92,7 @@ namespace Core.SaveLoadData
                 }
                 else if (character.Contains("Voodoo"))
                 {
+                    attack.Add(character,1);
                     attackRate.Add(character,0.5f);
                 }
             }

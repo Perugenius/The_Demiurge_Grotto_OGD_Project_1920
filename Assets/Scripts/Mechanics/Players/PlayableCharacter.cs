@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Core;
 using Core.SaveLoadData;
 using Photon.Pun;
 using Scriptable_Objects;
@@ -56,6 +57,7 @@ namespace Mechanics.Players
         protected IEnumerator PoisoningCoroutine;
 
         protected Vector2 CheckPoint;
+        public bool immortalMode;
 
         
         
@@ -276,25 +278,32 @@ namespace Mechanics.Players
 
         public void TakeDamage(Collider2D other)
         {
-            if (IsMine && !IsDying)
+            if (IsMine && !IsDying )
             {
-                CurrentHealth -= 1;
-                HealthBar.LoseHearth();
+                if (!immortalMode || (immortalMode && CurrentHealth > 1))
+                {
+                    CurrentHealth -= 1;
+                    HealthBar.LoseHearth();
+                }
+
                 if (CurrentHealth <= 0)
                 {
                     Die();
                 }
                 else
                 {
-                    IsTakingDamage = true;
-
-                    if ((LayerMask.GetMask("DamageTrap") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+                    if (other.gameObject.layer == LayerMask.NameToLayer("DamageTrap"))
                     {
-                        PhotonView.RPC(nameof(RemoteDisappearAnimation),RpcTarget.Others);
+                        IsTakingDamage = true;
+                        PhotonView.RPC(nameof(RemoteDisappearAnimation), RpcTarget.Others);
                         StartCoroutine(nameof(DisappearAnimation));
                     }
-                    StartCoroutine(nameof(DamageEffect));
-                    this.PhotonView.RPC(nameof(TakeRemoteDamage),RpcTarget.Others);
+                    else if(!immortalMode || (immortalMode && CurrentHealth > 1))
+                    {
+                        IsTakingDamage = true;
+                        StartCoroutine(nameof(DamageEffect));
+                        this.PhotonView.RPC(nameof(TakeRemoteDamage), RpcTarget.Others);
+                    }
                 }
             }
         }
@@ -333,6 +342,7 @@ namespace Mechanics.Players
             Animator.SetTrigger(Appear);
             yield return  new WaitForSeconds(1);
             CanMove = true;
+            IsTakingDamage = false;
         }
 
         [PunRPC]
@@ -392,6 +402,17 @@ namespace Mechanics.Players
                 yield return  new WaitForSeconds(0.5f);
                 i -= 0.02f;
             }
+
+            if (!immortalMode)
+            {
+                PhotonView.RPC(nameof(CallRemoteGameOver),RpcTarget.All);
+            }
+        }
+
+        [PunRPC]
+        protected void CallRemoteGameOver()
+        {
+            GameManager.Instance.ShowGameOverScreen();
         }
 
         public void RefillHealth(int life = 1)
@@ -409,6 +430,12 @@ namespace Mechanics.Players
 
                 HealthBar.RefillHearth(life);
             }
+        }
+
+        public void KillPlayer()
+        {
+            CurrentHealth = 0;
+            Die();
         }
 
         protected IEnumerator AttackTimeLapse()
