@@ -12,6 +12,7 @@ namespace Mechanics.Enemies
         protected bool Hit;
         [SerializeField] protected float lifePoints;
         public GameObject damagePlayer;
+        [SerializeField] protected bool offline;
         
         // Start is called before the first frame update
         void Start()
@@ -61,18 +62,23 @@ namespace Mechanics.Enemies
                 GetComponent<Renderer>().material.color = c;
                 yield return null;
             }
-            if(PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
+            if(!offline && PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
+            else Destroy(gameObject);
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
             {
-                PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
-                if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
-                if (!Hit && photonView.IsMine)
-                    GetComponent<PhotonView>().RPC("Damage", RpcTarget.All,
-                        other.GetComponent<IDamageInflictor>().GetDamage());
+                if(offline) Damage(other.GetComponent<IDamageInflictor>().GetDamage());
+                else
+                {
+                    PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
+                    if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
+                    if (!Hit && photonView.IsMine)
+                        GetComponent<PhotonView>().RPC("Damage", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
+                }
+                
             }
         }
     }
