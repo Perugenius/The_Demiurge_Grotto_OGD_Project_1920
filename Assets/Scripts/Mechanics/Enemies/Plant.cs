@@ -76,7 +76,7 @@ namespace Mechanics.Enemies
                     _direction = Vector2.right;
                 }
                 
-                if (_direction == Vector2.right && left.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
+                if (_direction == Vector2.right && left.collider &&  left.collider.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic"))
                 {
                     _tr.Rotate(0f,Vector3.Angle(_direction,Vector2.left),0f);
                     _direction = Vector2.left;
