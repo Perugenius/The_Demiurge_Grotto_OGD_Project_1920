@@ -50,7 +50,10 @@ namespace Mechanics.Enemies
         protected IEnumerator Die()
         {
             Rb.velocity = Vector2.zero;
-            GetComponent<Collider2D>().enabled = false;
+            foreach (Collider2D enemycollider in GetComponents<Collider2D>())
+            {
+                enemycollider.enabled = false;
+            }
             for (float ft = 1f; ft >= 0; ft -= 0.03f) 
             {
                 Color c = GetComponent<Renderer>().material.color;
