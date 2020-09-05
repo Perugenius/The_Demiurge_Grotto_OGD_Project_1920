@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using Mechanics.Players.PlayerAttacks;
 using Photon.Pun;
 using UnityEngine;
@@ -42,14 +43,23 @@ namespace Mechanics.Players
                     Animator.SetTrigger(DoubleJump);
                 }
 
-                if (Input.GetButtonDown("Attack") && IsJumping && CanAttack)
+                if (Input.GetButtonDown("Attack") && CanAttack)
                 {
-                    CanAttack = false;
-                    Attack();
+                    if(IsJumping)
+                        Attack();
+                    else
+                        StartCoroutine(nameof(AttackFromGround));
                 }
 
                 base.Update();
             }
+        }
+
+        protected IEnumerator AttackFromGround()
+        {
+            Jump(JumpHeight);
+            yield return new WaitForSeconds(0.25f);
+            Attack();
         }
 
         public void SetJumpsNumber(int num)
@@ -59,6 +69,7 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
+            CanAttack = false;
             for (int i = 1; i <= _projectileNumber; i++)
             {
                 Animator.SetTrigger(DoubleJump);

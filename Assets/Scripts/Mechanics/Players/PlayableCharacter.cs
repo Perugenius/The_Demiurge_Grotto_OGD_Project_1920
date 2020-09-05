@@ -280,24 +280,27 @@ namespace Mechanics.Players
         {
             if (IsMine && !IsDying )
             {
-                if (!immortalMode || (immortalMode && CurrentHealth >= 1))
+                if (!immortalMode || (immortalMode && CurrentHealth > 1))
                 {
                     CurrentHealth -= 1;
                     HealthBar.LoseHearth();
-                    if (CurrentHealth <= 0)
-                    {
-                        Die();
-                    }
-                    else
+                }
+
+                if (CurrentHealth <= 0)
+                {
+                    Die();
+                }
+                else
+                {
+                    if (other.gameObject.layer == LayerMask.NameToLayer("DamageTrap"))
                     {
                         IsTakingDamage = true;
-                        if ((LayerMask.GetMask("DamageTrap") & 1 << other.gameObject.layer) ==
-                            1 << other.gameObject.layer)
-                        {
-                            PhotonView.RPC(nameof(RemoteDisappearAnimation), RpcTarget.Others);
-                            StartCoroutine(nameof(DisappearAnimation));
-                        }
-
+                        PhotonView.RPC(nameof(RemoteDisappearAnimation), RpcTarget.Others);
+                        StartCoroutine(nameof(DisappearAnimation));
+                    }
+                    else if(!immortalMode || (immortalMode && CurrentHealth > 1))
+                    {
+                        IsTakingDamage = true;
                         StartCoroutine(nameof(DamageEffect));
                         this.PhotonView.RPC(nameof(TakeRemoteDamage), RpcTarget.Others);
                     }
@@ -339,6 +342,7 @@ namespace Mechanics.Players
             Animator.SetTrigger(Appear);
             yield return  new WaitForSeconds(1);
             CanMove = true;
+            IsTakingDamage = false;
         }
 
         [PunRPC]
