@@ -3915,10 +3915,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92ece002660f6044ae972b5f5639454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightAccess: 2
-  topAccess: 2
+  rightAccess: 3
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -4220,9 +4220,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -4281,9 +4281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -6237,9 +6237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -20641,9 +20641,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -21380,9 +21380,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -22262,9 +22262,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -24503,9 +24503,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -26003,6 +26003,86 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d35557c080a4144a9ea8c8178d47092, type: 3}
+--- !u!1001 &964429223
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1785375569}
+    m_Modifications:
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 197
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641001, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: messageText
+      value: Press   CTRL   (keyboard) or   X   (joystick) to attack.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986335602879641003, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+        type: 3}
+      propertyPath: m_Name
+      value: MessageTrigger (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b9e65df2be8ba042a9b838ebf9381af, type: 3}
+--- !u!4 &964429224 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2986335602879641000, guid: 0b9e65df2be8ba042a9b838ebf9381af,
+    type: 3}
+  m_PrefabInstance: {fileID: 964429223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &972983576
 GameObject:
   m_ObjectHideFlags: 0
@@ -29351,9 +29431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -35722,9 +35802,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -38292,9 +38372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
+  topAccess: 3
   leftAccess: 2
-  downAccess: 2
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
@@ -40741,6 +40821,7 @@ Transform:
   - {fileID: 1138636642}
   - {fileID: 2099805407}
   - {fileID: 245314811}
+  - {fileID: 964429224}
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57728,9 +57809,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightAccess: 2
-  topAccess: 2
-  leftAccess: 2
-  downAccess: 2
+  topAccess: 3
+  leftAccess: 3
+  downAccess: 3
   width: 54
   height: 30
   dungeonType: 1
