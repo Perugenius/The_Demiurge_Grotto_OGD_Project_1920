@@ -90,7 +90,7 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             Hit = true;
-            damagePlayer.enabled = false;
+            damagePlayer.SetActive(false);
             if (damage < lifePoints)
             {
                 Anger();
@@ -104,7 +104,7 @@ namespace Mechanics.Enemies
         {
             Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
-            damagePlayer.enabled = true;
+            damagePlayer.SetActive(true);
             Hit = false;
         }
 

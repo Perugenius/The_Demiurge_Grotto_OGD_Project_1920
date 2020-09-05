@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePoints: 2
-  damagePlayer: {fileID: 8414922730007643150}
+  damagePlayer: {fileID: 1532811547040897010}
   speed: 10
   initialDirection: 0
   tempSpeed: 13

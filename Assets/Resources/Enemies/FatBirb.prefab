@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePoints: 1
-  damagePlayer: {fileID: 4558325395605879240}
+  damagePlayer: {fileID: 6045671050304539241}
   acceleration: 10
   amplitude: 1.5
 --- !u!50 &3848243419285655979

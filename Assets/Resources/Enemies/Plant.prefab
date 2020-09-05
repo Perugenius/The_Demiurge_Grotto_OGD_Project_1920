@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePoints: 1
-  damagePlayer: {fileID: 4235278646738638906}
+  damagePlayer: {fileID: 5869430428250872063}
   firePoint: {fileID: 6929989675519379596}
   bullet: {fileID: 6457953231736489528, guid: 450c68d5da9833642b2bb8e8ae59febb, type: 3}
   testing: 0

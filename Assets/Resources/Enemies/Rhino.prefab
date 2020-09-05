@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePoints: 2
-  damagePlayer: {fileID: 8706083502860320200}
+  damagePlayer: {fileID: 6055661148630750319}
   speed: 30
   knockbackHeight: 40
   knockbackThrust: 60

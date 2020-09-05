@@ -56,7 +56,7 @@ namespace Mechanics.Enemies
         private IEnumerator Waiting(){
             yield return new WaitForSeconds (3);
             _withdrawn = false;
-            damagePlayer.enabled = true;
+            damagePlayer.SetActive(true);
             Animator.SetBool("Withdraw",false);
         }
         
@@ -65,7 +65,7 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             //_hit = true;
-            damagePlayer.enabled = false;
+            damagePlayer.SetActive(false);
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;

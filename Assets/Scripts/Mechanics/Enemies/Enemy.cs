@@ -11,7 +11,7 @@ namespace Mechanics.Enemies
         protected Animator Animator;
         protected bool Hit;
         [SerializeField] protected float lifePoints;
-        public Collider2D damagePlayer;
+        public GameObject damagePlayer;
         
         // Start is called before the first frame update
         void Start()
@@ -30,7 +30,7 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             Hit = true;
-            damagePlayer.enabled = false;
+            damagePlayer.SetActive(false);
             if (damage < lifePoints)
             {
                 lifePoints = lifePoints - damage;
@@ -43,7 +43,7 @@ namespace Mechanics.Enemies
         {
             Rb.velocity = Vector2.zero;
             yield return new WaitForSeconds (Animator.GetCurrentAnimatorStateInfo(0).length);
-            damagePlayer.enabled = true;
+            damagePlayer.SetActive(true);
             Hit = false;
         }
 

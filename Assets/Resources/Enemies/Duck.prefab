@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePoints: 2
-  damagePlayer: {fileID: 1928817443332280271}
+  damagePlayer: {fileID: 2087154465580582021}
   initialDirection: 0
   height: 20
   thrust: 5
