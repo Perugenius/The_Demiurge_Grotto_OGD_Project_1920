@@ -37,7 +37,8 @@ namespace Mechanics.Collectibles
                 return;
             }
 
-            if (other.gameObject.CompareTag("Player")) other.gameObject.GetComponent<PlayableCharacter>();
+            //not collect if player is dying
+            if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayableCharacter>().IsDying1) return;
             
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
