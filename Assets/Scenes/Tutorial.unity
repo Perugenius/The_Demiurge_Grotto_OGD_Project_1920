@@ -21602,6 +21602,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8166971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508422921332708, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: offlineMode
@@ -21611,6 +21626,11 @@ PrefabInstance:
         type: 3}
       propertyPath: destroyAtTouch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332719, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpDisabled
       objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
@@ -22310,6 +22330,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8166971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508422921332708, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: offlineMode
@@ -22319,6 +22354,11 @@ PrefabInstance:
         type: 3}
       propertyPath: destroyAtTouch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332719, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpDisabled
       objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
@@ -24903,6 +24943,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8166971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508422921332708, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: offlineMode
@@ -24913,10 +24968,20 @@ PrefabInstance:
       propertyPath: destroyAtTouch
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332719, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpDisabled
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: m_Name
       value: Chest1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826359, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
@@ -25931,6 +25996,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8166971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508422921332708, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: offlineMode
@@ -25941,10 +26021,20 @@ PrefabInstance:
       propertyPath: destroyAtTouch
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332719, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpDisabled
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: m_Name
       value: Chest1 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826359, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
@@ -29066,6 +29156,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8166971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508422921332708, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: offlineMode
@@ -29075,6 +29180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: destroyAtTouch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332719, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpDisabled
       objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
@@ -34566,6 +34676,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8166971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332707, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5932508422921332708, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}
       propertyPath: offlineMode
@@ -34575,6 +34700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: destroyAtTouch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932508422921332719, guid: 7d35557c080a4144a9ea8c8178d47092,
+        type: 3}
+      propertyPath: m_TagString
+      value: JumpDisabled
       objectReference: {fileID: 0}
     - target: {fileID: 5932508423742826358, guid: 7d35557c080a4144a9ea8c8178d47092,
         type: 3}

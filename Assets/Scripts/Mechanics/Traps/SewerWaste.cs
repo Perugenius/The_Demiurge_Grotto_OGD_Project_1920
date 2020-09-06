@@ -55,6 +55,8 @@ namespace Mechanics.Traps
         private void OnTriggerEnter2D(Collider2D other)
         {
             GameObject player = other.gameObject;
+            
+            if(other.gameObject.CompareTag("Player")) player.GetComponent<PlayableCharacter>().SetShadowActive(true);
 
             //Create particles
             for (int i = 0; i < numberOfParticles && !_playerInside && Math.Abs(_count) < 0.1f; i++)
@@ -75,6 +77,9 @@ namespace Mechanics.Traps
         private void OnTriggerExit2D(Collider2D other)
         {
             GameObject player = other.gameObject;
+            
+            if(other.gameObject.CompareTag("Player")) player.GetComponent<PlayableCharacter>().SetShadowActive(false);
+
             if (player != null && player.GetComponent<Rigidbody2D>()!=null)
             {
                 PlayableCharacter playableCharacter = player.GetComponent<PlayableCharacter>();

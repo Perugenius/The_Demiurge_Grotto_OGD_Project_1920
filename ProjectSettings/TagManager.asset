@@ -8,6 +8,7 @@ TagManager:
   - JumpChecker
   - ProjectileSpawner
   - FanAir
+  - JumpDisabled
   layers:
   - Default
   - TransparentFX

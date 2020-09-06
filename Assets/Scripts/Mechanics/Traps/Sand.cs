@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
 
@@ -73,6 +74,7 @@ namespace Mechanics.Traps
         private void OnTriggerEnter2D(Collider2D other)
         {
             GameObject player = other.gameObject;
+            if(other.gameObject.CompareTag("Player")) player.GetComponent<PlayableCharacter>().SetShadowActive(true); 
             if (player != null && player.GetComponent<Rigidbody2D>()!=null)
                 player.GetComponent<Rigidbody2D>().gravityScale = player.GetComponent<Rigidbody2D>().gravityScale / gravityReduceFactor;
         }
@@ -80,6 +82,7 @@ namespace Mechanics.Traps
         private void OnTriggerExit2D(Collider2D other)
         {
             GameObject player = other.gameObject;
+            if(other.gameObject.CompareTag("Player")) player.GetComponent<PlayableCharacter>().SetShadowActive(false);
             if (player != null && player.GetComponent<Rigidbody2D>()!=null)
                 player.GetComponent<Rigidbody2D>().gravityScale = player.GetComponent<Rigidbody2D>().gravityScale * gravityReduceFactor;
         }
