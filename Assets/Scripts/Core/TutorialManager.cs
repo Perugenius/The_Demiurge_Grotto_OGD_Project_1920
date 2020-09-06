@@ -46,6 +46,9 @@ namespace Core
             playerScript.AttackBar1 = attackBar.GetComponent<Bar>();
             gemsHUD.SetActive(true);
             lettersHUD.SetActive(true);
+            
+            //play music
+            AudioManager.Instance.PlaySound("RunupHills");
         }
 
         private void ActiveSkillRoom()
@@ -97,6 +100,10 @@ namespace Core
         private IEnumerator WaitBeforeExit()
         {
             yield return new WaitForSeconds(5);
+            
+            //stop music
+            AudioManager.Instance.StopSound("RunupHills");
+            
             PlayerData playerData = SaveSystem.LoadPlayerData();
             playerData.returningFromDungeon = true;
             SaveSystem.SavePlayerData(playerData);

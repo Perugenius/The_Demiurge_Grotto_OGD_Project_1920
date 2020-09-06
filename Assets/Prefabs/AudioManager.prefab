@@ -44,15 +44,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Dungeon1
+  - name: RunupHills
     clip: {fileID: 8300000, guid: a26e74434ac27e04a9769b9fa780c213, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
-    randomVolume: 0.1
-    randomPitch: 0.1
-  - name: Dungeon2
+    randomVolume: 0
+    randomPitch: 0
+  - name: PanicTown
     clip: {fileID: 8300000, guid: e315fc1ef298be04990eb3bfe8b99f4b, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
-    randomVolume: 0.1
-    randomPitch: 0.1
+    randomVolume: 0
+    randomPitch: 0

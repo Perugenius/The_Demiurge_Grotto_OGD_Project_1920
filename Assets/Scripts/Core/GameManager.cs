@@ -122,6 +122,9 @@ namespace Core
             gemsHUD.SetActive(true);
             lettersHUD.SetActive(true);
             loading.SetActive(false);
+            
+            //play music
+            AudioManager.Instance.PlaySound(playerData.lastSelectedDungeon);
         }
 
         void Update()
@@ -139,6 +142,9 @@ namespace Core
 
         private void ExitDungeon(bool isGameOver)
         {
+            //stop music
+            AudioManager.Instance.StopSound(SaveSystem.LoadPlayerData().lastSelectedDungeon);
+            
             if(!isGameOver) _collectiblesManager.SaveCollectibles();
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
