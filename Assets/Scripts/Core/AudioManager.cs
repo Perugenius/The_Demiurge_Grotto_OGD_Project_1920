@@ -37,6 +37,11 @@ namespace Core
             _source.Play();
         }
 
+        public void Stop()
+        {
+            _source.Stop();
+        }
+
     }
 
     public class AudioManager: Singleton<AudioManager>
@@ -59,6 +64,19 @@ namespace Core
                 if (sounds[i].name == soundName)
                 {
                     sounds[i].Play();
+                    return;
+                }
+            }
+            Debug.Log("No sound found with name: " + soundName);
+        }
+
+        public void StopSound(string soundName)
+        {
+            for (int i = 0; i < sounds.Length; i++)
+            {
+                if (sounds[i].name == soundName)
+                {
+                    sounds[i].Stop();
                     return;
                 }
             }
