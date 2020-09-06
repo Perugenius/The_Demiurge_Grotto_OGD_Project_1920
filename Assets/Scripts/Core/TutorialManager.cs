@@ -69,6 +69,7 @@ namespace Core
                 if(character.name == SaveSystem.LoadPlayerData().currentCharacter)
                 {
                     character.SetActive(true);
+                    character.GetComponent<PlayableCharacter>().localTesting = true;
                     _currentPlayer = character;
                     //TODO call spawn animation
                 }
