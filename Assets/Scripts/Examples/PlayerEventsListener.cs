@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core;
+using UnityEngine;
 
 namespace Examples
 {
@@ -17,7 +18,6 @@ namespace Examples
         {
             EventManager.StopListening("PlayerDies", PlayerDies);
             Debug.Log("Player is dead");
-            _audioManager.ExampleSound();
             EventManager.StartListening("PlayerDies", PlayerDies);
         }
         
