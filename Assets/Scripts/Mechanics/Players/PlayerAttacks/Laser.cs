@@ -39,11 +39,14 @@ namespace Mechanics.Players.PlayerAttacks
                 }
                 else
                 {
-                    if (!Offline)
+                    if (!_offline)
                     {
                         PhotonNetwork.Destroy(gameObject);
                     }
-                    
+                    else
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
         }

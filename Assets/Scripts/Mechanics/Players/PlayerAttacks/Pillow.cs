@@ -49,7 +49,10 @@ namespace Mechanics.Players.PlayerAttacks
             
             yield return new WaitForSeconds(_duration);
             _pinkie.SetCanSummonPillow(true);
-            PhotonNetwork.Destroy(gameObject);
+            if(!_offline)
+                PhotonNetwork.Destroy(gameObject);
+            else
+                Destroy(gameObject);
         }
 
         public void SetDamage(float damage)
