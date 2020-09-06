@@ -3209,7 +3209,7 @@ PrefabInstance:
     - target: {fileID: 1250392711024624789, guid: 244a92c21a43c0c48afed3a329b97c1b,
         type: 3}
       propertyPath: orthographic size
-      value: 200
+      value: 15.16766
       objectReference: {fileID: 0}
     - target: {fileID: 1250392711024624790, guid: 244a92c21a43c0c48afed3a329b97c1b,
         type: 3}
@@ -4159,7 +4159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34e9e5f0238e9a4ea0b053ed4a5fc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 1
+  debugMode: 0
 --- !u!114 &2067118849
 MonoBehaviour:
   m_ObjectHideFlags: 0
