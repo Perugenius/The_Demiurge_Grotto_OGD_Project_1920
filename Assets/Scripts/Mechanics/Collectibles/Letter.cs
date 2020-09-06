@@ -87,7 +87,7 @@ namespace Mechanics.Collectibles
                 _collectiblesManager.CollectTeammateLetter();
                 transform.localScale = new Vector3(1,1,1);
                 _animator.SetBool(IsCollected, true);
-                GameManager.Instance.ShowMessage("New companion's letter found!");
+                if(!offlineMode) GameManager.Instance.ShowMessage("New companion's letter found!");
                 StartCoroutine(WaitBeforeDestroy());
             }
             else
