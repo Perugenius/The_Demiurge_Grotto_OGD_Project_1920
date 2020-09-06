@@ -59,6 +59,7 @@ namespace Mechanics.Players
 
         protected Vector2 CheckPoint;
         public bool immortalMode;
+        protected PlayableCharacter OtherPlayer;
 
 
 
@@ -71,6 +72,17 @@ namespace Mechanics.Players
             this.PhotonView = PhotonView.Get(this);
             Shadow = transform.Find("Shadow").gameObject;
             Shadow.SetActive(false);
+            if (!localTesting)
+            {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach (var player in players)
+                {
+                    if (!player.GetPhotonView().IsMine)
+                    {
+                        OtherPlayer = player.GetComponent<PlayableCharacter>();
+                    }
+                }
+            }
             if (gameObject.GetPhotonView().IsMine || localTesting)
             {
                 PlayerData = SaveSystem.LoadPlayerData();
@@ -216,7 +228,7 @@ namespace Mechanics.Players
         protected IEnumerator PoisoningDamage()
         {
             /*yield return new WaitForSeconds(1f);*/
-            while (Poisoned)
+            while (Poisoned && Hitbox.activeSelf)
             {
                 CurrentHealth -= 1;
                 HealthBar.LoseHearth();
@@ -381,10 +393,18 @@ namespace Mechanics.Players
         {
             CanAttack = false;
             IsDying = true;
-            Hitbox.SetActive(false);
-            FadingOut = BecomingGhost();
-            StartCoroutine(FadingOut);
-            this.PhotonView.RPC(nameof(RemoteDie),RpcTarget.Others);
+            if (OtherPlayer && OtherPlayer.IsDying1)
+            {
+                PhotonView.RPC(nameof(CallRemoteGameOver),RpcTarget.All);
+            }
+            else
+            {
+                this.PhotonView.RPC(nameof(RemoteDie), RpcTarget.Others);
+                Hitbox.SetActive(false);
+                FadingOut = BecomingGhost();
+                StartCoroutine(FadingOut);
+            }
+
         }
 
         [PunRPC]
