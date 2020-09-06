@@ -120,8 +120,9 @@ namespace Mechanics.Players
             {
                 laser = GameObject.Instantiate(laserPrefab, _spawnPosition.position, Quaternion.identity);
             }
-
             Laser laserScript = laser.GetComponent<Laser>();
+            if (localTesting)
+                laserScript.Offline = true;
             laserScript.Damage = CurrentAttack;
             laserScript.Direction = FaceDirection;
             laserScript.Range = _range;

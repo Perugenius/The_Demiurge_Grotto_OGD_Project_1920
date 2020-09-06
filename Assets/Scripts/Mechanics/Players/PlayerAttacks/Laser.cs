@@ -11,6 +11,8 @@ namespace Mechanics.Players.PlayerAttacks
         private float _range;
         private float _traveledDistance;
         private float _damage;
+
+        private bool _offline;
         
         // Start is called before the first frame update
         void Start()
@@ -26,7 +28,7 @@ namespace Mechanics.Players.PlayerAttacks
 
         private void FixedUpdate()
         {
-            if (gameObject.GetPhotonView().IsMine)
+            if (gameObject.GetPhotonView().IsMine || _offline)
             {
                 if (_traveledDistance < _range)
                 {
@@ -37,7 +39,11 @@ namespace Mechanics.Players.PlayerAttacks
                 }
                 else
                 {
-                    PhotonNetwork.Destroy(gameObject);
+                    if (!Offline)
+                    {
+                        PhotonNetwork.Destroy(gameObject);
+                    }
+                    
                 }
             }
         }
@@ -77,6 +83,12 @@ namespace Mechanics.Players.PlayerAttacks
         public float GetDamage()
         {
             return _damage;
+        }
+
+        public bool Offline
+        {
+            get => _offline;
+            set => _offline = value;
         }
     }
 }

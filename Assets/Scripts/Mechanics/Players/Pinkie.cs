@@ -101,6 +101,8 @@ namespace Mechanics.Players
                     }
                     pillow.transform.SetParent(gameObject.transform);
                     Pillow pillowScript = pillow.GetComponent<Pillow>();
+                    if (localTesting)
+                        pillowScript.Offline = true;
                     pillowScript.SetPlayerPosition(transform);
                     pillowScript.SetDamage(CurrentAttack);
                     pillowScript.SetDuration(_attackDuration);

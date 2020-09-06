@@ -466,6 +466,12 @@ namespace Mechanics.Players
             set => FaceDirection = value;
         }
 
+        public bool IsDying1
+        {
+            get => IsDying;
+            set => IsDying = value;
+        }
+        
         public Vector2 CheckPoint1
         {
             get => CheckPoint;

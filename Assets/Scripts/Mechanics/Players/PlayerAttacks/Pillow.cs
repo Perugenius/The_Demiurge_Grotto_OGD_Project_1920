@@ -14,11 +14,12 @@ namespace Mechanics.Players.PlayerAttacks
         private Pinkie _pinkie;
 
         private bool _isMine;
+        private bool _offline;
 
         // Start is called before the first frame update
         void Start()
         {
-            if (gameObject.GetPhotonView().IsMine)
+            if (gameObject.GetPhotonView().IsMine || _offline)
             {
                 _isMine = true;
                 StartCoroutine(nameof(StartTimer));
@@ -80,6 +81,12 @@ namespace Mechanics.Players.PlayerAttacks
         public float GetDamage()
         {
             return _damage;
+        }
+
+        public bool Offline
+        {
+            get => _offline;
+            set => _offline = value;
         }
     }
 }
