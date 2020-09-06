@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Core;
+using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ namespace Mechanics.Collectibles
                 Collect();
                 return;
             }
+
+            if (other.gameObject.CompareTag("Player")) other.gameObject.GetComponent<PlayableCharacter>();
             
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
