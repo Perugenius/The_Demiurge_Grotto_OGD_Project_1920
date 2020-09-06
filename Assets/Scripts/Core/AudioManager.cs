@@ -54,6 +54,7 @@ namespace Core
             {
                 GameObject x = new GameObject("Sound_" + i + "_" + sounds[i].name);
                 sounds[i].SetSource(x.AddComponent<AudioSource>());
+                DontDestroyOnLoad(x);
             }
         }
 
