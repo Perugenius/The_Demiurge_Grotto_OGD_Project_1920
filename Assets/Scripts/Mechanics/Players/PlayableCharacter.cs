@@ -60,8 +60,8 @@ namespace Mechanics.Players
         protected Vector2 CheckPoint;
         public bool immortalMode;
 
-        
-        
+
+
         // Start is called before the first frame update
         protected virtual void Start()
         {
