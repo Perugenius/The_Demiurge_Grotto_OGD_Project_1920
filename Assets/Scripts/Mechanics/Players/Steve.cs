@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.IO;
+using Core;
 using Mechanics.Players.PlayerAttacks;
 using Photon.Pun;
 using UnityEngine;
@@ -77,6 +78,7 @@ namespace Mechanics.Players
                         if (Input.GetButtonDown("Jump") && !IsJumping)
                         {
                             JumpingController = true;
+                            AudioManager.Instance.PlaySound("JumpSFX");
                             Rb.velocity = new Vector2(Rb.velocity.x,15);
                             Animator.SetBool(IsJumpingAnim, true);
                         }
@@ -127,6 +129,7 @@ namespace Mechanics.Players
             laserScript.Direction = FaceDirection;
             laserScript.Range = _range;
             laserScript.Speed = _projectileSpeed;
+            AudioManager.Instance.PlaySound("LaserSFX");
             StartCoroutine(nameof(AttackTimeLapse));
         }
 

@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifePoints: 2
   damagePlayer: {fileID: 2087154465580582021}
+  offline: 0
   initialDirection: 0
   height: 20
   thrust: 5

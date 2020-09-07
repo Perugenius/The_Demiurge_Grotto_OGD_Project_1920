@@ -493,6 +493,9 @@
             <e p="Singleton.cs" t="Include" />
           </e>
         </e>
+        <e p="ShootingSound" t="Include">
+          <e p="readme.txt" t="Include" />
+        </e>
         <e p="SpawnCompanionTrigger.cs" t="Include" />
         <e p="TutorialMap.cs" t="Include" />
       </e>

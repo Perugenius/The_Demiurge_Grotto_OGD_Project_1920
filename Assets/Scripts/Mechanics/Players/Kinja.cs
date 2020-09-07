@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.IO;
+using Core;
 using Mechanics.Players.PlayerAttacks;
 using Photon.Pun;
 using UnityEngine;
@@ -118,6 +119,7 @@ namespace Mechanics.Players
                 }
                 shurikenScript.SetSpeed(direction * _projectileSpeed);
             }
+            AudioManager.Instance.PlaySound("ShurikenSFX");
             StartCoroutine(AttackTimeLapse());
         }
     }
