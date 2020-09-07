@@ -721,6 +721,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[11].name
+      value: EnemyHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: fb9d43cf73e9f294bb764558fa623a42, type: 3}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[11].volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[11].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[11].randomVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[11].randomPitch
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1523666890349562223, guid: d0117efb48c8ef342aa09ab201b65231,
         type: 3}
       propertyPath: m_LocalPosition.x
