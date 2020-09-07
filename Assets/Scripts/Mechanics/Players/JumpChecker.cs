@@ -23,6 +23,12 @@ namespace Mechanics.Players
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
                 else if (_script is Steve steve) steve.IsOnWall = false;
             }
+            else if (other.gameObject.CompareTag("JumpDisabled"))
+            {
+                _script.SetIsJumping(true);
+                if(_script is Kinja kinja) kinja.SetJumpsNumber(1);
+                else if (_script is Steve steve) steve.IsOnWall = false;
+            }
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -31,6 +37,12 @@ namespace Mechanics.Players
             {
                 if (_script.GetIsJumping()) _script.SetIsJumping(false);
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
+                else if (_script is Steve steve) steve.IsOnWall = false;
+            }
+            else if (other.gameObject.CompareTag("JumpDisabled"))
+            {
+                _script.SetIsJumping(true);
+                if(_script is Kinja kinja) kinja.SetJumpsNumber(1);
                 else if (_script is Steve steve) steve.IsOnWall = false;
             }
         }

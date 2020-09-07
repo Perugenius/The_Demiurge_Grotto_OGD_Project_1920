@@ -58,12 +58,14 @@ namespace Core
             }
         }
 
-        public void PlaySound(string soundName)
+        public void PlaySound(string soundName, float pitch = 1)
         {
             for (int i = 0; i < sounds.Length; i++)
             {
                 if (sounds[i].name == soundName)
                 {
+                    if(pitch != 1)
+                        sounds[i].pitch = pitch;
                     sounds[i].Play();
                     return;
                 }

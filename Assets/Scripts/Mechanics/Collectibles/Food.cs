@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
@@ -52,6 +53,7 @@ namespace Mechanics.Collectibles
             {
                 _isCollected = true;
                 playableCharacter.RefillHealth(value);
+                AudioManager.Instance.PlaySound("FruitPickupSFX");
                 _animator.SetBool(IsCollected, true);
                 StartCoroutine(WaitBeforeLogQuantity());
             }

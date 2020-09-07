@@ -118,6 +118,7 @@ namespace Mechanics.Players
                     {
                         JumpingController = true;
                         Rb.velocity = new Vector2(Rb.velocity.x,15);
+                        AudioManager.Instance.PlaySound("JumpSFX");
                         Animator.SetBool(IsJumpingAnim, true);
                     }
 
@@ -301,25 +302,31 @@ namespace Mechanics.Players
                     HealthBar.LoseHearth();
                 }
 
+                if (other.gameObject.layer == LayerMask.NameToLayer("DamageTrap"))
+                {
+                    IsTakingDamage = true;
+                    PhotonView.RPC(nameof(RemoteDisappearAnimation), RpcTarget.Others);
+                    StartCoroutine(nameof(DisappearAnimation));
+                }
                 if (CurrentHealth <= 0)
                 {
                     Die();
+                    Debug.Log(IsDying);
                 }
                 else
                 {
-                    if (other.gameObject.layer == LayerMask.NameToLayer("DamageTrap"))
-                    {
-                        IsTakingDamage = true;
-                        PhotonView.RPC(nameof(RemoteDisappearAnimation), RpcTarget.Others);
-                        StartCoroutine(nameof(DisappearAnimation));
-                    }
-                    else if(!immortalMode || (immortalMode && CurrentHealth > 1))
+                    if(!immortalMode || (immortalMode && CurrentHealth > 1))
                     {
                         IsTakingDamage = true;
                         StartCoroutine(nameof(DamageEffect));
                         this.PhotonView.RPC(nameof(TakeRemoteDamage), RpcTarget.Others);
                     }
                 }
+            }
+            else if (IsMine && IsDying && other.gameObject.layer == LayerMask.NameToLayer("DamageTrap"))
+            {
+                PhotonView.RPC(nameof(RemoteDisappearAnimation), RpcTarget.Others);
+                StartCoroutine(nameof(DisappearAnimation));
             }
         }
 
@@ -400,7 +407,6 @@ namespace Mechanics.Players
             else
             {
                 this.PhotonView.RPC(nameof(RemoteDie), RpcTarget.Others);
-                Hitbox.SetActive(false);
                 FadingOut = BecomingGhost();
                 StartCoroutine(FadingOut);
             }

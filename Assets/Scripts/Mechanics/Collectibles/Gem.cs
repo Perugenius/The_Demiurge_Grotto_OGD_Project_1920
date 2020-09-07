@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
@@ -18,12 +19,24 @@ namespace Mechanics.Collectibles
         private SpriteRenderer _spriteRenderer;
         private bool _responseDelivered = false;
         private int _timeout = 100;
+        private float _pitch;
 
         // Start is called before the first frame update
         void Start()
         {
             _collectiblesManager = GameObject.Find("CollectiblesManager").GetComponent<CollectiblesManager>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            switch (value)
+            {
+                case 5: _pitch = 1.05f;
+                    break;
+                case 10: _pitch = 1.1f;
+                    break;
+                case 20: _pitch = 1.15f;
+                    break;
+                default: _pitch = 1;
+                    break;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -33,6 +46,7 @@ namespace Mechanics.Collectibles
             {
                 if(_isCollected) return;
                 _isCollected = true;
+                AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
                 Collect();
                 return;
             }
@@ -48,6 +62,7 @@ namespace Mechanics.Collectibles
             {
                 if(_isCollected) return;
                 _isCollected = true;
+                AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
 
                 //collect for others players
                 GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);

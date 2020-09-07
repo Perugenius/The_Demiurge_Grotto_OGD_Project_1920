@@ -15,7 +15,7 @@ namespace Mechanics.Players
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!_father.IsTakingDamage1)
+            if (!_father.IsTakingDamage1 || _father.IsDying1)
             {
                 _father.TakeDamage(other);
             }
