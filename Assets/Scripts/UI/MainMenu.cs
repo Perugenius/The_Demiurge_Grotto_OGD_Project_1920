@@ -429,7 +429,7 @@ public class MainMenu : MonoBehaviour
             attackPerk.runPerk = (characterName, level) =>
             {
                 PlayerData playerData = SaveSystem.LoadPlayerData();
-                playerData.attack[characterName] += 0.5f;
+                playerData.attack[characterName] += playerData.attack[characterName]*0.25f;
                 SaveSystem.SavePlayerData(playerData);
             };
 
@@ -451,7 +451,7 @@ public class MainMenu : MonoBehaviour
             attackRate.runPerk = (s, level) =>
             {
                 PlayerData playerData = SaveSystem.LoadPlayerData();
-                playerData.attackRate[s] -= 0.3f;
+                playerData.attackRate[s] -= playerData.attackRate[s]*0.2f;
                 SaveSystem.SavePlayerData(playerData);
             };
 
@@ -575,7 +575,7 @@ public class MainMenu : MonoBehaviour
                     attackRange.runPerk = (s, level) =>
                     {
                         PlayerData playerData = SaveSystem.LoadPlayerData();
-                        playerData.attackRange[s] += 0.3f;
+                        playerData.attackRange[s] += 0.5f;
                         SaveSystem.SavePlayerData(playerData);
                     };
                 }

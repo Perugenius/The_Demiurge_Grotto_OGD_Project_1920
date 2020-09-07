@@ -67,7 +67,7 @@ namespace Core.SaveLoadData
                     secondarySkillLevel.Add(character, 1);
                     if (character.Contains("Kinja"))
                     {
-                        attack.Add(character,1);
+                        attack.Add(character,1.25f);
                         attackRate.Add(character,1f);
                         projectileNumber.Add(character, 1);
                         projectileSpeed.Add(character,16);
@@ -84,7 +84,7 @@ namespace Core.SaveLoadData
 
                     if (character.Contains("Steve"))
                     {
-                        attack.Add(character,1.5f);
+                        attack.Add(character,0.5f);
                         attackRate.Add(character,2);
                         attackRange.Add(character, 7);
                         projectileSpeed.Add(character, 10);
@@ -92,7 +92,7 @@ namespace Core.SaveLoadData
                 }
                 else if (character.Contains("Voodoo"))
                 {
-                    attack.Add(character,1);
+                    attack.Add(character,1.5f);
                     attackRate.Add(character,0.5f);
                 }
             }
