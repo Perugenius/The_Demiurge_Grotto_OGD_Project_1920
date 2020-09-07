@@ -60,11 +60,13 @@ namespace Mechanics.Collectibles
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
             
+            //play sound
+            AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
+            
             if (PhotonNetwork.IsMasterClient)
             {
                 if(_isCollected) return;
                 _isCollected = true;
-                AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
 
                 //collect for others players
                 GetComponent<PhotonView>().RPC("Collect", RpcTarget.Others);
