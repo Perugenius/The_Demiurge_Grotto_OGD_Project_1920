@@ -52,8 +52,8 @@ namespace Mechanics.Players
                 if (CanMove)
                 {
                     Speed = Input.GetAxisRaw("Horizontal");
-                    if (_isOnWall && (_wallSide == WallSide.RightWall && Speed > 0) ||
-                        (_wallSide == WallSide.LeftWall && Speed < 0))
+                    if (_isOnWall && (_wallSide == WallSide.RightWall && Speed > 0 ||
+                        _wallSide == WallSide.LeftWall && Speed < 0))
                     {
                         if (Input.GetButtonDown("Jump"))
                         {
@@ -100,7 +100,7 @@ namespace Mechanics.Players
                         }
                     }
                     Animate();
-                    if (Input.GetButtonDown("Attack") && CanAttack)
+                    if (Input.GetButtonDown("Attack") && CanAttack && !IsDying)
                     {
                         Attack();
                     }
