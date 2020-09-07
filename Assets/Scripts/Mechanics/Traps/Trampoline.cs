@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -31,6 +32,7 @@ namespace Mechanics.Traps
                 otherMovable.Jump(jumpForce);
             }
             animator.SetBool(Jump, true);
+            AudioManager.Instance.PlaySound("TrampolineSFX");
             StartCoroutine(WaitEndJumpAnim());
         }
 
