@@ -110,3 +110,9 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+  - name: FanSFX
+    clip: {fileID: 8300000, guid: 684f877232df7a64b9d4170deb0bad1b, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
