@@ -271,8 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3a3f137f69be84a97a632781e5fd03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifePoints: 2
+  lifePoints: 3.5
   damagePlayer: {fileID: 6055661148630750319}
+  offline: 0
   speed: 30
   knockbackHeight: 40
   knockbackThrust: 60
