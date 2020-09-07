@@ -528,5 +528,11 @@ namespace Mechanics.Players
             get => AttackBar;
             set => AttackBar = value;
         }
+        
+        public PlayableCharacter OtherPlayer1
+        {
+            get => OtherPlayer;
+            set => OtherPlayer = value;
+        }
     }
 }

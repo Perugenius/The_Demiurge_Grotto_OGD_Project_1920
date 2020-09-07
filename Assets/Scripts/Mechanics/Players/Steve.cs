@@ -60,11 +60,11 @@ namespace Mechanics.Players
                             Rb.velocity = new Vector2(Rb.velocity.x, 0);
                             if (_wallSide == WallSide.RightWall)
                             {
-                                Rb.AddForce(new Vector2(-62, 62), ForceMode2D.Impulse);
+                                Rb.AddForce(new Vector2(-57, 60), ForceMode2D.Impulse);
                             }
                             else
                             {
-                                Rb.AddForce(new Vector2(62, 62), ForceMode2D.Impulse);
+                                Rb.AddForce(new Vector2(57, 60), ForceMode2D.Impulse);
                             }
 
                             Animator.SetBool(IsJumpingAnim, true);
