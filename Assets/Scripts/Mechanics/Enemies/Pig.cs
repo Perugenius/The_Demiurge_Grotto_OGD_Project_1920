@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using Photon.Pun;
 using UnityEngine;
 
@@ -91,6 +92,7 @@ namespace Mechanics.Enemies
             Animator.SetTrigger("Hit");
             Hit = true;
             damagePlayer.SetActive(false);
+            AudioManager.Instance.PlaySound("EnemyHit");
             if (damage < lifePoints)
             {
                 Anger();
