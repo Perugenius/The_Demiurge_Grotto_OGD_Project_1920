@@ -72,8 +72,7 @@ namespace Core
             {
                 if (sounds[i].name == soundName)
                 {
-                    if(pitch != 1)
-                        sounds[i].pitch = pitch;
+                    sounds[i].pitch = pitch;
                     sounds[i].Play();
                     return;
                 }

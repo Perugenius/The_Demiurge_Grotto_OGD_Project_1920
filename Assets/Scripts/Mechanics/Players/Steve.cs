@@ -52,7 +52,8 @@ namespace Mechanics.Players
                 if (CanMove)
                 {
                     Speed = Input.GetAxisRaw("Horizontal");
-                    if (_isOnWall)
+                    if (_isOnWall && (_wallSide == WallSide.RightWall && Speed > 0) ||
+                        (_wallSide == WallSide.LeftWall && Speed < 0))
                     {
                         if (Input.GetButtonDown("Jump"))
                         {
@@ -65,7 +66,12 @@ namespace Mechanics.Players
                             {
                                 Rb.AddForce(new Vector2(62, 62), ForceMode2D.Impulse);
                             }
+
                             Animator.SetBool(IsJumpingAnim, true);
+                        }
+                        else if (Input.GetButton("Jump") && JumpingController)
+                        {
+                            ModulateJump();
                         }
                     }
                     else
@@ -138,16 +144,23 @@ namespace Mechanics.Players
             base.Animate();
             if (_isOnWall)
             {
-                Animator.SetBool(IsOnWallAnimator, true);
-                if (_wallSide == WallSide.RightWall)
+                if ((_wallSide == WallSide.RightWall && Speed > 0) || (_wallSide == WallSide.LeftWall && Speed < 0))
                 {
-                    FaceDirection = Vector2.left;
-                    Animator.SetFloat(WallSideAnimator, 1);
+                    Animator.SetBool(IsOnWallAnimator, true);
+                    if (_wallSide == WallSide.RightWall)
+                    {
+                        FaceDirection = Vector2.left;
+                        Animator.SetFloat(WallSideAnimator, 1);
+                    }
+                    else
+                    {
+                        FaceDirection = Vector2.right;
+                        Animator.SetFloat(WallSideAnimator, -1);
+                    }
                 }
                 else
                 {
-                    FaceDirection = Vector2.right;
-                    Animator.SetFloat(WallSideAnimator, -1);
+                    Animator.SetBool(IsOnWallAnimator, false);
                 }
             }
             else

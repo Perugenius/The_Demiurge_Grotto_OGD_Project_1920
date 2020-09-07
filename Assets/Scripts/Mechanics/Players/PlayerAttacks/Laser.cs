@@ -55,7 +55,9 @@ namespace Mechanics.Players.PlayerAttacks
         {
             if ((LayerMask.GetMask("Obstacle") & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
             {
-                PhotonNetwork.Destroy(gameObject);
+                if(!_offline)
+                    PhotonNetwork.Destroy(gameObject);
+                else Destroy(gameObject);
             }
         }
 
