@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Core;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             Hit = true;
+            AudioManager.Instance.PlaySound("EnemyHit");
             damagePlayer.SetActive(false);
             if (damage < lifePoints)
             {
