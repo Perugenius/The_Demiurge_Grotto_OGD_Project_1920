@@ -106,7 +106,7 @@ MonoBehaviour:
     randomPitch: 0
   - name: MainMenu
     clip: {fileID: 8300000, guid: 91f92886e4e79ad4ca5593d3d4b00429, type: 3}
-    volume: 0.3
+    volume: 0.641
     pitch: 1
     randomVolume: 0
     randomPitch: 0

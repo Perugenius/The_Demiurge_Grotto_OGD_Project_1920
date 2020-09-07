@@ -85,6 +85,9 @@ public class MainMenu : MonoBehaviour
         }
 
         LoadPerks();
+        
+        //play music
+        AudioManager.Instance.PlaySound("MainMenu");
 
         PlayerData playerData = SaveSystem.LoadPlayerData();
         playerData.gems = 1200;
@@ -381,6 +384,9 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
+        //stop music
+        AudioManager.Instance.StopSound("MainMenu");
+        
         if (SaveSystem.LoadPlayerData().lastSelectedDungeon == "Tutorial") SceneManager.LoadScene("Tutorial");
         else SceneManager.LoadScene("NetworkSetup");
     }
