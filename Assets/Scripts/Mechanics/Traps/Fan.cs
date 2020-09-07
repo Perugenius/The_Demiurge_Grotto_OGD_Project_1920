@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core;
 using Mechanics;
 using Photon.Pun;
 using UnityEngine;
@@ -44,6 +45,10 @@ public class Fan : MonoBehaviour
         }
 
         _enabled = startEnabled || alwaysOn;
+        
+        //play sound
+        if(_enabled) AudioManager.Instance.PlaySound("FanSFX");
+        
         animator.SetBool(isOn,_enabled);
     }
 
@@ -51,6 +56,10 @@ public class Fan : MonoBehaviour
     public void EnableFan(bool enable)
     {
         _enabled = enable;
+        
+        //play/stop sound
+        if(enable) AudioManager.Instance.PlaySound("FanSFX");
+        else AudioManager.Instance.StopSound("FanSFX");
         animator.SetBool(isOn,enable);
     }
 
