@@ -46,13 +46,61 @@ MonoBehaviour:
   sounds:
   - name: RunupHills
     clip: {fileID: 8300000, guid: a26e74434ac27e04a9769b9fa780c213, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0
   - name: PanicTown
     clip: {fileID: 8300000, guid: e315fc1ef298be04990eb3bfe8b99f4b, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+  - name: JumpSFX
+    clip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0.1
+  - name: FruitPickupSFX
+    clip: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0.1
+  - name: LaserSFX
+    clip: {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
     volume: 0.5
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+  - name: TrampolineSFX
+    clip: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0.1
+  - name: GemPickupSFX
+    clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+  - name: PlayerHitSFX
+    clip: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+  - name: Untitle
+    clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+  - name: Untitle
+    clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+    volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0

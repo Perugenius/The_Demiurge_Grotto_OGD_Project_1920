@@ -28,6 +28,8 @@ namespace Mechanics.Collectibles
             _spriteRenderer = GetComponent<SpriteRenderer>();
             switch (value)
             {
+                case 1: _pitch = 1;
+                    break;
                 case 5: _pitch = 1.05f;
                     break;
                 case 10: _pitch = 1.1f;

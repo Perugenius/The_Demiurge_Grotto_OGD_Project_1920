@@ -300,6 +300,7 @@ namespace Mechanics.Players
                 {
                     CurrentHealth -= 1;
                     HealthBar.LoseHearth();
+                    AudioManager.Instance.PlaySound("PlayerHitSFX");
                 }
 
                 if (other.gameObject.layer == LayerMask.NameToLayer("DamageTrap"))
