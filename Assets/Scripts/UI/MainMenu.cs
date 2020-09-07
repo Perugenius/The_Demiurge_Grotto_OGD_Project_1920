@@ -71,7 +71,6 @@ public class MainMenu : MonoBehaviour
         _dungeonMenu = dungeons.GetComponent<Menu>();
         _perksMenu = perksShop.GetComponent<Menu>();
         _charactersMenu = characters.GetComponent<Menu>();
-        _creditsMenu = credits.GetComponent<Menu>();
         
         _eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
 
@@ -87,12 +86,12 @@ public class MainMenu : MonoBehaviour
         LoadPerks();
         
         //play music
-        AudioManager.Instance.PlaySound("MainMenu");
+        StartCoroutine(WaitForAudioManager());
 
         PlayerData playerData = SaveSystem.LoadPlayerData();
-        playerData.gems = 1200;
+        /*playerData.gems = 1200;
         playerData.teammateLetters = 40;
-        playerData.eldaanLetters = 10;
+        playerData.eldaanLetters = 10;*/
         
         try
         {
@@ -105,6 +104,15 @@ public class MainMenu : MonoBehaviour
         }
         
         SaveSystem.SavePlayerData(playerData);
+    }
+
+    private IEnumerator WaitForAudioManager()
+    {
+        while (!AudioManager.Instance.Ready)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        AudioManager.Instance.PlaySound("MainMenu");
     }
 
     // Update is called once per frame
@@ -136,7 +144,6 @@ public class MainMenu : MonoBehaviour
         _dungeonMenu.Focus(false);
         _charactersMenu.Focus(false);
         _perksMenu.Focus(false);
-        _creditsMenu.Focus(false);
         
         _homeMenu.gameObject.SetActive(true);
         _homeMenu.Focus(true);
@@ -394,6 +401,13 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ShowCredits()
+    {
+        credits.SetActive(true);
+        _homeMenu.Focus(false);
+        credits.transform.Find("Texts").GetComponent<Credits>().StartCredits();
     }
     
     private void LoadPerks()
