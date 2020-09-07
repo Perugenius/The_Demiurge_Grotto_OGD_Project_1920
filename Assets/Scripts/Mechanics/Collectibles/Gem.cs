@@ -48,7 +48,6 @@ namespace Mechanics.Collectibles
             {
                 if(_isCollected) return;
                 _isCollected = true;
-                AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
                 Collect();
                 return;
             }
@@ -59,10 +58,7 @@ namespace Mechanics.Collectibles
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
-            
-            //play sound
-            AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
-            
+
             if (PhotonNetwork.IsMasterClient)
             {
                 if(_isCollected) return;
@@ -135,6 +131,7 @@ namespace Mechanics.Collectibles
         {
             _isCollected = true;
             Debug.Log("Gem " + value + " collected");
+            AudioManager.Instance.PlaySound("GemPickupSFX", _pitch);
             _collectiblesManager.CollectGem(value);
             transform.localScale = new Vector3(1,1,1);
             _animator.SetBool(IsCollected, true);

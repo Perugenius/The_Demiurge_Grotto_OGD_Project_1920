@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core;
 using Mechanics;
+using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
 
@@ -24,10 +25,14 @@ public class Fan : MonoBehaviour
     private int _count;
     private PhotonView _photonView;
     private static readonly int isOn = Animator.StringToHash("isOn");
+    private GameObject _player1;
+    private GameObject _player2;
+    private Transform _tr;
 
     // Start is called before the first frame update
     void Start()
     {
+        _tr = GetComponent<Transform>();
         _body = transform.Find("Body").gameObject;
 
         _photonView = GetComponent<PhotonView>();
@@ -50,6 +55,9 @@ public class Fan : MonoBehaviour
         if(_enabled) AudioManager.Instance.PlaySound("FanSFX");
         
         animator.SetBool(isOn,_enabled);
+
+        _player1 = GameObject.FindWithTag("Player");
+        _player2 = _player1.GetComponent<PlayableCharacter>().OtherPlayer1.gameObject;
     }
 
     [PunRPC]
@@ -58,7 +66,7 @@ public class Fan : MonoBehaviour
         _enabled = enable;
         
         //play/stop sound
-        if(enable) AudioManager.Instance.PlaySound("FanSFX");
+        if(enable && Vector3.Distance(_player1.transform.position,_tr.position)<50 && Vector3.Distance(_player2.transform.position,_tr.position)<50) AudioManager.Instance.PlaySound("FanSFX");
         else AudioManager.Instance.StopSound("FanSFX");
         animator.SetBool(isOn,enable);
     }
