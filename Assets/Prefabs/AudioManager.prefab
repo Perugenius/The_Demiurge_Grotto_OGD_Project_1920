@@ -87,7 +87,7 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
   - name: PlayerHitSFX
-    clip: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
+    clip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
