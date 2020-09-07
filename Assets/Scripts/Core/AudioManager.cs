@@ -22,6 +22,8 @@ namespace Core
         [Range(0f,0.5f)]
         public float randomPitch = 0.1f;
 
+        public bool loop;
+
         private AudioSource _source;
 
         public void SetSource(AudioSource source)
@@ -35,6 +37,7 @@ namespace Core
             _source.volume = volume * (1 + Random.Range(-randomVolume/2, randomVolume/2));
             _source.pitch = pitch * (1 + Random.Range(-randomPitch/2, randomPitch/2));
             _source.Play();
+            _source.loop = loop;
         }
 
         public void Stop()

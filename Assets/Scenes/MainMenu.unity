@@ -756,6 +756,21 @@ PrefabInstance:
       propertyPath: sounds.Array.data[11].randomPitch
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[0].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523666890349562220, guid: d0117efb48c8ef342aa09ab201b65231,
+        type: 3}
+      propertyPath: sounds.Array.data[10].loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1523666890349562223, guid: d0117efb48c8ef342aa09ab201b65231,
         type: 3}
       propertyPath: m_LocalPosition.x

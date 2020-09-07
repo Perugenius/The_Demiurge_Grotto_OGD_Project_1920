@@ -50,69 +50,81 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 1
   - name: PanicTown
     clip: {fileID: 8300000, guid: e315fc1ef298be04990eb3bfe8b99f4b, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 1
   - name: JumpSFX
     clip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0.1
+    loop: 0
   - name: FruitPickupSFX
     clip: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0.1
+    loop: 0
   - name: LaserSFX
     clip: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
     volume: 0.5
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 0
   - name: TrampolineSFX
     clip: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0.1
+    loop: 0
   - name: GemPickupSFX
     clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 0
   - name: PlayerHitSFX
     clip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 0
   - name: ShurikenSFX
     clip: {fileID: 8300000, guid: a58e438b7cfa445498120af0e6169082, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 0
   - name: Untitle
     clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
     volume: 0.3
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    loop: 0
   - name: MainMenu
     clip: {fileID: 8300000, guid: 91f92886e4e79ad4ca5593d3d4b00429, type: 3}
     volume: 0.641
     pitch: 1
     randomVolume: 0
     randomPitch: 0
-  - name: FanSFX
-    clip: {fileID: 8300000, guid: 684f877232df7a64b9d4170deb0bad1b, type: 3}
+    loop: 1
+  - name: EnemyHit
+    clip: {fileID: 8300000, guid: fb9d43cf73e9f294bb764558fa623a42, type: 3}
     volume: 0.3
     pitch: 1
-    randomVolume: 0
-    randomPitch: 0
+    randomVolume: 0.1
+    randomPitch: 0.1
+    loop: 0
