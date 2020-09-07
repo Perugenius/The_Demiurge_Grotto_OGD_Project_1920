@@ -28,6 +28,11 @@ public class Fan : MonoBehaviour
     private GameObject _player1;
     private GameObject _player2;
     private Transform _tr;
+    private PhotonView _player1PhotonView;
+    private PhotonView _player2PhotonView;
+    private Transform _player1Transform;
+    private Transform _player2Transform;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +63,10 @@ public class Fan : MonoBehaviour
 
         _player1 = GameObject.FindWithTag("Player");
         _player2 = _player1.GetComponent<PlayableCharacter>().OtherPlayer1.gameObject;
+        _player1Transform = _player1.transform;
+        _player1Transform = _player2.transform;
+        _player1PhotonView = _player1.GetComponent<PhotonView>();
+        _player2PhotonView = _player2.GetComponent<PhotonView>();
     }
 
     [PunRPC]
@@ -66,7 +75,8 @@ public class Fan : MonoBehaviour
         _enabled = enable;
         
         //play/stop sound
-        if(enable && Vector3.Distance(_player1.transform.position,_tr.position)<50 && Vector3.Distance(_player2.transform.position,_tr.position)<50) AudioManager.Instance.PlaySound("FanSFX");
+        if(enable && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
+           (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
         else AudioManager.Instance.StopSound("FanSFX");
         animator.SetBool(isOn,enable);
     }
