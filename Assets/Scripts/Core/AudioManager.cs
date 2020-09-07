@@ -50,6 +50,9 @@ namespace Core
     public class AudioManager: Singleton<AudioManager>
     {
         [SerializeField] private Sound[] sounds;
+        private bool _ready;
+
+        public bool Ready => _ready;
 
         private void Start()
         {
@@ -59,6 +62,8 @@ namespace Core
                 sounds[i].SetSource(x.AddComponent<AudioSource>());
                 DontDestroyOnLoad(x);
             }
+
+            _ready = true;
         }
 
         public void PlaySound(string soundName, float pitch = 1)
