@@ -168,6 +168,7 @@ namespace Core
         public void ShowDisconnectionScreen()
         {
             if(victoryScreen.activeSelf) return;
+            if(gameOverScreen.activeSelf) return;
             disconnectionScreen.SetActive(true);
             StartCoroutine(WaitBeforeExit(true));
         }
