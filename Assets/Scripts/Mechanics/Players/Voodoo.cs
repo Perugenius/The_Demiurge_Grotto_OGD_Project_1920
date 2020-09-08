@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using Photon.Pun;
 using UnityEngine;
 
@@ -80,6 +81,7 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
+            AudioManager.Instance.PlaySound("DashSFX");
             _spriteRenderer.color = new Color(255,255,255,0.6f);
             _damageCollider.SetActive(true);
             _playerHitbox.SetActive(false);
