@@ -96,7 +96,7 @@ namespace Mechanics.Players
                 CurrentAttack = PlayerData.attack[CharacterName];
                 JumpHeight = PlayerData.jumpHeight[CharacterName];
                 HealthBar.InitializeHealthBar();
-                AttackBar.SetDuration(AttackRate);
+                AttackBar.SetIncreasingDuration(AttackRate);
                 MaxJumpTime = 0.35f;
                 CurrentJumpTime = 0;
             }

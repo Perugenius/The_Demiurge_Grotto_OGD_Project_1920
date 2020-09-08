@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Mechanics.Players.PlayerAttacks;
 using Photon.Pun;
+using UI;
 using UnityEngine;
 
 namespace Mechanics.Players
@@ -16,13 +17,15 @@ namespace Mechanics.Players
 
         private bool _canDisappear = true;
         private float _invincibilityDuration;
-        private float _timeLapse;
+        private float _invincibilityCoolDown;
 
         private List<GameObject> _pillowSpawners;
         private float _attackDuration;
         private float _projectileSpeed;
         private float _secondarySkillDuration;
         private IEnumerator _invincibilityCoroutine;
+        private Bar _skillBar;
+        private bool _isInvincible;
 
         public GameObject pillowPrefab;
         
@@ -42,7 +45,7 @@ namespace Mechanics.Players
                     }
                 }
                 _pillowSpawnPosition = transform.Find("PillowSpawner").transform;
-                _timeLapse = 2;
+                _invincibilityCoolDown = 4f;
                 _maxPillowNumber = PlayerData.projectileNumber[CharacterName];
                 _secondarySkillDuration = PlayerData.secondarySkillLevel[CharacterName]/2 +1;
                 for (int i = 3; i>=_maxPillowNumber; i--)
@@ -51,6 +54,9 @@ namespace Mechanics.Players
                 }
                 _attackDuration = PlayerData.attackDuration[CharacterName];
                 _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
+                AttackBar.SetDecreasingDuration(_attackDuration);
+                _skillBar.SetDecreasingDuration(_secondarySkillDuration+2);
+                _skillBar.SetIncreasingDuration(_invincibilityCoolDown);
             }
         }
 
@@ -76,13 +82,17 @@ namespace Mechanics.Players
 
         protected override void Attack()
         {
-            if (_invincibilityCoroutine != null)
+            if (_isInvincible)
             {
                 StopCoroutine(_invincibilityCoroutine);
+                _isInvincible = false;
+                _skillBar.ActualSize = 0;
+                _skillBar.IsDecreasing = false;
                 SpriteRenderer.color = new Color(255,255,255,1);
                 Hitbox.SetActive(true);
                 StartCoroutine(nameof(TimeLapse));
             }
+            _canDisappear = false;
             foreach (var elem in _pillowSpawners)
             {
                 if (elem.activeSelf)
@@ -109,14 +119,15 @@ namespace Mechanics.Players
                     pillowScript.SetSpeed(_projectileSpeed);
                     pillowScript.SetPinkie(this);
                 }
-                
             }
-            
+            AttackBar.IsDecreasing = true;
+
         }
 
         public void SetCanSummonPillow(bool canSummon)
         {
             _canSummonPillow = canSummon;
+            _canDisappear = true;
             StartCoroutine(nameof(AttackTimeLapse));
         }
 
@@ -128,6 +139,7 @@ namespace Mechanics.Players
                 SpriteRenderer.color = new Color(255, 255, 255, 0.5f);
                 Hitbox.SetActive(false);
                 _invincibilityCoroutine = InvincibilityTime();
+                _skillBar.IsDecreasing = true;
                 PhotonView.RPC(nameof(PinkieRemoteSecondarySkill), RpcTarget.Others, _secondarySkillDuration);
                 StartCoroutine(_invincibilityCoroutine);
             }
@@ -143,6 +155,7 @@ namespace Mechanics.Players
         
         private IEnumerator InvincibilityTime()
         {
+            _isInvincible = true;
             SpriteRenderer.color = new Color(255, 255, 255, 0.5f);
             yield return new WaitForSeconds(_secondarySkillDuration);
             for (int i = 0; i < 4; i++)
@@ -154,15 +167,20 @@ namespace Mechanics.Players
             }
             SpriteRenderer.color = new Color(255,255,255,1);
             Hitbox.SetActive(true);
+            _isInvincible = false;
             StartCoroutine(nameof(TimeLapse));
-
         }
 
         private IEnumerator TimeLapse()
         {
-            yield return  new WaitForSeconds(_timeLapse);
+            yield return  new WaitForSeconds(_invincibilityCoolDown);
             _canDisappear = true;
         }
-        
+
+        public Bar SkillBar
+        {
+            get => _skillBar;
+            set => _skillBar = value;
+        }
     }
 }

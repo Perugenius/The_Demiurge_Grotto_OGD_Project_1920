@@ -27,6 +27,7 @@ namespace Core
         [SerializeField] private GameObject gemsHUD;
         [SerializeField] private GameObject lettersHUD;
         [SerializeField] private GameObject attackBar;
+        [SerializeField] private GameObject skillBar;
         private int _numOfPlayers = 2;
         private DungeonBuilder _dungeonBuilder;
         private CollectiblesManager _collectiblesManager;
@@ -119,6 +120,14 @@ namespace Core
             healthBar.Character = playerScript;
             playerScript.HealthBar1 = healthBar;
             playerScript.AttackBar1 = attackBar.GetComponent<Bar>();
+            if (playerScript is Pinkie pinkie)
+            {
+                pinkie.SkillBar = skillBar.GetComponent<Bar>();
+            }
+            else
+            {
+                skillBar.SetActive(false);
+            }
             gemsHUD.SetActive(true);
             lettersHUD.SetActive(true);
             loading.SetActive(false);
