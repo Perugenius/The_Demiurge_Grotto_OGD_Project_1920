@@ -54,7 +54,7 @@ namespace Mechanics.Players
                     _pillowSpawners[i].SetActive(false);
                 }
                 _attackDuration = PlayerData.attackDuration[CharacterName];
-                _projectileSpeed = 240;//PlayerData.projectileSpeed[CharacterName];
+                _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
                 AttackBar.SetDecreasingDuration(_attackDuration);
                 _skillBar.SetDecreasingDuration(_secondarySkillDuration+2);
                 _skillBar.SetIncreasingDuration(_invincibilityCoolDown);
