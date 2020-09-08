@@ -54,8 +54,9 @@ namespace Mechanics.Enemies
 
             if (_particleReady)
             {
-                if(testing) Instantiate(particle[Random.Range(0,4)], firePoint.position, Tr.rotation);
-                else
+                //if(testing)
+                Instantiate(particle[Random.Range(0,4)], firePoint.position, Tr.rotation);
+                /*else
                 {
                     if (PhotonNetwork.IsMasterClient)
                     {
@@ -63,7 +64,7 @@ namespace Mechanics.Enemies
                         PhotonNetwork.Instantiate(path, firePoint.position, Tr.rotation);
                     }
                     
-                }
+                }*/
                 _particleReady = false;
                 StartCoroutine (nameof(Cooldown));
             }
