@@ -484,6 +484,11 @@ namespace Mechanics.Players
             yield return new WaitForSeconds(AttackRate);
             CanAttack = true;
         }
+
+        public void SetSpawnAnimation()
+        {
+            Animator.SetTrigger(Appear);
+        }
         
         [PunRPC]
         public void MoveWithFriend(Vector2 direction, float speed)
