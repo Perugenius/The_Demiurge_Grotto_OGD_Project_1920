@@ -65,7 +65,7 @@ namespace Mechanics.Enemies
                 yield return null;
             }
             if(!offline && PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
-            else Destroy(gameObject);
+            else if(offline) Destroy(gameObject);
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
