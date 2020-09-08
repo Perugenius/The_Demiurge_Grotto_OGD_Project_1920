@@ -9687,6 +9687,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 3746447965445755500, guid: d0dd098b6e50e6641b4d94c2bf8349c3,
+        type: 3}
+      propertyPath: enemiesThatCanBeSpawned.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746447965445755500, guid: d0dd098b6e50e6641b4d94c2bf8349c3,
+        type: 3}
+      propertyPath: enemiesThatCanBeSpawned.Array.data[0]
+      value: 
+      objectReference: {fileID: 8765737246681385307, guid: 56aa2d03d54ac2848806ab162fb226b6,
+        type: 3}
+    - target: {fileID: 3746447965445755500, guid: d0dd098b6e50e6641b4d94c2bf8349c3,
+        type: 3}
+      propertyPath: enemiesThatCanBeSpawned.Array.data[1]
+      value: 
+      objectReference: {fileID: 860421270385595743, guid: ccf9d801a140da14fa39c1ac2345450d,
+        type: 3}
     - target: {fileID: 8942794738560726867, guid: d0dd098b6e50e6641b4d94c2bf8349c3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11269,13 +11286,13 @@ PrefabInstance:
         type: 3}
       propertyPath: collectiblesThatCanBeSpawned.Array.data[0]
       value: 
-      objectReference: {fileID: 8765737246681385307, guid: 56aa2d03d54ac2848806ab162fb226b6,
+      objectReference: {fileID: 8437163607082278469, guid: cfe5f4645de961c40ba6736004f045cb,
         type: 3}
     - target: {fileID: 2205267503909387291, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
       propertyPath: collectiblesThatCanBeSpawned.Array.data[1]
       value: 
-      objectReference: {fileID: 860421270385595743, guid: ccf9d801a140da14fa39c1ac2345450d,
+      objectReference: {fileID: 2076205905327343688, guid: a55560fc8d843f14f823fab4d25d42c5,
         type: 3}
     - target: {fileID: 7539017539197016732, guid: 125cb696400f8434b95204bc58b65808,
         type: 3}
