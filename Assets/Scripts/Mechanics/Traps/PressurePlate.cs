@@ -25,7 +25,7 @@ namespace Mechanics.Traps
     
         private void OnTriggerExit2D(Collider2D other)
         {
-            AudioManager.Instance.PlaySound("PressurePlateOffSFX");
+            /*AudioManager.Instance.PlaySound("PressurePlateOffSFX");*/
             if(stoneFace == null) return;
             if(_playersInside > 0) _playersInside--;
             if(_playersInside > 0) return;
