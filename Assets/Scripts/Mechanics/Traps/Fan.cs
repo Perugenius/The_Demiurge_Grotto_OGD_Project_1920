@@ -55,11 +55,7 @@ public class Fan : MonoBehaviour
         }
 
         _enabled = startEnabled || alwaysOn;
-        
-        //play sound
-        if(_enabled  && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
-           (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
-        
+
         animator.SetBool(isOn,_enabled);
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -69,6 +65,10 @@ public class Fan : MonoBehaviour
         _player1Transform = _player2.transform;
         _player1PhotonView = _player1.GetComponent<PhotonView>();
         _player2PhotonView = _player2.GetComponent<PhotonView>();
+        
+        //play sound
+        if(_enabled  && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
+           (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
     }
 
     [PunRPC]
