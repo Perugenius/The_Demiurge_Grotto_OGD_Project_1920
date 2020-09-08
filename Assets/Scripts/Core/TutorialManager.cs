@@ -95,6 +95,7 @@ namespace Core
         public void ShowVictoryScreen()
         {
             victoryScreen.SetActive(true);
+            AudioManager.Instance.PlaySound("VictorySFX");
             StartCoroutine(WaitBeforeExit());
         }
         
