@@ -7126,7 +7126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intensity: 2
-  gravityReduceFactor: 5
+  gravityReduceFactor: 1.5
   numberOfParticles: 3
   particleIntensity: 5
   particlesShootPeriod: 3
