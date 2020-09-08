@@ -17,8 +17,9 @@ namespace Mechanics.Players
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled") && !other.gameObject.CompareTag("MessaggeTrigger"))
             {
+                Debug.Log(other.gameObject.name);
                 if (_script.GetIsJumping()){ _script.SetIsJumping(false);}
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
                 else if (_script is Steve steve) steve.IsOnWall = false;
@@ -33,7 +34,7 @@ namespace Mechanics.Players
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled") && !other.gameObject.CompareTag("MessaggeTrigger"))
             {
                 if (_script.GetIsJumping()) _script.SetIsJumping(false);
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
@@ -49,7 +50,7 @@ namespace Mechanics.Players
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled"))
+            if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled") && !other.gameObject.CompareTag("MessaggeTrigger"))
             {
                 _script.SetIsJumping(true);
                 if (_script is Kinja kinja) kinja.SetJumpsNumber(1);
