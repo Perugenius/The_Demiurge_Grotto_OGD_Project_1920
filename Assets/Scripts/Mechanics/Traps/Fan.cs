@@ -57,12 +57,14 @@ public class Fan : MonoBehaviour
         _enabled = startEnabled || alwaysOn;
         
         //play sound
-        if(_enabled) AudioManager.Instance.PlaySound("FanSFX");
+        if(_enabled  && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
+           (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
         
         animator.SetBool(isOn,_enabled);
 
-        _player1 = GameObject.FindWithTag("Player");
-        _player2 = _player1.GetComponent<PlayableCharacter>().OtherPlayer1.gameObject;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        _player1 = players[0];
+        _player2 = players[1];
         _player1Transform = _player1.transform;
         _player1Transform = _player2.transform;
         _player1PhotonView = _player1.GetComponent<PhotonView>();
