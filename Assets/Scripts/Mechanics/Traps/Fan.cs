@@ -125,7 +125,6 @@ public class Fan : MonoBehaviour
         // Update is called once per frame
     void FixedUpdate()
     {
-        return;
         if(Vector3.Distance(_player.transform.position,_tr.position) > 50f) return;
         
         if(_enabled)_particleCount++;
