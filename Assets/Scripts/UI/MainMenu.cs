@@ -409,6 +409,16 @@ public class MainMenu : MonoBehaviour
         _homeMenu.Focus(false);
         credits.transform.Find("Texts").GetComponent<Credits>().StartCredits();
     }
+
+    public void PlaySelectedSound()
+    {
+        AudioManager.Instance.PlaySound("ButtonSelectedSFX");
+    }
+    
+    public void PlayHighlightedSound()
+    {
+        AudioManager.Instance.PlaySound("ButtonHighlightedSFX");
+    }
     
     private void LoadPerks()
     {
