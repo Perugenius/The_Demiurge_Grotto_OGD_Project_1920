@@ -39,6 +39,7 @@ public class SpawnCompanionTrigger : MonoBehaviour
     {
         character.transform.position = spawnPosition.position;
         character.SetActive(true);
+        character.GetComponent<PlayableCharacter>().SetSpawnAnimation();
         character.GetComponent<Rigidbody2D>().mass = 1000;
         //TODO call spawn animation
         //character.GetComponent<PlayableCharacter>().
