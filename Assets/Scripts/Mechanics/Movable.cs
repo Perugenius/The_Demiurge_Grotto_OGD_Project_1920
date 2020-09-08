@@ -211,7 +211,6 @@ namespace Mechanics
         
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            Debug.Log("CULO");
             if (stream.IsWriting)
             {
                 stream.SendNext(Rb.position);
