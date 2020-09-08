@@ -238,7 +238,7 @@ namespace Mechanics
                 _networkRotation = (float) stream.ReceiveNext();
                 Rb.velocity = (Vector2) stream.ReceiveNext();
 
-                float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+                float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
                 _networkPosition += Rb.velocity * lag;
             }
         }
