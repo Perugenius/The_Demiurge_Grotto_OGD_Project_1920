@@ -6,7 +6,6 @@
     <e p="C:\Users\Utente\Documents\Unity projects\OGD_Project_1920" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Credits.cs" t="Include" />
         <e p="Graphics" t="Include">
           <e p="UI" t="Include">
             <e p="fonts" t="Include">
@@ -21,8 +20,6 @@
             </e>
           </e>
         </e>
-        <e p="KillArea.cs" t="Include" />
-        <e p="MessageTrigger.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -427,6 +424,8 @@
             <e p="GayBunny.cs" t="Include" />
             <e p="Health.cs" t="Include" />
             <e p="IDamageInflictor.cs" t="Include" />
+            <e p="KillArea.cs" t="Include" />
+            <e p="MessageTrigger.cs" t="Include" />
             <e p="Movable.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="Players" t="Include">
@@ -449,6 +448,7 @@
               <e p="Voodoo.cs" t="Include" />
             </e>
             <e p="RoomArea.cs" t="Include" />
+            <e p="SpawnCompanionTrigger.cs" t="Include" />
             <e p="SpawnPoint.cs" t="Include" />
             <e p="Traps" t="Include">
               <e p="AirParticle.cs" t="Include" />
@@ -479,6 +479,7 @@
             <e p="Bar.cs" t="Include" />
             <e p="ButtonHighlightText.cs" t="Include" />
             <e p="CommandsUI.cs" t="Include" />
+            <e p="Credits.cs" t="Include" />
             <e p="DungeonMap.cs" t="Include" />
             <e p="DungeonUnlockedLabel.cs" t="Include" />
             <e p="HealthBar.cs" t="Include" />
@@ -489,6 +490,7 @@
             <e p="PlayerCollectiblesUI.cs" t="Include" />
             <e p="SkillBar.cs" t="Include" />
             <e p="SlidingSky.cs" t="Include" />
+            <e p="TutorialMap.cs" t="Include" />
             <e p="VictoryScreen.cs" t="Include" />
           </e>
           <e p="Utilities" t="Include">
@@ -498,8 +500,6 @@
         <e p="ShootingSound" t="Include">
           <e p="readme.txt" t="Include" />
         </e>
-        <e p="SpawnCompanionTrigger.cs" t="Include" />
-        <e p="TutorialMap.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="OGD_Project_1920.sln" t="IncludeFlat" />

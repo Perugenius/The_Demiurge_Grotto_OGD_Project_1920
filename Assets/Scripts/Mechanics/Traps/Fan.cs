@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core;
 using Mechanics;
 using Mechanics.Players;
+using Mechanics.Traps;
 using Photon.Pun;
 using UnityEngine;
 
@@ -97,13 +98,6 @@ public class Fan : MonoBehaviour
             particleRigidbody.gravityScale =
                 (_direction.x > 0.1 || _direction.x < 0.1) ? 0 : particleRigidbody.gravityScale;
             instantiatedParticle.GetComponent<AirParticle>().Intensity = 14 / 2.5f * intensity;
-            StartCoroutine(WaitBeforeDeletingParticle(instantiatedParticle));
-        }
-
-        private IEnumerator WaitBeforeDeletingParticle(GameObject instantiatedParticle)
-        {
-            yield return new WaitForSeconds(1f);
-            Destroy(instantiatedParticle);
         }
 
         /*private void OnTriggerEnter2D(Collider2D other)
