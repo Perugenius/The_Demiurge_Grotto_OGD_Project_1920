@@ -32,7 +32,6 @@ namespace Mechanics.Enemies
         {
             Animator.SetTrigger("Hit");
             Hit = true;
-            AudioManager.Instance.PlaySound("EnemyHit");
             damagePlayer.SetActive(false);
             if (damage < lifePoints)
             {
@@ -77,8 +76,11 @@ namespace Mechanics.Enemies
                 {
                     PhotonView photonView = other.gameObject.GetComponent<PhotonView>();
                     if (photonView == null) photonView = other.transform.GetComponentInParent<PhotonView>();
-                    if (!Hit && photonView.IsMine)
+                    if (!Hit && photonView.IsMine){
+                        AudioManager.Instance.PlaySound("EnemyHit");
                         GetComponent<PhotonView>().RPC("Damage", RpcTarget.All, other.GetComponent<IDamageInflictor>().GetDamage());
+                        
+                    }
                 }
                 
             }
