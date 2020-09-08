@@ -39,7 +39,11 @@ public class MessageBox : MonoBehaviour
 
     public void ShowMessage(string message)
     {
-        Debug.Log("Show message");
+        if(_menu.DuringTransition)
+        {
+            StartCoroutine(WaitDuringTransition(message));
+            return;
+        }
         if (_menu.isFocused())
         {
             _menu.Focus(false);
@@ -52,6 +56,15 @@ public class MessageBox : MonoBehaviour
             _menu.Focus(true);
             StartCoroutine(MessageBoxNotClosable());
         }
+    }
+
+    private IEnumerator WaitDuringTransition(string message)
+    {
+        while (_menu.DuringTransition)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        ShowMessage(message);
     }
 
     private IEnumerator MessageBoxNotClosable()
