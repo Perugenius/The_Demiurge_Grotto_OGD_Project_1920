@@ -25,11 +25,15 @@ public class Fan : MonoBehaviour
     private int _count;
     private PhotonView _photonView;
     private static readonly int isOn = Animator.StringToHash("isOn");
+    private GameObject _player;
+    private Transform _tr;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        _tr = GetComponent<Transform>();
+        
         _body = transform.Find("Body").gameObject;
 
         _photonView = GetComponent<PhotonView>();
@@ -44,6 +48,12 @@ public class Fan : MonoBehaviour
             case -180: _direction = Vector2.down; break;
             case -270: _direction = Vector2.left; break;
             default: _direction = Vector2.up; break;
+        }
+        
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in players)
+        {
+            if (player.GetPhotonView().IsMine) _player = player;
         }
 
         _enabled = startEnabled || alwaysOn;
@@ -115,6 +125,7 @@ public class Fan : MonoBehaviour
         // Update is called once per frame
     void FixedUpdate()
     {
+        if(Vector3.Distance(_player.transform.position,_tr.position) > 25f) return;
         if(_enabled)_particleCount++;
         _count++;
         if (_enabled && _particleCount >= Mathf.Floor(60f / particleFrequency))
