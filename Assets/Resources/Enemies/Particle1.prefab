@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5588330595007475117}
   - component: {fileID: 1306043156468465705}
   - component: {fileID: -3138898397486293250}
-  - component: {fileID: -2558259957217554821}
   m_Layer: 8
   m_Name: Particle1
   m_TagString: Untagged
@@ -136,28 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74be4c1c21aee4c41a1d9bac4df48c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2558259957217554821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231859161851231852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 0
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &8617394832580201099
 GameObject:
   m_ObjectHideFlags: 0
