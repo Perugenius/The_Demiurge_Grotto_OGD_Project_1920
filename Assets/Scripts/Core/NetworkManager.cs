@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Core.SaveLoadData;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,10 @@ namespace Core
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
+            
+            //stop music
+            AudioManager.Instance.StopSound(SaveSystem.LoadPlayerData().lastSelectedDungeon);
+            
             SceneManager.LoadScene("MainMenu");
         }
 
