@@ -25,20 +25,11 @@ public class Fan : MonoBehaviour
     private int _count;
     private PhotonView _photonView;
     private static readonly int isOn = Animator.StringToHash("isOn");
-    private GameObject _player1;
-    private GameObject _player2;
-    private Transform _tr;
-    private PhotonView _player1PhotonView;
-    private PhotonView _player2PhotonView;
-    private Transform _player1Transform;
-    private Transform _player2Transform;
-    private bool _ready;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _tr = GetComponent<Transform>();
         _body = transform.Find("Body").gameObject;
 
         _photonView = GetComponent<PhotonView>();
@@ -58,33 +49,12 @@ public class Fan : MonoBehaviour
         _enabled = startEnabled || alwaysOn;
 
         animator.SetBool(isOn,_enabled);
-
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        _player1 = players[0];
-        _player2 = players[1];
-        _player1Transform = _player1.transform;
-        _player1Transform = _player2.transform;
-        _player1PhotonView = _player1.GetComponent<PhotonView>();
-        _player2PhotonView = _player2.GetComponent<PhotonView>();
-        
-        //play sound
-        if(_enabled  && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
-           (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
-
-        _ready = true;
     }
 
     [PunRPC]
     public void EnableFan(bool enable)
     {
         _enabled = enable;
-        if (_ready)
-        {
-            //play/stop sound
-            if(enable && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
-               (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
-            else AudioManager.Instance.StopSound("FanSFX");
-        }
         animator.SetBool(isOn,enable);
     }
 
