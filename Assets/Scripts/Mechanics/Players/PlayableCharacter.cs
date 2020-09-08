@@ -383,8 +383,11 @@ namespace Mechanics.Players
                     StopCoroutine(FadingOut);
                     IsDying = false;
                     SpriteRenderer.color = Color.white;
-                    CurrentHealth = ReanimationHealth < MaxHealth ? ReanimationHealth : MaxHealth;
-                    HealthBar.RefillHearth((int)CurrentHealth);
+                    if (IsMine)
+                    {
+                        CurrentHealth = ReanimationHealth < MaxHealth ? ReanimationHealth : MaxHealth;
+                        HealthBar.RefillHearth((int) CurrentHealth);
+                    }
                     FadingOut = null;
                     Hitbox.SetActive(true);
                     CanAttack = true;
