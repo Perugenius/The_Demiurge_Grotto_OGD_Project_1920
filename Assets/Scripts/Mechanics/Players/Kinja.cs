@@ -44,7 +44,7 @@ namespace Mechanics.Players
                     Animator.SetTrigger(DoubleJump);
                 }
 
-                if (Input.GetButtonDown("Attack") && CanAttack)
+                if (Input.GetButtonDown("Attack") && CanAttack && !IsDying)
                 {
                     if(IsJumping)
                         Attack();
