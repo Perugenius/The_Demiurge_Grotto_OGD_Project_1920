@@ -73,6 +73,7 @@ namespace Mechanics.Players
             Shadow = transform.Find("Shadow").gameObject;
             Shadow.SetActive(false);
             Animator.SetTrigger(Appear);
+            CharacterName = statistics.characterName;
             if (!localTesting)
             {
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -88,7 +89,6 @@ namespace Mechanics.Players
             {
                 PlayerData = SaveSystem.LoadPlayerData();
                 IsMine = true;
-                CharacterName = statistics.characterName;
                 ReanimationHealth = PlayerData.reanimationLife[CharacterName];
                 CurrentSpeed = PlayerData.speed[CharacterName];
                 MaxHealth = PlayerData.maxHealth[CharacterName];
