@@ -55,7 +55,7 @@ namespace Mechanics.Players
                     coroutine = null;
                 }
 
-                if (Input.GetButtonDown("Attack") && !_isDashing && !IsJumping && CanAttack)
+                if (Input.GetButtonDown("Attack") && !_isDashing && !IsJumping && CanAttack && !IsDying)
                 {
                     CanAttack = false;
                     Attack();

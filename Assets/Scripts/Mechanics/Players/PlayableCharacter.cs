@@ -72,6 +72,7 @@ namespace Mechanics.Players
             this.PhotonView = PhotonView.Get(this);
             Shadow = transform.Find("Shadow").gameObject;
             Shadow.SetActive(false);
+            Animator.SetTrigger(Appear);
             if (!localTesting)
             {
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");

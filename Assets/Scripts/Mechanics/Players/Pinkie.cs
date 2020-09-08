@@ -66,13 +66,13 @@ namespace Mechanics.Players
             base.Update();
             if (IsMine || localTesting)
             {
-                if (Input.GetButtonDown("Attack") && _canSummonPillow && CanAttack)
+                if (Input.GetButtonDown("Attack") && _canSummonPillow && CanAttack && !IsDying)
                 {
                     CanAttack = false;
                     Attack();
                 }
 
-                if (Input.GetButtonDown("SecondarySkill") && _canDisappear)
+                if (Input.GetButtonDown("SecondarySkill") && _canDisappear && !IsDying)
                 {
                     UseSecondary();
                 }
