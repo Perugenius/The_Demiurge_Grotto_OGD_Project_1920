@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Core;
 using Mechanics.Players;
 using Photon.Pun;
 using UnityEngine;
@@ -68,6 +69,7 @@ namespace Mechanics.Traps
         [PunRPC]
         private void DestroyChest(string i)
         {
+            AudioManager.Instance.PlaySound("ChestBreakSFX");
             animator.SetBool(IsHit, true);
             Debug.Log("Chest hit");
             StartCoroutine(WaitAnimationEnd());
