@@ -20,7 +20,7 @@ namespace Mechanics.Enemies
     
         private IEnumerator Disappear(){
             yield return new WaitForSeconds (2);
-            if(PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
+            Destroy(gameObject);
             
         }
     }
