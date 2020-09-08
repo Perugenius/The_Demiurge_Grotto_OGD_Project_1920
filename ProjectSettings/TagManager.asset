@@ -10,6 +10,7 @@ TagManager:
   - FanAir
   - JumpDisabled
   - MessaggeTrigger
+  - Collectible
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Core;
 using Mechanics.Players.PlayerAttacks;
 using Photon.Pun;
 using UI;
@@ -53,7 +54,7 @@ namespace Mechanics.Players
                     _pillowSpawners[i].SetActive(false);
                 }
                 _attackDuration = PlayerData.attackDuration[CharacterName];
-                _projectileSpeed = PlayerData.projectileSpeed[CharacterName];
+                _projectileSpeed = 240;//PlayerData.projectileSpeed[CharacterName];
                 AttackBar.SetDecreasingDuration(_attackDuration);
                 _skillBar.SetDecreasingDuration(_secondarySkillDuration+2);
                 _skillBar.SetIncreasingDuration(_invincibilityCoolDown);
@@ -93,6 +94,7 @@ namespace Mechanics.Players
                 StartCoroutine(nameof(TimeLapse));
             }
             _canDisappear = false;
+            AudioManager.Instance.PlaySound("PillowSFX");
             foreach (var elem in _pillowSpawners)
             {
                 if (elem.activeSelf)
@@ -140,6 +142,7 @@ namespace Mechanics.Players
                 Hitbox.SetActive(false);
                 _invincibilityCoroutine = InvincibilityTime();
                 _skillBar.IsDecreasing = true;
+                AudioManager.Instance.PlaySound("InvincibilitySFX");
                 PhotonView.RPC(nameof(PinkieRemoteSecondarySkill), RpcTarget.Others, _secondarySkillDuration);
                 StartCoroutine(_invincibilityCoroutine);
             }

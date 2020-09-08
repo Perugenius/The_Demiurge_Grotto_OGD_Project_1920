@@ -78,7 +78,7 @@ namespace Core.SaveLoadData
                         attack.Add(character,1);
                         attackRate.Add(character, 1.5f);
                         projectileNumber.Add(character,1);
-                        projectileSpeed.Add(character,200);
+                        projectileSpeed.Add(character,240);
                         attackDuration.Add(character, 3);
                     }
 
