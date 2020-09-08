@@ -30,6 +30,8 @@ namespace Mechanics
 
         private Vector2 _networkPosition;
         private float _networkRotation;
+
+        private bool _observed;
         
 
         protected Vector2 m_velocity;
@@ -193,7 +195,7 @@ namespace Mechanics
             _currentMovingDirection = (Tr.position - _lastPosition).normalized;
             _lastPosition = Tr.position;
             
-            if (Pw && !Pw.IsMine)
+            if (Pw && !Pw.IsMine && _observed)
             {
                 Rb.position = Vector3.MoveTowards(Rb.position, _networkPosition, Time.fixedDeltaTime);
                 //Rb.rotation = Quaternion.RotateTowards(Rb.rotation, _networkRotation, Time.fixedDeltaTime * 100.0f);
@@ -223,6 +225,7 @@ namespace Mechanics
         
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
+            if(!_observed) _observed = true;
             if (stream.IsWriting)
             {
                 stream.SendNext(Rb.position);
