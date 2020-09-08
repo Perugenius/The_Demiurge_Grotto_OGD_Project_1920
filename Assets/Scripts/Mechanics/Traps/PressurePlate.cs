@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Core;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mechanics.Traps
@@ -13,6 +14,7 @@ namespace Mechanics.Traps
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            AudioManager.Instance.PlaySound("PressurePlateOnSFX");
             if(stoneFace == null) return;
             _playersInside++;
             if(_playersInside > 1) return;
@@ -23,6 +25,7 @@ namespace Mechanics.Traps
     
         private void OnTriggerExit2D(Collider2D other)
         {
+            AudioManager.Instance.PlaySound("PressurePlateOffSFX");
             if(stoneFace == null) return;
             if(_playersInside > 0) _playersInside--;
             if(_playersInside > 0) return;

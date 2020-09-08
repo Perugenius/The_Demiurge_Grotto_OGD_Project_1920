@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Core;
 using UnityEngine;
 
 namespace Mechanics.Traps
@@ -105,6 +106,7 @@ namespace Mechanics.Traps
 
         public void Die()
         {
+            AudioManager.Instance.PlaySound("StoneFaceDeathSFX");
             _animator.SetBool(IsDying,true);
             gameObject.layer = LayerMask.NameToLayer("Particle");
             Rb.constraints = RigidbodyConstraints2D.None;
