@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using Photon.Pun;
 using UnityEngine;
@@ -36,6 +37,11 @@ namespace Mechanics.Enemies
                 _direction = Vector2.right;
                 _tr.Rotate(0f,180,0f);
             }
+        }
+
+        private void OnEnable()
+        {
+            _bulletReady = true;
         }
 
         // Update is called once per frame

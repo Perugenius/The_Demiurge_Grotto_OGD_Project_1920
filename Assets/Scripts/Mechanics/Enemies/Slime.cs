@@ -34,6 +34,11 @@ namespace Mechanics.Enemies
             _particleReady = true;
         }
 
+        private void OnEnable()
+        {
+            _particleReady = true;
+        }
+
         private void Update()
         {
             
