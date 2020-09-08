@@ -9,6 +9,7 @@ TagManager:
   - ProjectileSpawner
   - FanAir
   - JumpDisabled
+  - MessaggeTrigger
   layers:
   - Default
   - TransparentFX
