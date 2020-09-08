@@ -9,6 +9,7 @@ namespace Mechanics
     {
         protected Transform Tr;
         protected Rigidbody2D Rb;
+        protected PhotonView Pw;
         protected Vector2 TargetPosition;
         protected bool MoveFixedDistance;
         protected bool MoveFixedDistanceAccelerated;
@@ -23,9 +24,13 @@ namespace Mechanics
         private float _fixedAcceleration;
         private Vector3 _lastPosition = Vector3.zero;
         private Vector3 _currentMovingDirection = Vector3.zero;
-
+        
         private float _floatingAmplitude;
         private float _floatingAcceleration;
+
+        private Vector2 _networkPosition;
+        private float _networkRotation;
+        
 
         protected Vector2 m_velocity;
 
@@ -33,6 +38,7 @@ namespace Mechanics
         {
             Tr = GetComponent<Transform>();
             Rb = GetComponent<Rigidbody2D>();
+            Pw = GetComponent<PhotonView>();
         }
 
         /// <summary>
@@ -187,6 +193,12 @@ namespace Mechanics
             _currentMovingDirection = (Tr.position - _lastPosition).normalized;
             _lastPosition = Tr.position;
             
+            if (Pw && !Pw.IsMine)
+            {
+                Rb.position = Vector3.MoveTowards(Rb.position, _networkPosition, Time.fixedDeltaTime);
+                //Rb.rotation = Quaternion.RotateTowards(Rb.rotation, _networkRotation, Time.fixedDeltaTime * 100.0f);
+            }
+            
         }
 
         public void JumpLateral(float jumpHeight, Vector2 direction)
@@ -219,12 +231,12 @@ namespace Mechanics
             }
             else
             {
-                Rb.position = (Vector2) stream.ReceiveNext();
-                Rb.rotation = (float) stream.ReceiveNext();
+                _networkPosition = (Vector2) stream.ReceiveNext();
+                _networkRotation = (float) stream.ReceiveNext();
                 Rb.velocity = (Vector2) stream.ReceiveNext();
 
                 float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
-                Rb.position += Rb.velocity * lag;
+                _networkPosition += Rb.velocity * lag;
             }
         }
     }
