@@ -19,7 +19,6 @@ namespace Mechanics.Players
         {
             if (!other.gameObject.name.Contains("Room") && !other.gameObject.name.Contains("Camera") && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled") && !other.gameObject.CompareTag("MessaggeTrigger"))
             {
-                Debug.Log(other.gameObject.name);
                 if (_script.GetIsJumping()){ _script.SetIsJumping(false);}
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
                 else if (_script is Steve steve) steve.IsOnWall = false;
