@@ -1,10 +1,11 @@
 ﻿using System;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
 namespace Mechanics
 {
-    public class Movable : MonoBehaviour
+    public class Movable : MonoBehaviourPun, IPunObservable
     {
         protected Transform Tr;
         protected Rigidbody2D Rb;
@@ -185,6 +186,7 @@ namespace Mechanics
 
             _currentMovingDirection = (Tr.position - _lastPosition).normalized;
             _lastPosition = Tr.position;
+            
         }
 
         public void JumpLateral(float jumpHeight, Vector2 direction)
@@ -205,6 +207,26 @@ namespace Mechanics
             FloatingUp = false;
             FloatingDown = false;
             MoveFixedDistanceAcceleratedDecelerated = false;
+        }
+        
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            Debug.Log("CULO");
+            if (stream.IsWriting)
+            {
+                stream.SendNext(Rb.position);
+                stream.SendNext(Rb.rotation);
+                stream.SendNext(Rb.velocity);
+            }
+            else
+            {
+                Rb.position = (Vector2) stream.ReceiveNext();
+                Rb.rotation = (float) stream.ReceiveNext();
+                Rb.velocity = (Vector2) stream.ReceiveNext();
+
+                float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+                Rb.position += Rb.velocity * lag;
+            }
         }
     }
 }
