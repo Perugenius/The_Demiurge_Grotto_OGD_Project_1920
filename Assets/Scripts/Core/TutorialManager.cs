@@ -23,6 +23,7 @@ namespace Core
         [SerializeField] private GameObject kinjaRoom;
         [SerializeField] private GameObject steveRoom;
         [SerializeField] private GameObject pinkieRoom;
+        [SerializeField] private GameObject skillBar;
         private CollectiblesManager _collectiblesManager;
         private GameObject _currentPlayer;
 
@@ -44,6 +45,14 @@ namespace Core
             healthBar.Character = playerScript;
             playerScript.HealthBar1 = healthBar;
             playerScript.AttackBar1 = attackBar.GetComponent<Bar>();
+            if (playerScript is Pinkie pinkie)
+            {
+                pinkie.SkillBar = skillBar.GetComponent<Bar>();
+            }
+            else
+            {
+                skillBar.SetActive(false);
+            }
             gemsHUD.SetActive(true);
             lettersHUD.SetActive(true);
             

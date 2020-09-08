@@ -191,3 +191,17 @@ MonoBehaviour:
     randomVolume: 0.1
     randomPitch: 0.1
     loop: 0
+  - name: PillowSFX
+    clip: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0.05
+    loop: 0
+  - name: InvincibilitySFX
+    clip: {fileID: 8300000, guid: b1b9c1f0ea1fcae439ed1a4d44ff05fd, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0.05
+    loop: 0
