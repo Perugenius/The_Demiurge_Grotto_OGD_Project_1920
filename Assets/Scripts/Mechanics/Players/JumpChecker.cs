@@ -17,9 +17,9 @@ namespace Mechanics.Players
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            bool disactiveTrigger = false;
             string otherName = other.gameObject.name;
-            if (otherName.Contains("Room") || otherName.Contains("Camera") || otherName.Contains("Transition") ||
+            /*bool disactiveTrigger = false;*/
+            /*if (otherName.Contains("Room") || otherName.Contains("Camera") || otherName.Contains("Transition") ||
                 otherName.Contains("CheckPoint"))
                 disactiveTrigger = true;
             if (!disactiveTrigger && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled") && !other.gameObject.CompareTag("MessaggeTrigger"))
@@ -33,13 +33,21 @@ namespace Mechanics.Players
                 _script.SetIsJumping(true);
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(1);
                 else if (_script is Steve steve) steve.IsOnWall = false;
+            }*/
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") ||
+                other.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") || otherName.Contains("Sand") ||
+                otherName.Contains("SewerWaste"))
+            {
+                if (_script.GetIsJumping()){ _script.SetIsJumping(false);}
+                if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
+                else if (_script is Steve steve) steve.IsOnWall = false;
             }
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            bool disactiveTrigger = false;
             string otherName = other.gameObject.name;
+            /*bool disactiveTrigger = false;
             if (otherName.Contains("Room") || otherName.Contains("Camera") || otherName.Contains("Transition") ||
                 otherName.Contains("CheckPoint"))
                 disactiveTrigger = true;
@@ -55,17 +63,32 @@ namespace Mechanics.Players
                 _script.SetIsJumping(true);
                 if(_script is Kinja kinja) kinja.SetJumpsNumber(1);
                 else if (_script is Steve steve) steve.IsOnWall = false;
+            }*/
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") ||
+                other.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") || otherName.Contains("Sand") ||
+                otherName.Contains("SewerWaste"))
+            {
+                if (_script.GetIsJumping()){ _script.SetIsJumping(false);}
+                if(_script is Kinja kinja) kinja.SetJumpsNumber(0);
+                else if (_script is Steve steve) steve.IsOnWall = false;
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            bool disactiveTrigger = false;
             string otherName = other.gameObject.name;
+            /*bool disactiveTrigger = false;
             if (otherName.Contains("Room") || otherName.Contains("Camera") || otherName.Contains("Transition") ||
                 otherName.Contains("CheckPoint"))
                 disactiveTrigger = true;
             if (!disactiveTrigger && !other.gameObject.CompareTag("FanAir") && !other.gameObject.CompareTag("JumpDisabled") && !other.gameObject.CompareTag("MessaggeTrigger"))
+            {
+                _script.SetIsJumping(true);
+                if (_script is Kinja kinja) kinja.SetJumpsNumber(1);
+            }*/
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") ||
+                other.gameObject.layer == LayerMask.NameToLayer("PlayerPhysic") || otherName.Contains("Sand") ||
+                otherName.Contains("SewerWaste"))
             {
                 _script.SetIsJumping(true);
                 if (_script is Kinja kinja) kinja.SetJumpsNumber(1);
