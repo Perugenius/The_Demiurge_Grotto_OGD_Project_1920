@@ -146,7 +146,7 @@ namespace Core
             }
             
             //debug
-            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1) && !_playerInstantiated) ExitDungeon(false);
+            if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1)) && !_playerInstantiated) ExitDungeon(false);
         }
 
         private void ExitDungeon(bool isGameOver)
