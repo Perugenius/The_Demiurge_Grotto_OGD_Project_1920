@@ -32,6 +32,7 @@ public class Fan : MonoBehaviour
     private PhotonView _player2PhotonView;
     private Transform _player1Transform;
     private Transform _player2Transform;
+    private bool _ready;
 
 
     // Start is called before the first frame update
@@ -69,17 +70,21 @@ public class Fan : MonoBehaviour
         //play sound
         if(_enabled  && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
            (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
+
+        _ready = true;
     }
 
     [PunRPC]
     public void EnableFan(bool enable)
     {
         _enabled = enable;
-        
-        //play/stop sound
-        if(enable && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
-           (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
-        else AudioManager.Instance.StopSound("FanSFX");
+        if (_ready)
+        {
+            //play/stop sound
+            if(enable && (_player1PhotonView.IsMine && Vector3.Distance(_player1Transform.position, _tr.position) < 15) || 
+               (Vector3.Distance(_player2Transform.position,_tr.position)<15 && _player2PhotonView.IsMine)) AudioManager.Instance.PlaySound("FanSFX");
+            else AudioManager.Instance.StopSound("FanSFX");
+        }
         animator.SetBool(isOn,enable);
     }
 
