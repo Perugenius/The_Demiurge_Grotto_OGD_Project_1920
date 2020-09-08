@@ -46,14 +46,14 @@ MonoBehaviour:
   sounds:
   - name: RunupHills
     clip: {fileID: 8300000, guid: a26e74434ac27e04a9769b9fa780c213, type: 3}
-    volume: 0.3
+    volume: 0.25
     pitch: 1
     randomVolume: 0
     randomPitch: 0
     loop: 1
   - name: PanicTown
     clip: {fileID: 8300000, guid: e315fc1ef298be04990eb3bfe8b99f4b, type: 3}
-    volume: 0.3
+    volume: 0.25
     pitch: 1
     randomVolume: 0
     randomPitch: 0
@@ -107,16 +107,16 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
     loop: 0
-  - name: Untitle
-    clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
-    volume: 0.3
+  - name: TeamLetterSFX
+    clip: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+    volume: 0.25
     pitch: 1
     randomVolume: 0
     randomPitch: 0
     loop: 0
   - name: MainMenu
     clip: {fileID: 8300000, guid: 91f92886e4e79ad4ca5593d3d4b00429, type: 3}
-    volume: 0.641
+    volume: 0.6
     pitch: 1
     randomVolume: 0
     randomPitch: 0

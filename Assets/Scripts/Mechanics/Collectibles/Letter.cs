@@ -37,12 +37,12 @@ namespace Mechanics.Collectibles
                 return;
             }
 
-            //not collect if player is dying
-            if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayableCharacter>().IsDying1) return;
-            
             PhotonView photonView = other.gameObject.GetPhotonView();
             photonView = (photonView == null) ? other.transform.parent.gameObject.GetPhotonView() : photonView;
             if (!photonView.IsMine) return;
+            
+            //not collect if player is dying
+            if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayableCharacter>().IsDying1) return;
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -91,6 +91,7 @@ namespace Mechanics.Collectibles
                 _collectiblesManager.CollectTeammateLetter();
                 transform.localScale = new Vector3(1,1,1);
                 _animator.SetBool(IsCollected, true);
+                AudioManager.Instance.PlaySound("TeammateLetterSFX");
                 if(!offlineMode) GameManager.Instance.ShowMessage("New companion's letter found!");
                 StartCoroutine(WaitBeforeDestroy());
             }
