@@ -15,3 +15,20 @@ connecting several rooms together. Each room has a typical 2D platformer level d
 Treasures can be found in the dungeons and used to power up your characters.
 The ultimate goal of the game is to follow the trail of hints left by the leader, in order to save him
 and find the greatest treasure of all times hidden in the deepest part of the Demiurge Grotto.
+
+
+## Technical details
+
+The project has been developed using Unity game engine and Photon Unity Network 2 (cloud networking service). 
+The target platform is PC. The used programming language is C#.
+
+ 
+## Project goal
+
+This project was developed during the Unimi course Online Game Design under the supervision of professours Laura Ripamonti
+and Dario Maggiorini. 
+
+## Attributions
+Most graphic assets showed in this project have been created by Pixel Frog.
+- https://assetstore.unity.com/publishers/44925
+- https://pixelfrog-store.itch.io/
